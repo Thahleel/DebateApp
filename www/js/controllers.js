@@ -1,49 +1,12 @@
 angular.module('starter.controllers', [])
 
-.controller('IntroCtrl', function($scope, $state, $ionicSlideBoxDelegate, $firebaseAuth, $location, $ionicHistory){
-  // index of slide panel being shown
-  $scope.slideIndex = 0;
-
-  $scope.next = function() {
-    $ionicSlideBoxDelegate.next();
-  };
-
-  $scope.previous = function() {
-    $ionicSlideBoxDelegate.previous();
-  };
-
-  // Called each time the slide changes
-  $scope.slideChanged = function(index) {
-    $scope.slideIndex = index;
-  };
-
-  $scope.signIn = function() {
-    var fbLoginSuccess = function (userData) {
-      // Call back success function
-      facebookConnectPlugin.getAccessToken(function(token) {
-        var credential = firebase.auth.FacebookAuthProvider.credential(token);
-        $firebaseAuth().$signInWithCredential(credential).then(function(firebaseUser) {
-          $ionicHistory.nextViewOptions({
-            disableBack: true
-          });
-
-          $location.path("/app/playlists");
-        }).catch(function(error) {
-          console.log("Authentication failed:", error);
-        });
-      });
-    }
-
-    // Try to login, if successful call fbLoginSuccess
-    facebookConnectPlugin.login(["public_profile"], fbLoginSuccess,
-      function (error) {
-        console.error(error);
-      }
-    );
-  };
-})
-
-.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, $firebaseAuth) {
+  
+  var auth = $firebaseAuth();
+  $scope.auth = auth;
+  auth.$onAuthStateChanged(function(firebaseUser) {
+    $scope.firebaseUser = firebaseUser;
+  });
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -82,13 +45,6 @@ angular.module('starter.controllers', [])
       $scope.closeLogin();
     }, 1000);
   };
-
-  // ### we put this in appCtrl so it is global for the whole app
-  var auth = $firebaseAuth();
-  $scope.auth = auth;
-  auth.$onAuthStateChanged(function(firebaseUser) {
-    $scope.firebaseUser = firebaseUser;
-  });
 })
 
 .controller('PlaylistsCtrl', function($scope) {
@@ -100,7 +56,35 @@ angular.module('starter.controllers', [])
     { title: 'Rap', id: 5 },
     { title: 'Cowbell', id: 6 }
   ];
+
+  $scope.title = "Playlists " + $scope.playlists.length;
 })
 
 .controller('PlaylistCtrl', function($scope, $stateParams) {
+})
+
+.controller('LoginCtrl', function($scope, $firebaseAuth, $location, $ionicHistory) {
+  $scope.doLogin = function() {
+    var fbLoginSuccess = function (userData) {
+
+      facebookConnectPlugin.getAccessToken(function(token) {
+        var credential = firebase.auth.FacebookAuthProvider.credential(token);
+        $firebaseAuth().$signInWithCredential(credential).then(function(firebaseUser) {
+          $ionicHistory.nextViewOptions({
+            disableBack: true
+          });
+
+          $location.path("/");
+        }).catch(function(error) {
+          console.log("Authentication failed:", error);
+        });
+      });
+    }
+
+    facebookConnectPlugin.login(["public_profile"], fbLoginSuccess,
+      function (error) {
+        console.error(error);
+      }
+    );
+  };
 });

@@ -18,8 +18,11 @@
     </ion-header-bar>
     <ion-content>
       <ion-list>
-        <ion-item menu-close ng-click="login()">
+        <ion-item menu-close href="#/app/login" ng-hide="firebaseUser">
           Login
+        </ion-item>
+        <ion-item menu-close ng-click="auth.$signOut()" ng-show="firebaseUser">
+          Logout  ({{ firebaseUser.displayName }})
         </ion-item>
         <ion-item menu-close href="#/app/search">
           Search
