@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'firebase'])
+angular.module('starter', ['ionic', 'starter.controllers', 'firebase', 'starter.services'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -31,46 +31,50 @@ angular.module('starter', ['ionic', 'starter.controllers', 'firebase'])
     controller: 'IntroCtrl'
   })
 
-  .state('app', {
-    url: '/app',
+  // setup an abstract state for the tabs directive
+  .state('tab', {
+    url: '/tab',
     abstract: true,
-    templateUrl: 'templates/menu.html',
-    controller: 'AppCtrl'
+    templateUrl: 'templates/tabs.html'
   })
 
-  .state('app.search', {
-    url: '/search',
+  // Each tab has its own nav history stack:
+
+  .state('tab.dash', {
+    url: '/dash',
     views: {
-      'menuContent': {
-        templateUrl: 'templates/search.html'
+      'tab-dash': {
+        templateUrl: 'templates/tab-dash.html',
+        controller: 'DashCtrl'
       }
     }
   })
 
-  .state('app.browse', {
-      url: '/browse',
+  .state('tab.chats', {
+      url: '/chats',
       views: {
-        'menuContent': {
-          templateUrl: 'templates/browse.html'
+        'tab-chats': {
+          templateUrl: 'templates/tab-chats.html',
+          controller: 'ChatsCtrl'
         }
       }
     })
-    .state('app.playlists', {
-      url: '/playlists',
+    .state('tab.chat-detail', {
+      url: '/chats/:chatId',
       views: {
-        'menuContent': {
-          templateUrl: 'templates/playlists.html',
-          controller: 'PlaylistsCtrl'
+        'tab-chats': {
+          templateUrl: 'templates/chat-detail.html',
+          controller: 'ChatDetailCtrl'
         }
       }
     })
 
-  .state('app.single', {
-    url: '/playlists/:playlistId',
+  .state('tab.account', {
+    url: '/account',
     views: {
-      'menuContent': {
-        templateUrl: 'templates/playlist.html',
-        controller: 'PlaylistCtrl'
+      'tab-account': {
+        templateUrl: 'templates/tab-account.html',
+        controller: 'AccountCtrl'
       }
     }
   });
