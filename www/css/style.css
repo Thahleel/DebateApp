@@ -1,1 +1,41 @@
-/* Empty. Add your own CSS if you like */
+body {
+  cursor: url('http://ionicframework.com/img/finger.png'), auto;
+}
+.slider {
+  height: 100%;
+}
+.slider-slide {
+  padding-top: 50px;
+  color: #000;
+  background-color: #f0f5f5;
+  text-align: center;
+  height: 87vh;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 300;
+}
+
+#list {
+  width: 200px;
+  margin: 0px auto;
+  font-size: 20px;
+}
+#list ol {
+  margin-top: 30px;
+}
+#list ol li {
+  text-align: left;
+  list-style: decimal;
+  margin: 10px 0px;
+}
+
+.button.ng-hide{
+  display:none;
+}
+
+.joinbtn{
+  position: absolute;
+  width: 50vw;
+  font-size: 20px;
+  bottom:10vh;
+  left: 25vw;
+}

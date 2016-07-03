@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<ion-view>
+  <div ng-controller="IntroCtrl">
+    <ion-header-bar class="bar bar-header bar-dark">
+    </ion-header-bar>
+
+    <ion-slide-box class="has-header has-footer">
+      <ion-slide>
+          <h1>Debate App</h1>
+          <h4> Welcome to the #1 debating app on mobile </h4>
+          <p> Swipe to learn more! </p>
+
+
+          <button class="button button-positive joinbtn" ng-click="signIn()"> Join now </button>
+      </ion-slide>
+      <ion-slide>
+        <h1>Debate App</h1>
+        <h3>Have a thirst for constructive debates?</h3>
+        <h5>We provide a platform that allows you to:</h5>
+
+        <div id="list">
+          <ol>
+            <li>Vote on topics that mean a lot to you</li>
+            <li>Debate against an engaging online community of debaters</li>
+            <li>Educate yourself on a wide range of topics </li>
+          </ol>
+        </div>
+
+        <button class="button button-positive joinbtn" ng-click="signIn()"> Join now </button>
+      </ion-slide>
+      <ion-slide>
+        <h1>Debate App</h1>
+        <h3>What are you waiting for?</h3>
+        <p>
+          let's get started!
+        </p>
+
+        <button class="button button-positive joinbtn" ng-click="signIn()"> Join now </button>
+      </ion-slide>
+    </ion-slide-box>
+
+    <ion-footer-bar class="bar bar-footer bar-dark">
+      <div class="title" ng-click="signIn()">Already have an account?</div>
+    </ion-footer-bar>
+  </div>
+</ion-view>
