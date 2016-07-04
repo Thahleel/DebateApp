@@ -11,14 +11,11 @@ angular.module('starter.controllers', [])
             disableBack: true
           });
 
-          $location.path("/app/playlists");
+          $location.path("/tab/dash");
         }).catch(function(error) {
           console.log("Authentication failed:", error);
         });
       });
-
-      // Change to home screen
-      $state.go("tab.dash");
     }
 
     // Try to login, if successful call fbLoginSuccess
