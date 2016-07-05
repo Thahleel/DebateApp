@@ -39,42 +39,42 @@ angular.module('starter', ['ionic', 'starter.controllers', 'firebase', 'starter.
   })
 
   // Each tab has its own nav history stack:
-
-  .state('tab.dash', {
-    url: '/dash',
+  .state('tab.home', {
+    url: '/home',
     views: {
-      'tab-dash': {
-        templateUrl: 'templates/tab-dash.html',
-        controller: 'DashCtrl'
+      'tab-home': {
+        templateUrl: 'templates/tab-home.html',
+        controller: 'HomeCtrl'
       }
     }
   })
 
-  .state('tab.chats', {
-      url: '/chats',
+  .state('tab.personal', {
+      url: '/personal',
       views: {
-        'tab-chats': {
-          templateUrl: 'templates/tab-chats.html',
-          controller: 'ChatsCtrl'
+        'tab-personal': {
+          templateUrl: 'templates/tab-personal.html',
+          controller: 'PersonalCtrl'
         }
       }
-    })
-    .state('tab.chat-detail', {
-      url: '/chats/:chatId',
-      views: {
-        'tab-chats': {
-          templateUrl: 'templates/chat-detail.html',
-          controller: 'ChatDetailCtrl'
-        }
-      }
-    })
+  })
 
-  .state('tab.account', {
-    url: '/account',
+  .state('tab.info', {
+    url: '/info',
     views: {
-      'tab-account': {
-        templateUrl: 'templates/tab-account.html',
-        controller: 'AccountCtrl'
+      'tab-info': {
+        templateUrl: 'templates/tab-info.html',
+        controller: 'InfoCtrl'
+      }
+    }
+  })
+
+  .state('tab.settings', {
+    url: '/settings',
+    views: {
+      'tab-settings': {
+        templateUrl: 'templates/tab-settings.html',
+        controller: 'SettingsCtrl'
       }
     }
   });
