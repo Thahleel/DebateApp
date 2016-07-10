@@ -1,6 +1,6 @@
-angular.module('starter.controllers', [])
+angular.module('controllers', [])
 
-.controller('IntroCtrl', function($scope, $state, $firebaseAuth, $location, $ionicHistory){
+.controller('IntroCtrl', function($scope, $state, fbUser, $firebaseAuth, $location, $ionicHistory){
   $scope.signIn = function() {
     var fbLoginSuccess = function (userData) {
       // Call back success function
@@ -10,6 +10,9 @@ angular.module('starter.controllers', [])
           $ionicHistory.nextViewOptions({
             disableBack: true
           });
+
+          //Initilises service with the firebaseUser object of the logged in user
+          fbUser.setFirebaseUser(firebaseUser);
 
           $state.go("tab.home");
           //$location.path("/tab/home");
@@ -28,8 +31,8 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('HomeCtrl', function($scope) {
-
+.controller('HomeCtrl', function($scope, fbUser) {
+  $scope.name = fbUser.getFirebaseUser().displayName;
 })
 
 .controller('PersonalCtrl', function($scope) {
