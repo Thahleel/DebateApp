@@ -1,6 +1,14 @@
-angular.module('controllers', [])
+angular.module('controllers', ['firebase'])
 
-.controller('AppCtrl', function($scope) {})
+.controller('AppCtrl', function($scope, $window, $state) {
+  $scope.signOut = function () {
+    firebase.auth().signOut().then(function() {
+      $state.go('intro');
+    }, function(error) {
+      $window.alert("Error: could not sign out");
+    });
+  }
+})
 
 .controller('IntroCtrl', function($scope, $state, fbUser, $firebaseAuth, $location, $ionicHistory){
   $scope.signIn = function() {
