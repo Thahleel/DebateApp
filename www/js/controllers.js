@@ -1,5 +1,7 @@
 angular.module('controllers', [])
 
+.controller('AppCtrl', function($scope) {})
+
 .controller('IntroCtrl', function($scope, $state, fbUser, $firebaseAuth, $location, $ionicHistory){
   $scope.signIn = function() {
     var fbLoginSuccess = function (userData) {

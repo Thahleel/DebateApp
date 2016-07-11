@@ -32,10 +32,11 @@ angular.module('starter', ['ionic', 'controllers', 'firebase', 'services'])
     controller: 'IntroCtrl'
   })
 
-  // setup an abstract state for the tabs directive
+  // setup an abstract state for the tab-menu directive
   .state('tab', {
     url: '/tab',
     abstract: true,
+    controller: 'AppCtrl',
     templateUrl: 'templates/menu.html'
   })
 
