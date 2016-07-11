@@ -5,8 +5,8 @@ angular.module('controllers', [])
     var fbLoginSuccess = function (userData) {
       // Call back success function
       facebookConnectPlugin.getAccessToken(function(token) {
-        var credential = firebase.auth.FacebookAuthProvider.credential(token);
-        $firebaseAuth().$signInWithCredential(credential).then(function(firebaseUser) {
+          var credential = firebase.auth.FacebookAuthProvider.credential(token);
+          $firebaseAuth().$signInWithCredential(credential).then(function(firebaseUser) {
           $ionicHistory.nextViewOptions({
             disableBack: true
           });

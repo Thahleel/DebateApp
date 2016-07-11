@@ -22,9 +22,10 @@ angular.module('starter', ['ionic', 'controllers', 'firebase', 'services'])
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider) {
-  $stateProvider
+.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+  $ionicConfigProvider.tabs.position('bottom');
 
+  $stateProvider
   .state('intro', {
     url: '/intro',
     templateUrl: 'templates/intro.html',
