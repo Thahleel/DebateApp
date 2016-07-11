@@ -36,7 +36,7 @@ angular.module('starter', ['ionic', 'controllers', 'firebase', 'services'])
   .state('tab', {
     url: '/tab',
     abstract: true,
-    templateUrl: 'templates/tabs.html'
+    templateUrl: 'templates/menu.html'
   })
 
   // Each tab has its own nav history stack:
