@@ -1,18 +1,19 @@
 angular.module('services', ['ionic','firebase'])
 .factory('fbUser', function($firebaseAuth, $window) {
-  var firebaseUser; // Firebase obj containing user details
+  var firebaseUser; // Firebase obj containing user firebase details
   var uid;          // Unique ID for user (Currently unique for the facebook provider)
   var userDB;       // A database reference for the current user object
   var userData;     // Latest snapshot of the user's data stored in the database
 
-  // Sets firebaseUser with user parameter
-  setFirebaseUser = function (user) {
+  // Initilises local private variables of the service
+  setupFirebaseUser = function (user) {
     firebaseUser = user;
     uid = user.uid;
     userDB = firebase.database().ref('users/' + uid);
     userData = {};
   }
 
+  // The default object of any new user to the debatable app
   var initialUserObject = {
     debateRank : 1
   }
@@ -28,6 +29,7 @@ angular.module('services', ['ionic','firebase'])
       }
     },
 
+    // Returns lastest snapshot of userData
     getUserData : function () {
       return userData;
     },
@@ -39,20 +41,24 @@ angular.module('services', ['ionic','firebase'])
         return;
       }
 
-      setFirebaseUser(user);
+      setupFirebaseUser(user);
 
       var dbRetrievePromise = userDB.once('value').then(function(userDataSnap) {
-        // If there is no data stored for the user, this is there first time
-        // using the app. Default data will be initialised for them.
+        /* If there is no data stored for the user, this is their first time
+           using the app. Default data will be initialised for them. */
         if (!userDataSnap.val()) {
-          $window.alert("Welcome to our app!"); // Alerts when you initialise user for the first time only
-
+          // Alerts when you initialise user for the first time only
+          $window.alert("Welcome to our app!");
           userDB.set(initialUserObject);
         }
 
         userData = userDataSnap.val();
       });
 
+      /* The call to the firebase database is run asynchronously hence the
+         function caller may not get the data they want in time. Hence this
+         function returns a promise that the caller can wait on so they can
+         be certain the data is in the correct place. */
       return dbRetrievePromise;
     },
 

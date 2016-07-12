@@ -1,6 +1,7 @@
 angular.module('controllers', ['firebase'])
 
 .controller('AppCtrl', function($scope, $window, $state) {
+  // Signs out the user and returns to intro screen
   $scope.signOut = function () {
     firebase.auth().signOut().then(function() {
       $state.go('intro');
@@ -21,19 +22,30 @@ angular.module('controllers', ['firebase'])
             disableBack: true
           });
 
-          //Initilises service with the firebaseUser object of the logged in user
-          var promise = fbUser.initalUserSetup(firebaseUser);
-
-          promise.then(function () {
-            $state.go("tab.home");
-            //$location.path("/tab/home");
-          }).reject( function () {
-            $window.alert("Error: unable to initialise data");
-          });
+          // Prepare app and switch to home view
+          prepareApp(firebaseUser);
 
         }).catch(function(error) {
           console.log("Authentication failed:", error);
         });
+      });
+    }
+
+    // prepares app after the login process succeeds
+    var prepareApp = function(firebaseUser) {
+      /*Initilises service with the firebaseUser object of the logged in user.
+        The call attempts to retrieve data from the database. This is performed asynchronously hence
+        at this moment in time the data may not be in the correct place yet. So the function returns a promise
+        which tells us when the data has correctly been stored in the service.*/
+      var promise = fbUser.initalUserSetup(firebaseUser);
+
+      /* Instead of rushing off to the home view, we use the promise to wait until the data retrieval from the
+         database was successful. If so, we run a function that sends us to the home view */
+      promise.then(function () {
+        $state.go("tab.home");
+        //$location.path("/tab/home");
+      }).reject( function () {
+        $window.alert("Error: unable to initialise data");
       });
     }
 
