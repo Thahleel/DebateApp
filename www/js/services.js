@@ -41,7 +41,7 @@ angular.module('services', ['ionic','firebase'])
 
       setFirebaseUser(user);
 
-      userDB.on('value', function(userDataSnap) {
+      var dbRetrievePromise = userDB.once('value').then(function(userDataSnap) {
         // If there is no data stored for the user, this is there first time
         // using the app. Default data will be initialised for them.
         if (!userDataSnap.val()) {
@@ -53,6 +53,7 @@ angular.module('services', ['ionic','firebase'])
         userData = userDataSnap.val();
       });
 
+      return dbRetrievePromise;
     },
 
     // For debugging purposes: creates alerts of user information

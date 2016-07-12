@@ -22,10 +22,15 @@ angular.module('controllers', ['firebase'])
           });
 
           //Initilises service with the firebaseUser object of the logged in user
-          fbUser.initalUserSetup(firebaseUser);
+          var promise = fbUser.initalUserSetup(firebaseUser);
 
-          $state.go("tab.home");
-          //$location.path("/tab/home");
+          promise.then(function () {
+            $state.go("tab.home");
+            //$location.path("/tab/home");
+          }).reject( function () {
+            $window.alert("Error: unable to initialise data");
+          });
+
         }).catch(function(error) {
           console.log("Authentication failed:", error);
         });
@@ -44,6 +49,7 @@ angular.module('controllers', ['firebase'])
 .controller('HomeCtrl', function($scope, fbUser) {
   $scope.name = fbUser.getFirebaseUser().displayName;
   $scope.rank = fbUser.getUserData().debateRank;
+
 })
 
 .controller('PersonalCtrl', function($scope) {
