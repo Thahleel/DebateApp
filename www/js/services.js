@@ -50,6 +50,8 @@ angular.module('services', ['ionic','firebase'])
           // Alerts when you initialise user for the first time only
           $window.alert("Welcome to our app!");
           userDB.set(initialUserObject);
+          userData = initialUserObject;
+          return;
         }
 
         userData = userDataSnap.val();
