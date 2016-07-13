@@ -1,9 +1,10 @@
 angular.module('controllers', ['firebase'])
 
-.controller('AppCtrl', function($scope, $window, $state) {
+.controller('AppCtrl', function($scope, $window, $state, fbUser) {
   // Signs out the user and returns to intro screen
   $scope.signOut = function () {
     firebase.auth().signOut().then(function() {
+      fbUser.serviceShutDown();
       $state.go('intro');
     }, function(error) {
       $window.alert("Error: could not sign out");
@@ -58,9 +59,14 @@ angular.module('controllers', ['firebase'])
   };
 })
 
-.controller('HomeCtrl', function($scope, fbUser) {
+.controller('HomeCtrl', function($scope, fbUser, $window) {
   $scope.name = fbUser.getFirebaseUser().displayName;
-  $scope.rank = fbUser.getUserData().debateRank;
+  //$scope.rank = fbUser.getUserData().debateRank;
+
+  $scope.$watch(function () { return fbUser.getUserData() }, function (newVal, oldVal) {
+      $window.alert("RANK UPDATED : " + newVal.debateRank);
+      $scope.rank = newVal.debateRank;
+  }, true);
 
 })
 

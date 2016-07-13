@@ -18,6 +18,21 @@ angular.module('services', ['ionic','firebase'])
     debateRank : 1
   }
 
+  /* -- WATCH FUNCTIONS --
+   Used to keep a watch on any changes to the database and ensures all service
+   variables are up to date */
+  var startWatchers = function () {
+    userDB.on('value', function(snapshot) {
+      userData = snapshot.val();
+    })
+  }
+
+  /* Returns an object of service access methods
+     The service MUST be initialised with initalUserSetup as the service will only
+     work with one user at any one time.
+     When the user is no longer signed in the service MUST be shut down with
+     serviceShutDown to turn off all listeners to the logging out user's profile
+     and to reset the service for possible future us */
   return {
     // Returns current firebase user if one is signed in
     getFirebaseUser : function () {
@@ -57,11 +72,24 @@ angular.module('services', ['ionic','firebase'])
         userData = userDataSnap.val();
       });
 
+      // Start listening for changes to the user database record and save changes
+      startWatchers();
+
       /* The call to the firebase database is run asynchronously hence the
          function caller may not get the data they want in time. Hence this
          function returns a promise that the caller can wait on so they can
          be certain the data is in the correct place. */
       return dbRetrievePromise;
+    },
+
+    // Used to shut down the service but turning off all database listeners
+    // (used when signing out)
+    serviceShutDown : function () {
+      userDB.off();
+      firebaseUser = null;
+      uid = -1;
+      userDB = null;
+      userData = {};
     },
 
     // For debugging purposes: creates alerts of user information
@@ -82,6 +110,6 @@ angular.module('services', ['ionic','firebase'])
   }
 })
 
-.factory('debateService', function(){
+.factory('debateServ', function(){
 
 });
