@@ -61,13 +61,7 @@ angular.module('controllers', ['firebase'])
 
 .controller('HomeCtrl', function($scope, fbUser, $window) {
   $scope.name = fbUser.getFirebaseUser().displayName;
-  //$scope.rank = fbUser.getUserData().debateRank;
-
-  $scope.$watch(function () { return fbUser.getUserData() }, function (newVal, oldVal) {
-      $window.alert("RANK UPDATED : " + newVal.debateRank);
-      $scope.rank = newVal.debateRank;
-  }, true);
-
+  $scope.userData = fbUser.getUserData();
 })
 
 .controller('PersonalCtrl', function($scope) {

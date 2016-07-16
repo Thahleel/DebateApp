@@ -1,6 +1,6 @@
 angular.module('services', ['ionic','firebase'])
-.factory('fbUser', function($firebaseAuth, $window) {
-  var firebaseUser; // Firebase obj containing user firebase details
+.factory('fbUser', function($firebaseAuth, $window, $rootScope) {
+  var firebaseUser; // Firebase obj containing user firebase details (from facebook)
   var uid;          // Unique ID for user (Currently unique for the facebook provider)
   var userDB;       // A database reference for the current user object
   var userData;     // Latest snapshot of the user's data stored in the database
@@ -23,8 +23,17 @@ angular.module('services', ['ionic','firebase'])
    variables are up to date */
   var startWatchers = function () {
     userDB.on('value', function(snapshot) {
-      userData = snapshot.val();
+      angular.copy(snapshot.val(), userData);
+
+      if($rootScope.$root.$$phase != '$apply' && $rootScope.$root.$$phase != '$digest'){
+        $rootScope.$apply(function() {
+        self.tags = true;
+        });
+      } else {
+        self.tags = true;
+      }
     })
+    
   }
 
   /* Returns an object of service access methods
