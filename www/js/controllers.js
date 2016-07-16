@@ -62,6 +62,14 @@ angular.module('controllers', ['firebase'])
 .controller('HomeCtrl', function($scope, fbUser, $window) {
   $scope.name = fbUser.getFirebaseUser().displayName;
   $scope.userData = fbUser.getUserData();
+
+
+  $scope.something = function () {
+    var updateData = {
+      debateRank : $scope.userData.debateRank + 100
+    };
+    fbUser.updateUserData(updateData);
+  }
 })
 
 .controller('PersonalCtrl', function($scope) {

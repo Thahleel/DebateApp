@@ -33,7 +33,7 @@ angular.module('services', ['ionic','firebase'])
         self.tags = true;
       }
     })
-    
+
   }
 
   /* Returns an object of service access methods
@@ -90,6 +90,14 @@ angular.module('services', ['ionic','firebase'])
          be certain the data is in the correct place. */
       return dbRetrievePromise;
     },
+
+    /* Updates the database with new data passed in through the parameter
+   updateData : Array of objects
+   Example: updateData = [{field: "debateRank", value: 20}, {field: "handle", value: "nman"}] */
+   updateUserData : function(updates) {
+     userDB.update(updates);
+   },
+
 
     // Used to shut down the service but turning off all database listeners
     // (used when signing out)
