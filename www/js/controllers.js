@@ -70,6 +70,13 @@ angular.module('controllers', ['firebase'])
     };
     fbUser.updateUserData(updateData);
   }
+
+  $scope.fakedebate = function () {
+    fbUser.createDebate({
+      premise: "Is pokemon GO too disruptive?",
+      duration: 24
+    })
+  }
 })
 
 .controller('PersonalCtrl', function($scope) {

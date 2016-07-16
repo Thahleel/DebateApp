@@ -1,5 +1,5 @@
 angular.module('services', ['ionic','firebase'])
-.factory('fbUser', function($firebaseAuth, $window, $rootScope) {
+.factory('fbUser', function($firebaseAuth, $window, $rootScope, debateServ) {
   var firebaseUser; // Firebase obj containing user firebase details (from facebook)
   var uid;          // Unique ID for user (Currently unique for the facebook provider)
   var userDB;       // A database reference for the current user object
@@ -15,7 +15,9 @@ angular.module('services', ['ionic','firebase'])
 
   // The default object of any new user to the debatable app
   var initialUserObject = {
-    debateRank : 1
+    debateRank : 1,
+    handle : "",
+    debates : []
   }
 
   /* -- WATCH FUNCTIONS --
@@ -98,6 +100,15 @@ angular.module('services', ['ionic','firebase'])
      userDB.update(updates);
    },
 
+   /* Creates a debate with the details given in the parameter. The debate is added
+      To the users list of debates as well as the overall list of debates*/
+   createDebate : function(debateDetails) {
+     debateDetails['Creator'] = uid;
+     debateDetails['CreationDate'] = Date.now();
+
+     newDebateID = debateServ.createDebate(debateDetails);
+     firebase.database().ref('users/'+uid+'/debates').push(newDebateID.key);
+   },
 
     // Used to shut down the service but turning off all database listeners
     // (used when signing out)
@@ -128,5 +139,32 @@ angular.module('services', ['ionic','firebase'])
 })
 
 .factory('debateServ', function(){
+  var debateDB = firebase.database().ref('debates')
+  var allDebates = []
 
+  /* === WATCHERS === */
+  debateDB.on('value', function(snapshot) {
+    angular.copy(snapshot.val(), allDebates);
+
+    if($rootScope.$root.$$phase != '$apply' && $rootScope.$root.$$phase != '$digest'){
+      $rootScope.$apply(function() {
+      self.tags = true;
+      });
+    } else {
+      self.tags = true;
+    }
+  })
+
+  return {
+    /* Adds a new debates to the universal list of debates. Returns the new debate id
+       of the debate */
+    createDebate : function(debateDetails) {
+      return firebase.database().ref('debates').push(debateDetails)
+    },
+
+    /* Returns a list of all debates */
+    getAllDebates : function() {
+      return allDebates;
+    }
+  }
 });
