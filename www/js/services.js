@@ -103,8 +103,8 @@ angular.module('services', ['ionic','firebase'])
    /* Creates a debate with the details given in the parameter. The debate is added
       To the users list of debates as well as the overall list of debates*/
    createDebate : function(debateDetails) {
-     debateDetails['Creator'] = uid;
-     debateDetails['CreationDate'] = Date.now();
+     debateDetails['creator'] = uid;
+     debateDetails['creationDate'] = Date.now();
 
      newDebateID = debateServ.createDebate(debateDetails);
      firebase.database().ref('users/'+uid+'/debates').push(newDebateID.key);
@@ -154,7 +154,6 @@ angular.module('services', ['ionic','firebase'])
       debateDB.once('value').then(function(debateSnap) {
         allDebates = debateSnap.val();
       });
-
 
       return allDebates;
     }

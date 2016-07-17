@@ -59,10 +59,13 @@ angular.module('controllers', ['firebase'])
   };
 })
 
-.controller('HomeCtrl', function($scope, fbUser, $window) {
+.controller('HomeCtrl', function($scope, fbUser, $window, debateServ) {
   $scope.name = fbUser.getFirebaseUser().displayName;
   $scope.userData = fbUser.getUserData();
 
+  $scope.getAllDebates = function () {
+    return debateServ.getAllDebates()
+  }
 
   $scope.something = function () {
     var updateData = {
@@ -74,7 +77,8 @@ angular.module('controllers', ['firebase'])
   $scope.fakedebate = function () {
     fbUser.createDebate({
       premise: "Is pokemon GO too disruptive?",
-      duration: 24
+      duration: 0.25,
+      topic: "General"
     })
   }
 })
