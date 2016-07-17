@@ -142,19 +142,6 @@ angular.module('services', ['ionic','firebase'])
   var debateDB = firebase.database().ref('debates')
   var allDebates = []
 
-  /* === WATCHERS === */
-  debateDB.on('value', function(snapshot) {
-    angular.copy(snapshot.val(), allDebates);
-
-    if($rootScope.$root.$$phase != '$apply' && $rootScope.$root.$$phase != '$digest'){
-      $rootScope.$apply(function() {
-      self.tags = true;
-      });
-    } else {
-      self.tags = true;
-    }
-  })
-
   return {
     /* Adds a new debates to the universal list of debates. Returns the new debate id
        of the debate */
@@ -164,6 +151,11 @@ angular.module('services', ['ionic','firebase'])
 
     /* Returns a list of all debates */
     getAllDebates : function() {
+      debateDB.once('value').then(function(debateSnap) {
+        allDebates = debateSnap.val();
+      });
+
+
       return allDebates;
     }
   }
