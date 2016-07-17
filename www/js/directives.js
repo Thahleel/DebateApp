@@ -16,8 +16,8 @@ app.directive('backImg', function(){
     },
     templateUrl: 'js/directives/debateCard.html',
     link: function(scope, element, attrs) {
-      scope.stage = (Date.now().getTime() - debateInfo.creationDate - debateInfo.duration*3600*1000 >= 0
-                     ? "debate" : "post-debate")
+      scope.stage = Date.now() - scope.debateInfo.creationDate - scope.debateInfo.duration > 0
+                    ? "debate" : "post-debate"
     }
   }
 });

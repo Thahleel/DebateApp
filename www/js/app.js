@@ -61,12 +61,12 @@ var app = angular.module('starter', ['ionic', 'controllers', 'firebase', 'servic
       }
   })
 
-  .state('tab.info', {
-    url: '/info',
+  .state('tab.notifications', {
+    url: '/notifications',
     views: {
-      'tab-info': {
-        templateUrl: 'templates/tab-info.html',
-        controller: 'InfoCtrl'
+      'tab-notifications': {
+        templateUrl: 'templates/tab-notifications.html',
+        controller: 'NotifCtrl'
       }
     }
   })

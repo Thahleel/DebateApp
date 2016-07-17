@@ -87,7 +87,7 @@ angular.module('controllers', ['firebase'])
 
 })
 
-.controller('InfoCtrl', function($scope) {
+.controller('NotifCtrl', function($scope) {
 
 })
 
