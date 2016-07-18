@@ -110,7 +110,7 @@ angular.module('services', ['ionic','firebase'])
      firebase.database().ref('users/'+uid+'/debates').push(newDebateID.key);
    },
 
-   
+
 
     // Used to shut down the service but turning off all database listeners
     // (used when signing out)
@@ -140,7 +140,7 @@ angular.module('services', ['ionic','firebase'])
   }
 })
 
-.factory('debateServ', function(){
+.factory('debateServ', function($window){
   var debateDB = firebase.database().ref('debates')
   var allDebates = []
 
@@ -151,13 +151,15 @@ angular.module('services', ['ionic','firebase'])
       return firebase.database().ref('debates').push(debateDetails)
     },
 
-    /* Returns a list of all debates */
-    getAllDebates : function() {
-      debateDB.once('value').then(function(debateSnap) {
+    updateAllDebates : function () {
+      return debateDB.once('value').then(function(debateSnap) {
         allDebates = debateSnap.val();
       });
+    },
 
+    /* Returns a list of all debates */
+    getAllDebates : function() {
       return allDebates;
-    }
+     }
   }
 });

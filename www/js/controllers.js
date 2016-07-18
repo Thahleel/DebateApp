@@ -12,7 +12,7 @@ angular.module('controllers', ['firebase'])
   }
 })
 
-.controller('IntroCtrl', function($scope, $state, fbUser, $window, $firebaseAuth, $location, $ionicHistory){
+.controller('IntroCtrl', function($scope, $state, debateServ, fbUser, $window, $firebaseAuth, $location, $ionicHistory){
   $scope.signIn = function() {
     var fbLoginSuccess = function (userData) {
       // Call back success function
@@ -43,9 +43,11 @@ angular.module('controllers', ['firebase'])
       /* Instead of rushing off to the home view, we use the promise to wait until the data retrieval from the
          database was successful. If so, we run a function that sends us to the home view */
       promise.then(function () {
-        $state.go("tab.home");
+        debateServ.updateAllDebates().then(function () {
+          $state.go("tab.home");
+        })
         //$location.path("/tab/home");
-      }).reject( function () {
+      }, function () {
         $window.alert("Error: unable to initialise data");
       });
     }
@@ -62,10 +64,7 @@ angular.module('controllers', ['firebase'])
 .controller('HomeCtrl', function($scope, fbUser, $window, debateServ) {
   $scope.name = fbUser.getFirebaseUser().displayName;
   $scope.userData = fbUser.getUserData();
-
-  $scope.getAllDebates = function () {
-    return debateServ.getAllDebates()
-  }
+  $scope.allDebates = debateServ.getAllDebates();
 
   $scope.something = function () {
     var updateData = {
@@ -75,23 +74,18 @@ angular.module('controllers', ['firebase'])
   }
 
   $scope.fakedebate = function (debateTitle) {
-    fbUser.createDebate({
-      premise: debateTitle,
-      duration: 0.25,
-      topic: "General"
-    })
+   fbUser.createDebate({
+     premise: debateTitle,
+     duration: 0.25,
+     topic: "General"
+   })
 
-    this.debateTitle = null;
+   this.debateTitle = null;
   }
-
 })
 
-.controller('PersonalCtrl', function($scope, fbUser, $window) {
-    $scope.userData = fbUser.getUserData();
-    startedDebates = $scope.userData.debates;
-    $scope.getStartedDebates = function(){
-      return startedDebates;
-    };
+.controller('PersonalCtrl', function($scope) {
+
 })
 
 .controller('NotifCtrl', function($scope) {
