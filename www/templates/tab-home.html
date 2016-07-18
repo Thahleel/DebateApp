@@ -1,9 +1,21 @@
 <ion-view view-title="Home">
   <ion-content class="padding">
+<<<<<<< HEAD
     <div ng-include="'templates/createDebate.html'" ng-show="false"></div>
     <h2> Welcome {{ name }}</h2>
     <h3> <a ng-click="something()">rank (click me!)</a> : {{ userData.debateRank }}</h3>
-    <button class="button button-block button-positive" ng-click=""> Create debate </button>
+    <div class="list">
+
+      <div class="item item-input-inset">
+        <label class="item-input-wrapper">
+          <input type="text" placeholder="Enter Debate Premise Here" ng-model="debateTitle">
+        </label>
+        <button class="button button-small" ng-click="fakedebate(debateTitle)">
+          Make Debate
+        </button>
+      </div>
+
+    </div>
 
     <p>Recent(ordered by new) / Popular / Preferences </p>
     <p> Filter (Open/Closed)</p>
