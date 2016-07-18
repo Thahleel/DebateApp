@@ -64,7 +64,7 @@ angular.module('controllers', ['firebase'])
 .controller('HomeCtrl', function($scope, fbUser, $window, debateServ) {
   $scope.name = fbUser.getFirebaseUser().displayName;
   $scope.userData = fbUser.getUserData();
-  $scope.allDebates = debateServ.getAllDebates();
+  $scope.allDebates = debateServ.getAllDebates;
 
   $scope.something = function () {
     var updateData = {
@@ -82,6 +82,26 @@ angular.module('controllers', ['firebase'])
 
    this.debateTitle = null;
   }
+
+  $scope.refreshDebates = function () {
+    var promise = debateServ.updateAllDebates();
+
+    promise.then(function () {
+      $scope.$broadcast('scroll.refreshComplete');
+      if($rootScope.$root.$$phase != '$apply' && $rootScope.$root.$$phase != '$digest'){
+        $rootScope.$apply(function() {
+        self.tags = true;
+        });
+      } else {
+        self.tags = true;
+      }
+   });
+  }
+
+  // === VIEW EVENTS ===
+  $scope.$on('$ionicView.leave', function(){
+    $scope.refreshDebates();
+  });
 })
 
 .controller('PersonalCtrl', function($scope) {
