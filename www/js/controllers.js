@@ -74,13 +74,6 @@ angular.module('controllers', ['firebase'])
     fbUser.updateUserData(updateData);
   }
 
-  $scope.fakedebate = function () {
-    fbUser.createDebate({
-      premise: "Is pokemon GO too disruptive?",
-      duration: 0.25,
-      topic: "General"
-    })
-  }
 })
 
 .controller('PersonalCtrl', function($scope) {

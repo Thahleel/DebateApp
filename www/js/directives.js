@@ -8,16 +8,20 @@ app.directive('backImg', function(){
     };
 })
 
-.directive('debateCard', function() {
+.directive('debateCard', function($window) {
   return {
     restrict: 'E',
     scope: {
       debateInfo: '='
     },
     templateUrl: 'js/directives/debateCard.html',
-    link: function(scope, element, attrs) {
+    link: function(scope, elem, attrs) {
       scope.stage = Date.now() - scope.debateInfo.creationDate - scope.debateInfo.duration > 0
                     ? "debate" : "post-debate"
+
+      elem.bind("click", function (e) {
+        $window.alert("CLICK")
+      })
     }
   }
 });

@@ -39,3 +39,12 @@ body {
   bottom:10vh;
   left: 25vw;
 }
+
+.overlapPanel {
+  position: fixed;
+  left: 0vw;
+  top: 0vh;
+  width: 90vw;
+  height: 90vh;
+  z-index: 10;
+}
