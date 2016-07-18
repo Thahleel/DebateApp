@@ -110,7 +110,6 @@ angular.module('services', ['ionic','firebase'])
      firebase.database().ref('users/'+uid+'/debates').push(newDebateID.key);
    },
 
-
     // Used to shut down the service but turning off all database listeners
     // (used when signing out)
     serviceShutDown : function () {
@@ -148,15 +147,6 @@ angular.module('services', ['ionic','firebase'])
        of the debate */
     createDebate : function(debateDetails) {
       return firebase.database().ref('debates').push(debateDetails)
-    },
-
-
-    // Used to get the list of debates started by the user
-    getStartedDebates : function (){
-       return userDB.once('value').then(function(userSnap){
-          user = userSnap.val();
-          console.log(user.debates);
-       })
     },
 
     /* Returns a list of all debates */
