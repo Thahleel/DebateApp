@@ -110,6 +110,8 @@ angular.module('services', ['ionic','firebase'])
      firebase.database().ref('users/'+uid+'/debates').push(newDebateID.key);
    },
 
+   
+
     // Used to shut down the service but turning off all database listeners
     // (used when signing out)
     serviceShutDown : function () {

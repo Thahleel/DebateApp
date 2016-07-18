@@ -86,8 +86,11 @@ angular.module('controllers', ['firebase'])
 
 })
 
-.controller('PersonalCtrl', function($scope, fbUser) {
+.controller('PersonalCtrl', function($scope, fbUser, $window) {
     $scope.userData = fbUser.getUserData();
+    startedDebates = $scope.userData.debates;
+    testing = function(){
+    $window.alert(startedDebates)};
 })
 
 .controller('NotifCtrl', function($scope) {
