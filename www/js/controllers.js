@@ -80,6 +80,8 @@ angular.module('controllers', ['firebase'])
       duration: 0.25,
       topic: "General"
     })
+
+    this.debateTitle = null;
   }
 })
 
