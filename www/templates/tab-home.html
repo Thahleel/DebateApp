@@ -2,7 +2,20 @@
   <ion-content class="padding">
     <h1> Welcome {{ name }}</h1>
     <h1> <a ng-click="something()">rank</a> : {{ userData.debateRank }}</h1>
-    <button class="btn" ng-click="fakedebate()"> make debate </button>
+
+
+    <div class="list">
+
+      <div class="item item-input-inset">
+        <label class="item-input-wrapper">
+          <input type="text" placeholder="Enter Debate Premise Here" ng-model="debateTitle">
+        </label>
+        <button class="button button-small" ng-click="fakedebate(debateTitle)">
+          Make Debate
+        </button>
+      </div>
+
+    </div>
 
     <p>Recent(ordered by new) / Popular / Preferences </p>
     <p> Filter (Open/Closed)</p>
