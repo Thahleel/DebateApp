@@ -1,5 +1,6 @@
 <ion-view view-title="Home">
   <ion-content class="padding">
+    <div ng-include="'templates/createDebate.html'" ng-show="false"></div>
     <h2> Welcome {{ name }}</h2>
     <h3> <a ng-click="something()">rank (click me!)</a> : {{ userData.debateRank }}</h3>
     <button class="button button-block button-positive" ng-click=""> Create debate </button>
