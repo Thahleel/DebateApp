@@ -117,19 +117,17 @@ angular.module('controllers', ['firebase'])
   }
 
   $scope.create = function (debateTopic,debateTitle,debateEndDate,debateEndTime) {
-   var currentMS = new Date().getTime();
-   var endMS = debateEndDate.getTime();
-   $window.alert("now " + currentMS);
-   $window.alert("time left" + (endMS - currentMS));
-   $window.alert("total end time" + (endMS + debateEndTime.getTime()))
+   var currDate = new Date();
+   var endDate = new Date(debateEndDate.getTime()+debateEndTime.getTime());
+   var timeleft = new Date(endDate.getTime() - currDate.getTime())
+   $window.alert("current time " + currDate.toString());
+   $window.alert("end Date" + endDate.toString());
+   $window.alert("time left in ms" + timeleft.getMinutes())
 
    fbUser.createDebate({
      topic: debateTopic,
      premise: debateTitle,
-     endDate: debateEndDate,
-     endTime: 50000,
-     duration: 0.25
-
+     endDate: debateEndDate.getTime() + debateEndTime.getTime()
    })
 
    this.debateTitle = null;
