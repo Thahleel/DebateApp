@@ -13,6 +13,7 @@ angular.module('controllers', ['firebase'])
 })
 
 .controller('IntroCtrl', function($scope, $state, debateServ, fbUser, $window, $firebaseAuth, $location, $ionicHistory){
+
   $scope.signIn = function() {
     var fbLoginSuccess = function (userData) {
       // Call back success function
@@ -105,7 +106,13 @@ angular.module('controllers', ['firebase'])
 
 })
 
-.controller('SettingsCtrl', function($scope) {
+.controller('SettingsCtrl', function($scope, $state) {
+  $scope.openMyInfoPage = function () {
+    $state.go('tab.userinfo')
+  }
+})
+
+.controller('UserInfoCtrl', function($scope) {
 
 })
 

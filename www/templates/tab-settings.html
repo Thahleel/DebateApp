@@ -1,9 +1,25 @@
-<ion-view view-title="Account">
+<ion-view view-title="Settings">
   <ion-content>
-    <h1> SETTINGS </h1>
-    <p> Account Info </p>
-    <p> Set themes </p>
-    <p> Set topics </p>
-    <p> Set handle </p>
+    <div class="btn-group">
+      <button class="button button-full button-light settings-button" ng-click="openMyInfoPage()">
+        <div class="btn-name">My Info</div><div class="btn-arrow">></div>
+      </button>
+      <button class="button button-full button-light settings-button">
+        <div class="btn-name">Set Handle</div><div class="btn-arrow">></div>
+      </button>
+    </div>
+    <div class="btn-group">
+      <button class="button button-full button-light settings-button">
+        <div class="btn-name">Theme</div><div class="btn-arrow">></div>
+      </button>
+      <button class="button button-full button-light settings-button">
+        <div class="btn-name">My Topics</div><div class="btn-arrow">></div>
+      </button>
+    </div>
+    <div class="btn-group">
+      <button class="button button-full button-light settings-button">
+        <div id="sign-out-txt">Sign Out</div>
+      </button>
+    </div>
   </ion-content>
 </ion-view>

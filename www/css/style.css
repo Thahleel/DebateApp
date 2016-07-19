@@ -1,13 +1,30 @@
 body {
   cursor: url('http://ionicframework.com/img/finger.png'), auto;
 }
+
+.bar.bar-main {
+  background-color: rgba(56,126,245,.85) !important;
+  color: white;
+}
+
+.pane {
+    background-color: #efeff4 !important;
+}
+
+.ion-navicon {
+  color: white !important;
+}
+.scroll-content {
+  overflow: visible !important;
+}
+
 .slider {
   height: 100%;
 }
 .slider-slide {
   padding-top: 50px;
   color: #000;
-  background-color: #f0f5f5;
+  background-color: #efeff4;
   text-align: center;
   height: 87vh;
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
@@ -47,4 +64,32 @@ body {
   width: 90vw;
   height: 75vh;
   z-index: 10;
+}
+
+.btn-group {
+  margin-top: 25px;
+}
+
+.settings-button {
+  margin-top: 1px !important;
+  margin-bottom: 1px !important;
+}
+
+.btn-name {
+	display: inline-block;
+  text-align: left;
+  padding-left: 10px;
+	width: 90%;
+}
+
+.btn-arrow {
+  color: #c7c7cc;
+  	display: inline-block;
+    text-align: right;
+    padding-right: 10px;
+	width: 10%;
+}
+
+#sign-out-txt {
+  color: red;
 }
