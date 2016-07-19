@@ -79,7 +79,13 @@ var app = angular.module('starter', ['ionic', 'controllers', 'firebase', 'servic
         controller: 'SettingsCtrl'
       }
     }
-  });
+  })
+
+  .state('createDebate', {
+    url: '/createDebate',
+    templateUrl: 'templates/createDebate.html',
+    controller: 'CreateDebateCtrl'
+  })
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/intro');
 });

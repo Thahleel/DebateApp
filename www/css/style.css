@@ -42,9 +42,9 @@ body {
 
 .overlapPanel {
   position: fixed;
-  left: 0vw;
+  left: 5vw;
   top: 0vh;
   width: 90vw;
-  height: 90vh;
+  height: 75vh;
   z-index: 10;
 }

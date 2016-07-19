@@ -61,10 +61,11 @@ angular.module('controllers', ['firebase'])
   };
 })
 
-.controller('HomeCtrl', function($scope, fbUser, $window, debateServ) {
+.controller('HomeCtrl', function($scope, fbUser, $window, debateServ, $state) {
   $scope.name = fbUser.getFirebaseUser().displayName;
   $scope.userData = fbUser.getUserData();
   $scope.allDebates = debateServ.getAllDebates;
+  $scope.state = $state;
 
   $scope.something = function () {
     var updateData = {
@@ -98,6 +99,10 @@ angular.module('controllers', ['firebase'])
    });
   }
 
+  $scope.switchCreatePage = function () {
+    $state.go("createDebate");
+  }
+
   // === VIEW EVENTS ===
   $scope.$on('$ionicView.leave', function(){
     $scope.refreshDebates();
@@ -114,4 +119,10 @@ angular.module('controllers', ['firebase'])
 
 .controller('SettingsCtrl', function($scope) {
 
+})
+
+.controller('CreateDebateCtrl', function($scope, $state) {
+  $scope.goBackHome = function () {
+    $state.go('tab.home')
+  }
 });
