@@ -111,17 +111,29 @@ angular.module('controllers', ['firebase'])
 
 })
 
-.controller('CreateDebateCtrl', function($scope, $state, fbUser) {
+.controller('CreateDebateCtrl', function($scope, $state, fbUser, $window) {
   $scope.goBackHome = function () {
     $state.go('tab.home')
   }
 
   $scope.create = function (debateTopic,debateTitle,debateEndDate,debateEndTime) {
+   
+   $window.alert(debateEndDate);
+   $window.alert(debateEndTime);
+   var currentMS = new Date().getTime();
+   var endMS = debateEndDate.getTime();
+   /*$window.alert("now" + currentMS);
+   $window.alert("Then" + currentMS);
+   $window.alert(endMS - currentMS);*/
+
+   //$window.alert(debateEndDate);
+   //$window.alert(debateEndTime);
+
    fbUser.createDebate({
      topic: debateTopic,
      premise: debateTitle,
      endDate: debateEndDate,
-     endTime: debateEndTime,
+     endTime: 50000,
      duration: 0.25
      
    })
