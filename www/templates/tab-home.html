@@ -4,6 +4,7 @@
     pulling-text="Pull to refresh..."
     on-refresh="refreshDebates()">
     </ion-refresher>
+    
     <h2> Welcome {{ name }}</h2>
     <h3> <a ng-click="something()">rank (click me!)</a> : {{ userData.debateRank }}</h3>
     
@@ -15,7 +16,6 @@
     <div ng-repeat="debate in allDebates()">
       <debate-card debate-info="debate"></debate-card>
     </div>
-
 
   </ion-content>
 </ion-view>
