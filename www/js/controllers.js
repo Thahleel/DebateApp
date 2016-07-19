@@ -43,9 +43,7 @@ angular.module('controllers', ['firebase'])
       /* Instead of rushing off to the home view, we use the promise to wait until the data retrieval from the
          database was successful. If so, we run a function that sends us to the home view */
       promise.then(function () {
-        debateServ.updateAllDebates().then(function () {
-          $state.go("tab.home");
-        })
+        $state.go("tab.home");
         //$location.path("/tab/home");
       }, function () {
         $window.alert("Error: unable to initialise data");
@@ -94,7 +92,7 @@ angular.module('controllers', ['firebase'])
   }
 
   // === VIEW EVENTS ===
-  $scope.$on('$ionicView.leave', function(){
+  $scope.$on('$ionicView.enter', function(){
     $scope.refreshDebates();
   });
 })
@@ -123,7 +121,7 @@ angular.module('controllers', ['firebase'])
      endDate: debateEndDate,
      endTime: debateEndTime,
      duration: 0.25
-     
+
    })
 
    this.debateTitle = null;
