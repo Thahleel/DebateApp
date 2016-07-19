@@ -82,9 +82,9 @@ var app = angular.module('starter', ['ionic', 'controllers', 'firebase', 'servic
   })
 
   .state('tab.userinfo', {
-    url: '/settings/userinfo',
+    url: '/userinfo',
     views: {
-      'tab-userinfo': {
+      'tab-settings': {
         templateUrl: 'templates/tab-userinfo.html',
         controller: 'UserInfoCtrl'
       }
@@ -95,7 +95,7 @@ var app = angular.module('starter', ['ionic', 'controllers', 'firebase', 'servic
     url: '/createDebate',
     templateUrl: 'templates/createDebate.html',
     controller: 'CreateDebateCtrl'
-  })
+  });
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/intro');

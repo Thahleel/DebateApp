@@ -106,7 +106,7 @@ angular.module('controllers', ['firebase'])
 
 })
 
-.controller('SettingsCtrl', function($scope, $state) {
+.controller('SettingsCtrl', function($scope, $state, $window) {
   $scope.openMyInfoPage = function () {
     $state.go('tab.userinfo')
   }
