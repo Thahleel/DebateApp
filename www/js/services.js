@@ -106,6 +106,7 @@ angular.module('services', ['ionic','firebase'])
      debateDetails['creator'] = uid;
      debateDetails['creationDate'] = Date.now();
 
+
      newDebateID = debateServ.createDebate(debateDetails);
      firebase.database().ref('users/'+uid+'/debates').push(newDebateID.key);
    },

@@ -74,16 +74,6 @@ angular.module('controllers', ['firebase'])
     fbUser.updateUserData(updateData);
   }
 
-  $scope.fakedebate = function (debateTitle) {
-   fbUser.createDebate({
-     premise: debateTitle,
-     duration: 0.25,
-     topic: "General"
-   })
-
-   this.debateTitle = null;
-  }
-
   $scope.refreshDebates = function () {
     var promise = debateServ.updateAllDebates();
 
@@ -121,8 +111,26 @@ angular.module('controllers', ['firebase'])
 
 })
 
-.controller('CreateDebateCtrl', function($scope, $state) {
+.controller('CreateDebateCtrl', function($scope, $state, fbUser) {
   $scope.goBackHome = function () {
     $state.go('tab.home')
+  }
+
+  $scope.create = function (debateTopic,debateTitle,debateEndDate,debateEndTime) {
+   fbUser.createDebate({
+     topic: debateTopic,
+     premise: debateTitle,
+     endDate: debateEndDate,
+     endTime: debateEndTime,
+     duration: 0.25
+     
+   })
+
+   this.debateTitle = null;
+   this.debateEndTime = null;
+   this.debateTopic = null;
+   this.debateEndDate = null;
+
+   $state.go('tab.home')
   }
 });

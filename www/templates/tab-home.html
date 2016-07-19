@@ -6,17 +6,8 @@
     </ion-refresher>
     <h2> Welcome {{ name }}</h2>
     <h3> <a ng-click="something()">rank (click me!)</a> : {{ userData.debateRank }}</h3>
-    <div class="list">
-      <div class="item item-input-inset">
-        <label class="item-input-wrapper">
-          <input type="text" placeholder="Enter Debate Premise Here" ng-model="debateTitle">
-        </label>
-        <button class="button button-small" ng-click="fakedebate(debateTitle)">
-          Make Debate
-        </button>
-      </div>
-    </div>
-    <button class="button button-block button-positive" ng-click="switchCreatePage()"> Create debate </button>
+    
+    <button class="button button-block button-positive" ng-click="switchCreatePage()"> Create Debate </button>
 
     <p>Recent(ordered by new) / Popular / Preferences </p>
     <p> Filter (Open/Closed)</p>
