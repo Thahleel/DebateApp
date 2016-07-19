@@ -116,7 +116,7 @@ angular.module('controllers', ['firebase'])
 
 })
 
-.controller('CreateDebateCtrl', function($scope, $state, fbUser) {
+.controller('CreateDebateCtrl', function($scope, $state, fbUser, $window) {
   $scope.goBackHome = function () {
     $state.go('tab.home')
   }
@@ -125,10 +125,7 @@ angular.module('controllers', ['firebase'])
    fbUser.createDebate({
      topic: debateTopic,
      premise: debateTitle,
-     endDate: debateEndDate,
-     endTime: debateEndTime,
-     duration: 0.25
-
+     endDate: debateEndDate.getTime() + debateEndTime.getTime()
    })
 
    this.debateTitle = null;
