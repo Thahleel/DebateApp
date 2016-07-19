@@ -17,7 +17,10 @@ angular.module('services', ['ionic','firebase'])
   var initialUserObject = {
     debateRank : 1,
     handle : "",
-    debates : []
+    debates : [],
+    recentDebates: {},
+    subscribedDebates: {},
+    preferences: {}
   }
 
   /* -- WATCH FUNCTIONS --
@@ -94,25 +97,44 @@ angular.module('services', ['ionic','firebase'])
     },
 
     /* Updates the database with new data passed in through the parameter
-   updateData : Array of objects
-   Example: updateData = [{field: "debateRank", value: 20}, {field: "handle", value: "nman"}] */
-   updateUserData : function(updates) {
-     userDB.update(updates);
-   },
+    updateData : object contain fields to update and their value
+    Example: updateData = {field: "debateRank", value: 20}, {field: "handle", value: "nman"} */
+    updateUserData : function(updates) {
+      userDB.update(updates);
+    },
 
-   /* Creates a debate with the details given in the parameter. The debate is added
-      To the users list of debates as well as the overall list of debates*/
-   createDebate : function(debateDetails) {
-     debateDetails['creator'] = uid;
-     debateDetails['creationDate'] = Date.now();
-     
-     debateDetails['endDate'] = 
+     /* Creates a debate with the details given in the parameter. The debate is added
+        To the users list of debates as well as the overall list of debates*/
+    createDebate : function(debateDetails) {
+      debateDetails['creator'] = uid;
+      debateDetails['creationDate'] = Date.now();
 
-     newDebateID = debateServ.createDebate(debateDetails);
-     firebase.database().ref('users/'+uid+'/debates').push(newDebateID.key);
-   },
+      newDebateID = debateServ.createDebate(debateDetails);
 
+      var update = {};
+      update[newDebateID] = true;
+      firebase.database().ref('users/'+uid+'/debates').update(update);
+    },
 
+    // Returns a list of debates the current user created 
+    getMyDebates : function () {
+      myDebates = []
+
+      Object.keys(userData.debates).forEach(function(key,index) {
+        firebase.database().ref('debates/'+key).once('value').then(function(debate) {
+          myDebates.push(debate)
+          if($rootScope.$root.$$phase != '$apply' && $rootScope.$root.$$phase != '$digest'){
+            $rootScope.$apply(function() {
+            self.tags = true;
+            });
+          } else {
+            self.tags = true;
+          }
+        });
+      });
+
+      return myDebates;
+    },
 
     // Used to shut down the service but turning off all database listeners
     // (used when signing out)
@@ -139,6 +161,7 @@ angular.module('services', ['ionic','firebase'])
         $window.alert("Firebase user is null")
       }
     }
+
   }
 })
 
@@ -150,7 +173,7 @@ angular.module('services', ['ionic','firebase'])
     /* Adds a new debates to the universal list of debates. Returns the new debate id
        of the debate */
     createDebate : function(debateDetails) {
-      return firebase.database().ref('debates').push(debateDetails)
+      return firebase.database().ref('debates').push(debateDetails).key
     },
 
     updateAllDebates : function () {
