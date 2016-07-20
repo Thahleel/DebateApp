@@ -8,7 +8,7 @@ app.directive('backImg', function(){
     };
 })
 
-.directive('debateCard', function($window) {
+.directive('debateCard', function($window, $state) {
   return {
     restrict: 'E',
     scope: {
@@ -20,7 +20,7 @@ app.directive('backImg', function(){
                     ? "debate" : "post-debate"
 
       elem.bind("click", function (e) {
-        $window.alert("CLICK")
+        $state.go('mainDebate', {debateid : scope.debateInfo.debateID})
       })
     }
   }

@@ -66,13 +66,6 @@ angular.module('controllers', ['firebase'])
   $scope.allDebates = debateServ.getAllDebates;
   $scope.state = $state;
 
-  $scope.something = function () {
-    var updateData = {
-      debateRank : $scope.userData.debateRank + 100
-    };
-    fbUser.updateUserData(updateData);
-  }
-
   $scope.refreshDebates = function () {
     var promise = debateServ.updateAllDebates();
 
