@@ -98,8 +98,12 @@ var app = angular.module('starter', ['ionic', 'controllers', 'firebase', 'servic
   })
 
   .state('mainDebate', {
+    url: '/mainDebate',
     templateUrl: 'templates/debateMain.html',
-    controller: 'MainDebateCtrl'
+    controller: 'MainDebateCtrl',
+    params: {
+      debateid: null
+    }
   });
 
   // if none of the above states are matched, use this as the fallback

@@ -115,7 +115,7 @@ angular.module('services', ['ionic','firebase'])
       update[newDebateID] = true;
       firebase.database().ref('users/'+uid+'/debates').update(update);
 
-      //return newDebateID;
+      return newDebateID;
     },
 
     // Returns a list of debates the current user created

@@ -133,9 +133,7 @@ angular.module('controllers', ['firebase'])
    this.debateTopic = null;
    this.debateEndDate = null;
 
-   var params = {};
-   params['debateid'] = debateIDArg;
-   $state.go('mainDebate', params)
+   $state.go('mainDebate', {debateid : debateIDArg})
   }
 })
 
