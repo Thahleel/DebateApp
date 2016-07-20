@@ -132,17 +132,39 @@ angular.module('controllers', ['firebase'])
 
 .controller('MainDebateCtrl', function($scope, $stateParams, debateServ, $window, fbUser){
   var debateid = $stateParams.debateid
+  var argumentState = 'pro'
   $scope.debateData = {}
 
   debateServ.getDebate(debateid).then(function (debateSnap) {
     $scope.debateData = debateSnap.val();
-    if($rootScope.$root.$$phase != '$apply' && $rootScope.$root.$$phase != '$digest'){
-      $rootScope.$apply(function() {
-      self.tags = true;
-      });
-    } else {
-      self.tags = true;
-    }
+    fbUser.viewReset()
   })
 
+  $scope.pressBack = function () {
+    $state.go('tab.home')
+  }
+
+  $scope.autoExpand = function(e) {
+     var element = typeof e === 'object' ? e.target : document.getElementById(e);
+     var scrollHeight = element.scrollHeight -40; // replace 60 by the sum of padding-top and padding-bottom
+     element.style.height =  scrollHeight + "px";
+  };
+
+  $scope.switchArgState = function (argState) {
+    if (argState === argumentState) return;
+    argumentState = argState
+
+    if (argState === 'pro') {
+      angular.element( document.querySelector( '#proBut' ) ).removeClass("button-outline")
+      angular.element( document.querySelector( '#conBut' ) ).addClass("button-outline")
+    } else {
+      angular.element( document.querySelector( '#conBut' ) ).removeClass("button-outline")
+      angular.element( document.querySelector( '#proBut' ) ).addClass("button-outline")
+    }
+  }
+
+  // === VIEW EVENTS ===
+  $scope.$on('$ionicView.beforeEnter', function (event, viewData) {
+    viewData.enableBack = true;
+  });
 });

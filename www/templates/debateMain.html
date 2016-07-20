@@ -1,7 +1,17 @@
 <ion-view>
   <ion-content class="padding">
     <H1> {{ debateData.premise }} </H1>
+    <div class="button-bar">
+      <a id="proBut" ng-click="switchArgState('pro')" class="button button-positive">Pro</a>
+      <a id="conBut" ng-click="switchArgState('con')" class="button button-assertive button-outline">Con</a>
+    </div>
+    <div class="item item-input-inset">
+    <label class="item-input-wrapper">
+      <input ng-keyup="autoExpand($event)" class="expandText" type="text" placeholder="Add argument">
+    </label>
+    <button class="button button-small">
+      Submit
+    </button>
+  </div>
   </ion-content>
-  <ion-footer-bar class="bar bar-footer bar-dark">
-  </ion-footer-bar>
 </ion-view>

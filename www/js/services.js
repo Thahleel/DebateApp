@@ -155,6 +155,16 @@ angular.module('services', ['ionic','firebase'])
       userData = {};
     },
 
+    viewReset : function () {
+      if($rootScope.$root.$$phase != '$apply' && $rootScope.$root.$$phase != '$digest'){
+        $rootScope.$apply(function() {
+        self.tags = true;
+        });
+      } else {
+        self.tags = true;
+      }
+    },
+
     // For debugging purposes: creates alerts of user information
     alertUserInfo : function() {
       if (firebaseUser) {
