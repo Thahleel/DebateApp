@@ -93,3 +93,9 @@ body {
 #sign-out-txt {
   color: red;
 }
+
+.debcard {
+  border-color: blue;
+  border-style: solid;
+  border-width: 2px;
+}

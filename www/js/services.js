@@ -182,7 +182,12 @@ angular.module('services', ['ionic','firebase'])
     /* Adds a new debates to the universal list of debates. Returns the new debate id
        of the debate */
     createDebate : function(debateDetails) {
-      return firebase.database().ref('debates').push(debateDetails).key
+      var debateid = firebase.database().ref('debates').push(debateDetails).key
+      var updates = {}
+      updates['debateID'] = debateid
+      firebase.database().ref('debates/'+debateid).update(updates)
+
+      return debateid;
     },
 
     /* Returns a promise for the update of the allDebates variable */

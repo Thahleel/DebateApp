@@ -16,7 +16,7 @@ app.directive('backImg', function(){
     },
     templateUrl: 'js/directives/debateCard.html',
     link: function(scope, elem, attrs) {
-      scope.stage = Date.now() - scope.debateInfo.creationDate - scope.debateInfo.duration > 0
+      scope.stage = Date.now() - scope.debateInfo.endDate > 0
                     ? "debate" : "post-debate"
 
       elem.bind("click", function (e) {
