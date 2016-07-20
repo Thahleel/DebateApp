@@ -109,14 +109,16 @@ angular.module('services', ['ionic','firebase'])
       debateDetails['creator'] = uid;
       debateDetails['creationDate'] = Date.now();
 
-      newDebateID = debateServ.createDebate(debateDetails);
+      var newDebateID = debateServ.createDebate(debateDetails);
 
       var update = {};
       update[newDebateID] = true;
       firebase.database().ref('users/'+uid+'/debates').update(update);
+
+      //return newDebateID;
     },
 
-    // Returns a list of debates the current user created 
+    // Returns a list of debates the current user created
     getMyDebates : function () {
       myDebates = []
 
@@ -185,6 +187,11 @@ angular.module('services', ['ionic','firebase'])
     /* Returns a list of all debates */
     getAllDebates : function() {
       return allDebates;
-     }
+    },
+
+    /* Returns promise for the debate information of debateid */
+    getDebate : function(debateid) {
+      return firebase.database().ref('debates/' + debateid).once('value');
+    }
   }
 });

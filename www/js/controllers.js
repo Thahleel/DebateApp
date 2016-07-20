@@ -122,7 +122,7 @@ angular.module('controllers', ['firebase'])
   }
 
   $scope.create = function (debateTopic,debateTitle,debateEndDate,debateEndTime) {
-   fbUser.createDebate({
+  var debateIDArg = fbUser.createDebate({
      topic: debateTopic,
      premise: debateTitle,
      endDate: debateEndDate.getTime() + debateEndTime.getTime()
@@ -133,6 +133,26 @@ angular.module('controllers', ['firebase'])
    this.debateTopic = null;
    this.debateEndDate = null;
 
-   $state.go('tab.home')
+   var params = {};
+   params['debateid'] = debateIDArg;
+   $state.go('mainDebate', params)
   }
+})
+
+.controller('MainDebateCtrl', function($scope, $stateParams, debateServ, $window){
+  $window.alert($stateParams.debateid)
+  var debateid = $stateParams.debateid
+  $scope.debateData = {}
+
+  debateServ.getDebate(debateid).then(function (debateSnap) {
+    $scope.debateData = debateSnap;
+    if($rootScope.$root.$$phase != '$apply' && $rootScope.$root.$$phase != '$digest'){
+      $rootScope.$apply(function() {
+      self.tags = true;
+      });
+    } else {
+      self.tags = true;
+    }
+  })
+
 });
