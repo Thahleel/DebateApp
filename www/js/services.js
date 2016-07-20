@@ -4,6 +4,7 @@ angular.module('services', ['ionic','firebase'])
   var uid;          // Unique ID for user (Currently unique for the facebook provider)
   var userDB;       // A database reference for the current user object
   var userData;     // Latest snapshot of the user's data stored in the database
+  var myDebates;    // List of all the users debate information
 
   // Initilises local private variables of the service
   setupFirebaseUser = function (user) {
@@ -11,6 +12,7 @@ angular.module('services', ['ionic','firebase'])
     uid = user.uid;
     userDB = firebase.database().ref('users/' + uid);
     userData = {};
+    myDebates = [];
   }
 
   // The default object of any new user to the debatable app
@@ -37,7 +39,9 @@ angular.module('services', ['ionic','firebase'])
       } else {
         self.tags = true;
       }
-    })
+
+    firebase.database().ref('debates')
+  })
 
   }
 
@@ -120,22 +124,25 @@ angular.module('services', ['ionic','firebase'])
 
     // Returns a list of debates the current user created
     getMyDebates : function () {
-      myDebates = []
-
-      Object.keys(userData.debates).forEach(function(key,index) {
-        firebase.database().ref('debates/'+key).once('value').then(function(debate) {
-          myDebates.push(debate)
-          if($rootScope.$root.$$phase != '$apply' && $rootScope.$root.$$phase != '$digest'){
-            $rootScope.$apply(function() {
-            self.tags = true;
-            });
-          } else {
-            self.tags = true;
-          }
-        });
-      });
-
       return myDebates;
+    },
+
+    // Destroys the myDebates array and replaces it with a new up to date
+    // version. (All async done within function)
+    updateMyDebates : function () {
+      myDebates = []
+      var promises = [];
+
+      for (var debateid in userData.debates) {
+        if (userData.debates.hasOwnProperty(debateid)) {
+          promises.push(firebase.database().ref('debates/'+debateid).once('value'));
+        }
+      };
+
+      Promise.all(promises).then(function (values) {
+        myDebates = values.map(function (snap) {return snap.val()})
+      })
+
     },
 
     // Used to shut down the service but turning off all database listeners
@@ -178,6 +185,7 @@ angular.module('services', ['ionic','firebase'])
       return firebase.database().ref('debates').push(debateDetails).key
     },
 
+    /* Returns a promise for the update of the allDebates variable */
     updateAllDebates : function () {
       return debateDB.once('value').then(function(debateSnap) {
         allDebates = debateSnap.val();

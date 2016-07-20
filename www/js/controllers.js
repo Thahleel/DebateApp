@@ -137,13 +137,12 @@ angular.module('controllers', ['firebase'])
   }
 })
 
-.controller('MainDebateCtrl', function($scope, $stateParams, debateServ, $window){
-  $window.alert($stateParams.debateid)
+.controller('MainDebateCtrl', function($scope, $stateParams, debateServ, $window, fbUser){
   var debateid = $stateParams.debateid
   $scope.debateData = {}
 
   debateServ.getDebate(debateid).then(function (debateSnap) {
-    $scope.debateData = debateSnap;
+    $scope.debateData = debateSnap.val();
     if($rootScope.$root.$$phase != '$apply' && $rootScope.$root.$$phase != '$digest'){
       $rootScope.$apply(function() {
       self.tags = true;
