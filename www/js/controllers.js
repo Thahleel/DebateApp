@@ -130,7 +130,7 @@ angular.module('controllers', ['firebase'])
   }
 })
 
-.controller('MainDebateCtrl', function($scope, $stateParams, debateServ, $window, fbUser){
+.controller('MainDebateCtrl', function($scope, $stateParams, debateServ, $window, fbUser, $state){
   var debateid = $stateParams.debateid
   var argumentState = 'pro'
   $scope.debateData = {}
