@@ -91,8 +91,16 @@ angular.module('controllers', ['firebase'])
   });
 })
 
-.controller('PersonalCtrl', function($scope) {
+.controller('PersonalCtrl', function($scope, fbUser) {
+  $scope.startedDebatesList = function(){
+    return fbUser.getMyDebates;
+  },
 
+
+  // === VIEW EVENTS ===
+  $scope.$on('$ionicView.enter', function(){
+    fbUser.updateMyDebates();
+  });
 })
 
 .controller('NotifCtrl', function($scope) {
