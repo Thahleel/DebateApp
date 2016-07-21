@@ -171,6 +171,21 @@ angular.module('controllers', ['firebase'])
     }
   }
 
+  $scope.createArgument = function() {
+    var argText = angular.element(document.querySelector('#argTextbox')).value
+
+    var argumentData = {
+      //text: argText,
+      //debateID: debateid,
+      side: argumentState
+    }
+
+   debateServ.createArgument(argumentData, fbUser.getUid());
+
+   angular.element(document.querySelector('#argTextbox')).value = ""
+
+ }
+
   // === VIEW EVENTS ===
   $scope.$on('$ionicView.beforeEnter', function (event, viewData) {
     viewData.enableBack = true;

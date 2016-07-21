@@ -67,6 +67,11 @@ angular.module('services', ['ionic','firebase'])
       return userData;
     },
 
+    // Returns users uid
+    getUid : function () {
+      return uid
+    },
+
     // Used to initialise any data the user needs when signing in
     initalUserSetup : function (user) {
       if (!user) {
@@ -141,6 +146,7 @@ angular.module('services', ['ionic','firebase'])
 
       Promise.all(promises).then(function (values) {
         myDebates = values.map(function (snap) {return snap.val()})
+        fbUser.viewReset()
       })
 
     },
@@ -208,8 +214,24 @@ angular.module('services', ['ionic','firebase'])
     },
 
     /* Returns a list of all debates */
-    getAllDebates : function() {
+    getAllDebates : function () {
       return allDebates;
+    },
+
+    /* Adds a new argument to the debate with the specified debateid */
+    createArgument : function (argumentData, uid) {
+      //argumentData['creator'] = uid
+      argumentData['creationDate'] = Date.now()
+      argumentData['upvotes'] = 0
+
+      var argumentid = firebase.database().ref('arguments').push(argumentData).key
+      firebase.database().ref('arguments/'+argumentid).update({argumentID : argumentid})
+
+      //var updates = {}
+      //updates[argumentid] = true
+      //firebase.database().ref('debates/'+argumentData.debateid+'/'+argumentData.side+"Arguments").update(updates);
+
+      return argumentid
     },
 
     /* Returns promise for the debate information of debateid */

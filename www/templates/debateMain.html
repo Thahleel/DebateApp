@@ -13,12 +13,12 @@
       <a id="conBut" ng-click="switchArgState('con')" class="button button-assertive button-outline">Con</a>
     </div>
     <div class="item item-input-inset">
-    <label class="item-input-wrapper">
-      <input ng-keyup="autoExpand($event)" class="expandText" type="text" placeholder="Add argument">
-    </label>
-    <button class="button button-small">
-      Submit
-    </button>
+      <label class="item-input-wrapper">
+        <input ng-keyup="autoExpand($event)" class="expandText" type="text" placeholder="Add argument">
+      </label>
+      <button id="argTextbox" class="button button-small" ng-click="createArgument()">
+        Submit
+      </button>
   </div>
   </ion-content>
 </ion-view>
