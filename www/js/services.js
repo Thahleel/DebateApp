@@ -117,6 +117,10 @@ angular.module('services', ['ionic','firebase'])
     createDebate : function(debateDetails) {
       debateDetails['creator'] = uid;
       debateDetails['creationDate'] = Date.now();
+      debateDetails['proArguments'] = {};
+      debateDetails['conArguments'] = {};
+      debateDetails['preVoters'] = {};
+      debateDetails['postVoters'] = {};
 
       var newDebateID = debateServ.createDebate(debateDetails);
 
@@ -220,16 +224,16 @@ angular.module('services', ['ionic','firebase'])
 
     /* Adds a new argument to the debate with the specified debateid */
     createArgument : function (argumentData, uid) {
-      //argumentData['creator'] = uid
+      argumentData['creator'] = uid
       argumentData['creationDate'] = Date.now()
       argumentData['upvotes'] = 0
 
       var argumentid = firebase.database().ref('arguments').push(argumentData).key
       firebase.database().ref('arguments/'+argumentid).update({argumentID : argumentid})
 
-      //var updates = {}
-      //updates[argumentid] = true
-      //firebase.database().ref('debates/'+argumentData.debateid+'/'+argumentData.side+"Arguments").update(updates);
+      var updates = {}
+      updates[argumentid] = true
+      firebase.database().ref('debates/'+argumentData.debateID+'/'+argumentData.side+'Arguments').update(updates);
 
       return argumentid
     },

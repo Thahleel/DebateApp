@@ -141,6 +141,7 @@ angular.module('controllers', ['firebase'])
 .controller('MainDebateCtrl', function($scope, $stateParams, debateServ, $window, fbUser, $state){
   var debateid = $stateParams.debateid
   var argumentState = 'pro'
+  $scope.modelData = {}
   $scope.debateData = {}
 
   debateServ.getDebate(debateid).then(function (debateSnap) {
@@ -172,17 +173,15 @@ angular.module('controllers', ['firebase'])
   }
 
   $scope.createArgument = function() {
-    var argText = angular.element(document.querySelector('#argTextbox')).value
-
     var argumentData = {
-      //text: argText,
-      //debateID: debateid,
+      text: $scope.modelData.argText,
+      debateID: debateid,
       side: argumentState
     }
 
    debateServ.createArgument(argumentData, fbUser.getUid());
 
-   angular.element(document.querySelector('#argTextbox')).value = ""
+   $scope.modelData.argText = ""
 
  }
 
