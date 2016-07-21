@@ -146,6 +146,7 @@ angular.module('services', ['ionic','firebase'])
 
       Promise.all(promises).then(function (values) {
         myDebates = values.map(function (snap) {return snap.val()})
+        fbUser.viewReset()
       })
 
     },
