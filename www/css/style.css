@@ -90,3 +90,7 @@ body {
 #sign-out-txt {
   color: red;
 }
+
+.argcard {
+  border-top-color: red;
+}

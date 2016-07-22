@@ -24,4 +24,17 @@ app.directive('backImg', function(){
       })
     }
   }
+})
+
+.directive('argumentCard', function($window, $state) {
+  return {
+    restrict: 'E',
+    scope: {
+      argInfo: '='
+    },
+    templateUrl: 'js/directives/argumentCard.html',
+    link: function(scope, elem, attrs) {
+      scope.date = (new Date(argInfo.creationDate)).toString()
+    }
+  }
 });

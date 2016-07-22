@@ -222,6 +222,65 @@ angular.module('services', ['ionic','firebase'])
       return allDebates;
     },
 
+    /* Returns a special object that manages a list of arguments */
+    makeArgumentManager : function (debateID) {
+      return function (debateID) {
+        var debateid = debateID
+        var proArgDB = firebase.database().ref('debates/'+debateid+'/proArguments')
+        var conArgDB = firebase.database().ref('debates/'+debateid+'/conArguments')
+        //var arguments = []
+
+        return {
+          /*getArguments : function () {
+            $window.alert("GET "+arguments.length)
+            return arguments
+          },*/
+
+          updateArguments: function () {
+            arguments = []
+
+            return new Promise(function (resolve) {
+              var proObj = {}
+              var conObj = {}
+              var promises = []
+
+              var prepareList = function () {
+                for (var argumentid in proObj) {
+                  if (proObj.hasOwnProperty(argumentid)) {
+                    promises.push(firebase.database().ref('arguments/'+argumentid).once('value'));
+                  }
+                };
+
+                for (var argumentid in conObj) {
+                  if (conObj.hasOwnProperty(argumentid)) {
+                    promises.push(firebase.database().ref('arguments/'+argumentid).once('value'));
+                  }
+                };
+
+                Promise.all(promises).then(function (values) {
+                  var arguments = values.map(function (snap) {return snap.val()})
+                  resolve(arguments)
+                })
+              }
+
+              proArgDB.once('value').then(function (snap) {
+                proObj = snap.val()
+
+                conArgDB.once('value').then(function (snap) {
+                  conObj = snap.val()
+
+                  prepareList();
+                })
+              })
+
+            })
+
+          }
+        }
+
+      } (debateID)
+    },
+
     /* Adds a new argument to the debate with the specified debateid */
     createArgument : function (argumentData, uid) {
       argumentData['creator'] = uid

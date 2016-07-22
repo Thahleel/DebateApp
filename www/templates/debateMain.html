@@ -7,11 +7,16 @@
     </ion-nav-back-button>
   </ion-nav-bar>
   <ion-content class="padding">
+    <ion-refresher
+    pulling-text="Pull to refresh..."
+    on-refresh="refreshArguments()">
+    </ion-refresher>
     <H1> {{ debateData.premise }} </H1>
     <div class="button-bar">
       <a id="proBut" ng-click="switchArgState('pro')" class="button button-positive">Pro</a>
       <a id="conBut" ng-click="switchArgState('con')" class="button button-assertive button-outline">Con</a>
     </div>
+
     <div class="item item-input-inset">
       <label class="item-input-wrapper">
         <input ng-model="modelData.argText" ng-keyup="autoExpand($event)" class="expandText" type="text" placeholder="Add argument">
@@ -20,5 +25,10 @@
         Submit
       </button>
   </div>
+
+  <div ng-repeat="argument in getArguments">
+    <argument-card arg-info="argument"></argument-card>
+  </div>
+
   </ion-content>
 </ion-view>

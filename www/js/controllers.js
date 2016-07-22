@@ -143,6 +143,8 @@ angular.module('controllers', ['firebase'])
   var argumentState = 'pro'
   $scope.modelData = {}
   $scope.debateData = {}
+  var argManager = debateServ.makeArgumentManager(debateid);
+  $scope.getArguments = []//argManager.getArguments
 
   debateServ.getDebate(debateid).then(function (debateSnap) {
     $scope.debateData = debateSnap.val();
@@ -151,6 +153,16 @@ angular.module('controllers', ['firebase'])
 
   $scope.pressBack = function () {
     $state.go('tab.home')
+  }
+
+  $scope.refreshArguments = function () {
+    var promise = argManager.updateArguments();
+
+    promise.then(function (arguments) {
+      $scope.getArguments = arguments
+      $scope.$broadcast('scroll.refreshComplete');
+      fbUser.viewReset()
+   });
   }
 
   $scope.autoExpand = function(e) {
@@ -182,11 +194,13 @@ angular.module('controllers', ['firebase'])
    debateServ.createArgument(argumentData, fbUser.getUid());
 
    $scope.modelData.argText = ""
+   $scope.refreshArguments()
 
  }
 
   // === VIEW EVENTS ===
   $scope.$on('$ionicView.beforeEnter', function (event, viewData) {
     viewData.enableBack = true;
+    $scope.refreshArguments();
   });
 });
