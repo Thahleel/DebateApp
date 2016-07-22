@@ -14,9 +14,6 @@ body {
 .ion-navicon {
   color: white !important;
 }
-.scroll-content {
-  overflow: visible !important;
-}
 
 .slider {
   height: 100%;
@@ -24,7 +21,7 @@ body {
 .slider-slide {
   padding-top: 50px;
   color: #000;
-  background-color: #efeff4;
+  background-color: #f0f5f5;
   text-align: center;
   height: 87vh;
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
@@ -92,14 +89,4 @@ body {
 
 #sign-out-txt {
   color: red;
-}
-
-.debcard {
-  border-color: blue;
-  border-style: solid;
-  border-width: 2px;
-}
-
-.expandText {
-  max-width: 70vw;
 }
