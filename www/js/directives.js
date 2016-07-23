@@ -34,16 +34,9 @@ app.directive('backImg', function(){
     },
     templateUrl: 'js/directives/argumentCard.html',
     link: function(scope, elem, attrs) {
-      var date = new Date(argInfo.creationDate)
+      scope.cardClass = (scope.argInfo.side === "pro" ? "proArgcard" : "conArgcard");
+      var date = new Date(scope.argInfo.creationDate)
       scope.dateText = date.toString()
-
-      if (argInfo.side === "pro") {
-        element.addClass("proArgcard")
-      } else {
-        element.addClass("conArgcard")
-      }
-
-       $compile(element.contents())(scope);
     }
   }
 });

@@ -91,8 +91,18 @@ body {
   color: red;
 }
 
-.argCard {
+.conArgcard {
   position: relative;
   border-style: solid;
   border-top-width: 3px;
+  border-top-color: rgb(255, 160, 160);
+  right: -5px;
+}
+
+.proArgcard {
+  position: relative;
+  left: -5px;
+  border-style: solid;
+  border-top-width: 3px;
+  border-top-color: rgb(160, 160, 255);
 }
