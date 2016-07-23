@@ -26,7 +26,7 @@ app.directive('backImg', function(){
   }
 })
 
-.directive('argumentCard', function($window, $state) {
+.directive('argumentCard', function($window, $state, $compile) {
   return {
     restrict: 'E',
     scope: {
@@ -34,7 +34,16 @@ app.directive('backImg', function(){
     },
     templateUrl: 'js/directives/argumentCard.html',
     link: function(scope, elem, attrs) {
-      scope.date = (new Date(argInfo.creationDate)).toString()
+      var date = new Date(argInfo.creationDate)
+      scope.dateText = date.toString()
+
+      if (argInfo.side === "pro") {
+        element.addClass("proArgcard")
+      } else {
+        element.addClass("conArgcard")
+      }
+
+       $compile(element.contents())(scope);
     }
   }
 });

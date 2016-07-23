@@ -91,6 +91,8 @@ body {
   color: red;
 }
 
-.argcard {
-  border-top-color: red;
+.argCard {
+  position: relative;
+  border-style: solid;
+  border-top-width: 3px;
 }
