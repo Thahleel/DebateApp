@@ -195,12 +195,6 @@ angular.module('controllers', ['firebase'])
    });
   }
 
-  $scope.autoExpand = function(e) {
-     var element = typeof e === 'object' ? e.target : document.getElementById(e);
-     var scrollHeight = element.scrollHeight -40; // replace 60 by the sum of padding-top and padding-bottom
-     element.style.height =  scrollHeight + "px";
-  };
-
   $scope.switchArgState = function (argState) {
     if (argState === argumentState) return;
     argumentState = argState
