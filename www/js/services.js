@@ -198,7 +198,18 @@ angular.module('services', ['ionic','firebase'])
 
 .factory('debateServ', function($window){
   var debateDB = firebase.database().ref('debates')
+  var topicFilter = ""
   //var allDebates = []
+
+  // == Sortiing functions ==
+  var mostRecentSort = function (a, b) {
+    return b.creationDate - a.creationDate
+  }
+
+  // == Filter functions ==
+  }
+
+  var sortFunc = mostRecentSort
 
   return {
     /* Adds a new debates to the universal list of debates. Returns the new debate id
@@ -223,9 +234,7 @@ angular.module('services', ['ionic','firebase'])
           }
         };
 
-        return allDebates.sort(function (a, b) {
-          return b.creationDate - a.creationDate
-        })
+        return allDebates.sort(sortFunc).filter(filterFunc)
       });
     },
 
