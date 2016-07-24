@@ -139,7 +139,7 @@ angular.module('controllers', ['firebase'])
   }
 
   // ********************** here ******************************
-  
+
   // .fromTemplate() method
   var template = '<ion-popover-view><ion-header-bar> <h1 class="title">Choose A Topic</h1> </ion-header-bar> <ion-content> List of Topics </ion-content></ion-popover-view>';
 
