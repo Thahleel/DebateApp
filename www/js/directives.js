@@ -36,7 +36,7 @@ app.directive('backImg', function(){
     link: function(scope, elem, attrs) {
       scope.cardClass = (scope.argInfo.side === "pro" ? "proArgcard" : "conArgcard");
       var date = new Date(scope.argInfo.creationDate)
-      scope.dateText = date.toString()
+      scope.dateText = date.toDateString()
     }
   }
 });
