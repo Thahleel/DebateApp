@@ -207,9 +207,12 @@ angular.module('services', ['ionic','firebase'])
   }
 
   // == Filter functions ==
+  var byTopicFilter = function (debate) {
+    return (topicFilter === "" ? true : debate.topic === topicFilter)
   }
 
   var sortFunc = mostRecentSort
+  var filterFunc = byTopicFilter
 
   return {
     /* Adds a new debates to the universal list of debates. Returns the new debate id
