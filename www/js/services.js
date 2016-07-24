@@ -149,7 +149,9 @@ angular.module('services', ['ionic','firebase'])
       };
 
       Promise.all(promises).then(function (values) {
-        myDebates = values.map(function (snap) {return snap.val()})
+        myDebates = values.map(function (snap) {return snap.val()}).sort(function (a, b) {
+          return b.creationDate - a.creationDate
+        })
         fbUser.viewReset()
       })
 
@@ -196,7 +198,7 @@ angular.module('services', ['ionic','firebase'])
 
 .factory('debateServ', function($window){
   var debateDB = firebase.database().ref('debates')
-  var allDebates = []
+  //var allDebates = []
 
   return {
     /* Adds a new debates to the universal list of debates. Returns the new debate id
@@ -213,14 +215,14 @@ angular.module('services', ['ionic','firebase'])
     /* Returns a promise for the update of the allDebates variable */
     updateAllDebates : function () {
       return debateDB.once('value').then(function(debateSnap) {
-        allDebates = debateSnap.val();
+        return debateSnap.val();
       });
     },
 
-    /* Returns a list of all debates */
+    /* Returns a list of all debates
     getAllDebates : function () {
       return allDebates;
-    },
+    },*/
 
     /* Returns a special object that manages a list of arguments */
     makeArgumentManager : function (debateID) {
@@ -258,7 +260,9 @@ angular.module('services', ['ionic','firebase'])
                 };
 
                 Promise.all(promises).then(function (values) {
-                  var arguments = values.map(function (snap) {return snap.val()})
+                  var arguments = values.map(function (snap) {return snap.val()}).sort(function (a, b) {
+                    return b.creationDate - a.creationDate
+                  })
                   resolve(arguments)
                 })
               }

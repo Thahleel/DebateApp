@@ -63,13 +63,15 @@ angular.module('controllers', ['firebase'])
 .controller('HomeCtrl', function($scope, fbUser, $window, debateServ, $state) {
   $scope.name = fbUser.getFirebaseUser().displayName;
   $scope.userData = fbUser.getUserData();
-  $scope.allDebates = debateServ.getAllDebates;
+  $scope.allDebates = [];
   $scope.state = $state;
 
   $scope.refreshDebates = function () {
     var promise = debateServ.updateAllDebates();
 
-    promise.then(function () {
+    promise.then(function (allDebates) {
+      $scope.allDebates = allDebates
+
       $scope.$broadcast('scroll.refreshComplete');
       if($rootScope.$root.$$phase != '$apply' && $rootScope.$root.$$phase != '$digest'){
         $rootScope.$apply(function() {
