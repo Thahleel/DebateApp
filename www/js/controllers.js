@@ -71,7 +71,6 @@ angular.module('controllers', ['firebase'])
 
     promise.then(function (allDebates) {
       $scope.allDebates = allDebates
-
       $scope.$broadcast('scroll.refreshComplete');
       if($rootScope.$root.$$phase != '$apply' && $rootScope.$root.$$phase != '$digest'){
         $rootScope.$apply(function() {

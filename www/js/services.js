@@ -215,7 +215,17 @@ angular.module('services', ['ionic','firebase'])
     /* Returns a promise for the update of the allDebates variable */
     updateAllDebates : function () {
       return debateDB.once('value').then(function(debateSnap) {
-        return debateSnap.val();
+        var allDebates = []
+
+        for (var debateid in debateSnap.val()) {
+          if (debateSnap.val().hasOwnProperty(debateid)) {
+            allDebates.push(debateSnap.val()[debateid])
+          }
+        };
+
+        return allDebates.sort(function (a, b) {
+          return b.creationDate - a.creationDate
+        })
       });
     },
 
