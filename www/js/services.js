@@ -167,7 +167,7 @@ angular.module('services', ['ionic','firebase'])
 
       for (var debateid in userData.subscribedDebates) {
         if (userData.subscribedDebates.hasOwnProperty(debateid)) {
-          promises.push(firebase.database().ref('subscribedDebates/'+debateid).once('value'));
+          promises.push(firebase.database().ref('debates/'+debateid).once('value'));
         }
       };
 
