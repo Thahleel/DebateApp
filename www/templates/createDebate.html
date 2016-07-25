@@ -6,24 +6,23 @@
 	</button>
     <div>
     <h3 style="text-align:center"> Enter Debate Details </h3>
-	
+
 	<div class="list">
 
 	  <label class="item item-input" ng-click="openPopover($event)" >
-	    <span class="input-label" >Topic</span>
-	    <input type="text" ng-bind="{{CreateDebateCtrl.Topic}}" readonly="true">
+	    <span class="input-label" >Topic : {{Topic}}</span>
 	  </label>
-	  
+
 	  <label class="item item-input">
 	    <span class="input-label" >Debate Premise</span>
 	    <input type="text" ng-model="Premise">
 	  </label>
-	  
+
 	  <label class="item item-input">
 	    <span class="input-label">End Date</span>
 	    <input type="date" ng-model="EndDate">
 	  </label>
-	  
+
 	  <label class="item item-input">
 	    <span class="input-label">End Time</span>
 	    <input type="time" ng-model="EndTime">
@@ -31,7 +30,7 @@
 	</div>
 
 	<button class="button button-block button-positive" ng-click="create(Premise,EndDate,EndTime)"> Create </button>
-    
+
     </div>
   </ion-content>
 
