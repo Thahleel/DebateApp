@@ -143,7 +143,7 @@ angular.module('controllers', ['firebase'])
 
   // If time permits, clean up and remove this hardcode from the controller
   var template = '<ion-popover-view><ion-header-bar> <h1 class="title">Choose A Topic</h1> </ion-header-bar> <ion-content><ion-list><ion-radio ng-model="choice" ng-value="\'General\'" ng-click="choose(0)">General</ion-radio><ion-radio ng-model="choice" ng-value="\'Gaming\'" ng-click="choose(1)">Gaming</ion-radio><ion-radio ng-model="choice" ng-value="\'Sports\'" ng-click="choose(2)">Sports</ion-radio><ion-radio ng-model="choice" ng-value="\'Politics\'" ng-click="choose(3)">Politics</ion-radio><ion-radio ng-model="choice" ng-value="\'Tech\'" ng-click="choose(4)">Tech</ion-radio><ion-radio ng-model="choice" ng-value="\'Random\'" ng-click="choose(5)">Random</ion-radio></ion-list></ion-content></ion-popover-view>';
-
+  
   $scope.popover = $ionicPopover.fromTemplate(template, {
     scope: $scope
   });
@@ -216,12 +216,6 @@ angular.module('controllers', ['firebase'])
       fbUser.viewReset()
    });
   }
-
-  $scope.autoExpand = function(e) {
-     var element = typeof e === 'object' ? e.target : document.getElementById(e);
-     var scrollHeight = element.scrollHeight -40; // replace 60 by the sum of padding-top and padding-bottom
-     element.style.height =  scrollHeight + "px";
-  };
 
   $scope.switchArgState = function (argState) {
     if (argState === argumentState) return;

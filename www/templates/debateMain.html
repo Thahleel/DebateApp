@@ -18,17 +18,15 @@
     </div>
 
     <div class="item item-input-inset">
-      <label class="item-input-wrapper">
-        <input ng-model="modelData.argText" ng-keyup="autoExpand($event)" class="expandText" type="text" placeholder="Add argument">
-      </label>
+      <textarea rows="3" cols="35" ng-model="modelData.argText" placeholder="Add argument"></textarea>
       <button class="button button-small" ng-click="createArgument()">
         Submit
       </button>
-  </div>
+    </div>
 
-  <div ng-repeat="argument in getArguments">
-    <argument-card arg-info="argument"></argument-card>
-  </div>
+    <div ng-repeat="argument in getArguments">
+      <argument-card arg-info="argument"></argument-card>
+    </div>
 
   </ion-content>
 </ion-view>
