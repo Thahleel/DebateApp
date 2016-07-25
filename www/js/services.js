@@ -162,6 +162,23 @@ angular.module('services', ['ionic','firebase'])
 
     },
 
+    updateSubscribedDebates : function () {
+      var promises = [];
+
+      for (var debateid in userData.subscribedDebates) {
+        if (userData.subscribedDebates.hasOwnProperty(debateid)) {
+          promises.push(firebase.database().ref('subscribedDebates/'+debateid).once('value'));
+        }
+      };
+
+      return Promise.all(promises).then(function (values) {
+        return values.map(function (snap) {return snap.val()}).sort(function (a, b) {
+          return b.creationDate - a.creationDate
+        })
+      })
+
+    },
+
     // Used to shut down the service but turning off all database listeners
     // (used when signing out)
     serviceShutDown : function () {

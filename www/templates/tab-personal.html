@@ -11,6 +11,11 @@
     </div>
 
 	<p> Subscribed Debates </p>
+
+	<div id="subscribedList" ng-repeat="subdebate in subscribedDebatesList">
+      <debate-card debate-info="subdebate"></debate-card>
+    </div>
+
 	<p>  </p>
   </ion-content>
 </ion-view>

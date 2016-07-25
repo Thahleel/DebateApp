@@ -94,6 +94,7 @@ angular.module('controllers', ['firebase'])
 
 .controller('PersonalCtrl', function($scope, fbUser) {
   $scope.startedDebatesList = []
+  $scope.subscribedDebatesList = []
 
   // === VIEW EVENTS ===
   $scope.$on('$ionicView.enter', function(){
@@ -101,7 +102,13 @@ angular.module('controllers', ['firebase'])
       $scope.startedDebatesList = debates
       fbUser.viewReset()
     });
+
+    fbUser.updateSubscribedDebates().then(function (subbedDebates) {
+      $scope.subscribedDebatesList = subbedDebates
+      fbUser.viewReset()
+    });
   });
+
 })
 
 .controller('NotifCtrl', function($scope) {
