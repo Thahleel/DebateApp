@@ -9,8 +9,9 @@
 	
 	<div class="list">
 
-	  <label class="item item-input" ng-click="openPopover($event)">
-	    <span class="input-label">Topic</span>
+	  <label class="item item-input" ng-click="openPopover($event)" >
+	    <span class="input-label" >Topic</span>
+	    <input type="text" ng-bind="{{CreateDebateCtrl.Topic}}" readonly="true">
 	  </label>
 	  
 	  <label class="item item-input">
@@ -29,7 +30,7 @@
 	  </label>
 	</div>
 
-	<button class="button button-block button-positive" ng-click="create(Topic,Premise,EndDate,EndTime)"> Create </button>
+	<button class="button button-block button-positive" ng-click="create(Premise,EndDate,EndTime)"> Create </button>
     
     </div>
   </ion-content>

@@ -118,35 +118,62 @@ angular.module('controllers', ['firebase'])
 
 })
 
-.controller('CreateDebateCtrl', function($scope, $state, fbUser, $ionicPopover) {
+.controller('CreateDebateCtrl', function($scope, $state, fbUser, $ionicPopover, $sce) {
+  // The debate topic will default to general. This will is changed when a user
+  // Selects a topic from the drowndown list.
+  var Topic = "General";
+
   $scope.goBackHome = function () {
     $state.go('tab.home')
   }
 
-  $scope.create = function (debateTopic,debateTitle,debateEndDate,debateEndTime) {
+  $scope.create = function (debateTitle,debateEndDate,debateEndTime) {
   var debateIDArg = fbUser.createDebate({
-     topic: debateTopic,
+     topic: Topic,
      premise: debateTitle,
      endDate: debateEndDate.getTime() + debateEndTime.getTime()
    })
 
    this.debateTitle = null;
    this.debateEndTime = null;
-   this.debateTopic = null;
    this.debateEndDate = null;
 
    $state.go('mainDebate', {debateid : debateIDArg})
   }
 
-  // ********************** here ******************************
-  
-  // .fromTemplate() method
-  var template = '<ion-popover-view><ion-header-bar> <h1 class="title">Choose A Topic</h1> </ion-header-bar> <ion-content> List of Topics </ion-content></ion-popover-view>';
+  // If time permits, clean up and remove this hardcode from the controller
+  var template = '<ion-popover-view><ion-header-bar> <h1 class="title">Choose A Topic</h1> </ion-header-bar> <ion-content><ion-list><ion-radio ng-model="choice" ng-value="\'General\'" ng-click="choose(0)">General</ion-radio><ion-radio ng-model="choice" ng-value="\'Gaming\'" ng-click="choose(1)">Gaming</ion-radio><ion-radio ng-model="choice" ng-value="\'Sports\'" ng-click="choose(2)">Sports</ion-radio><ion-radio ng-model="choice" ng-value="\'Politics\'" ng-click="choose(3)">Politics</ion-radio><ion-radio ng-model="choice" ng-value="\'Tech\'" ng-click="choose(4)">Tech</ion-radio><ion-radio ng-model="choice" ng-value="\'Random\'" ng-click="choose(5)">Random</ion-radio></ion-list></ion-content></ion-popover-view>';
 
   $scope.popover = $ionicPopover.fromTemplate(template, {
     scope: $scope
   });
 
+  $scope.choose = function(topicChoice){
+    
+    switch(topicChoice){
+      case 0:
+        Topic = 'General'
+        break;
+      case 1:
+        Topic = 'Gaming'
+        break;
+      case 2:
+        Topic = 'Sports'
+        break;
+      case 3:
+        Topic = 'Politics'
+        break;
+      case 4:
+        Topic = 'Tech'
+        break;
+      case 5:
+        Topic = 'Random'
+        break;
+      default:
+        Topic = 'General'
+        break;
+    }
+  }
 
   $scope.openPopover = function($event) {
     $scope.popover.show($event);
@@ -154,18 +181,13 @@ angular.module('controllers', ['firebase'])
   $scope.closePopover = function() {
     $scope.popover.hide();
   };
-  //Cleanup the popover when we're done with it!
-  $scope.$on('$destroy', function() {
-    $scope.popover.remove();
-  });
+  
   // Execute action on hide popover
   $scope.$on('popover.hidden', function() {
+    
     // Execute action
   });
-  // Execute action on remove popover
-  $scope.$on('popover.removed', function() {
-    // Execute action
-  });
+  
 })
 
 .controller('MainDebateCtrl', function($scope, $stateParams, debateServ, $window, fbUser, $state){
