@@ -5,7 +5,8 @@
 	<button class="btn" ng-click="startedDebatesList()"> Debates Started </button>
 	
 	<!-- THis currently returns the IDs of the debates. We need to get the actuall debates from the all debates list using these ids. -->
-	<div ng-repeat="debate in startedDebatesList()">
+
+	<div id="startedList" ng-repeat="debate in startedDebatesList()">
       <debate-card debate-info="debate"></debate-card>
     </div>
 

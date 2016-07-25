@@ -94,7 +94,8 @@ angular.module('controllers', ['firebase'])
 
 .controller('PersonalCtrl', function($scope, fbUser) {
   $scope.startedDebatesList = function(){
-    return fbUser.getMyDebates;
+    window.alert(fbUser.getMyDebates())
+    return fbUser.getMyDebates();
   },
 
 
