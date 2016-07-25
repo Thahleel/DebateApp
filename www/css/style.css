@@ -106,3 +106,9 @@ body {
   border-top-width: 3px;
   border-top-color: rgb(160, 160, 255);
 }
+
+.argUpvote {
+  position: absolute;
+  right: 0px;
+  padding: 7px;
+}

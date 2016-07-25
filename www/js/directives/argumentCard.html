@@ -1,6 +1,14 @@
 <div class="card" ng-class = "cardClass">
   <div class="item item-text-wrap">
-    <h2>{{argInfo.text}}</h2>
-    <p> {{dateText}} <p>
+    <div class="row">
+      <div class="col"><h2>{{argInfo.text}}</h2></div>
+      <div class="col argUpvote">
+        <i class="ion-chevron-up"></i>
+        <h2>{{argInfo.upvotes}}</h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col"><p> {{dateText}} <p></div>
+    </div>
   </div>
 </div>
