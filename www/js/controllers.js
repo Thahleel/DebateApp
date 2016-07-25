@@ -93,15 +93,14 @@ angular.module('controllers', ['firebase'])
 })
 
 .controller('PersonalCtrl', function($scope, fbUser) {
-  $scope.startedDebatesList = function(){
-    window.alert(fbUser.getMyDebates())
-    return fbUser.getMyDebates();
-  },
-
+  $scope.startedDebatesList = []
 
   // === VIEW EVENTS ===
   $scope.$on('$ionicView.enter', function(){
-    fbUser.updateMyDebates();
+    fbUser.updateMyDebates().then(function (debates) {
+      $scope.startedDebatesList = debates
+      fbUser.viewReset()
+    });
   });
 })
 

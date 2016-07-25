@@ -4,7 +4,7 @@ angular.module('services', ['ionic','firebase'])
   var uid;          // Unique ID for user (Currently unique for the facebook provider)
   var userDB;       // A database reference for the current user object
   var userData;     // Latest snapshot of the user's data stored in the database
-  var myDebates;    // List of all the users debate information
+  //var myDebates;     List of all the users debate information
 
   // Initilises local private variables of the service
   setupFirebaseUser = function (user) {
@@ -131,15 +131,14 @@ angular.module('services', ['ionic','firebase'])
       return newDebateID;
     },
 
-    // Returns a list of debates the current user created
+    /* Returns a list of debates the current user created
     getMyDebates : function () {
       return myDebates;
-    },
+    },*/
 
     // Destroys the myDebates array and replaces it with a new up to date
     // version. (All async done within function)
     updateMyDebates : function () {
-      myDebates = []
       var promises = [];
 
       for (var debateid in userData.debates) {
@@ -148,11 +147,10 @@ angular.module('services', ['ionic','firebase'])
         }
       };
 
-      Promise.all(promises).then(function (values) {
-        myDebates = values.map(function (snap) {return snap.val()}).sort(function (a, b) {
+      return Promise.all(promises).then(function (values) {
+        return values.map(function (snap) {return snap.val()}).sort(function (a, b) {
           return b.creationDate - a.creationDate
         })
-        fbUser.viewReset()
       })
 
     },
