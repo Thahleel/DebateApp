@@ -36,7 +36,7 @@ app.directive('backImg', function(){
     link: function(scope, elem, attrs) {
       scope.cardClass = (scope.argInfo.side === "pro" ? "proArgcard" : "conArgcard");
       var date = new Date(scope.argInfo.creationDate)
-      scope.dateText = date.toDateString()
+      scope.dateText = date.getHours() + ":" + (date.getMinutes() < 10 ? "0" : "") + date.getMinutes() + " | " + date.toLocaleDateString()
     }
   }
 });

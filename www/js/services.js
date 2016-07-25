@@ -134,7 +134,7 @@ angular.module('services', ['ionic','firebase'])
     subscribeDebate : function(debateID){
       var update = {}
       update[debateID] = true;
-      firebase.database().ref('users/'+uid+'/subcribedDebates').update(update);
+      firebase.database().ref('users/'+uid+'/subscribedDebates').update(update);
       window.alert("You have sucessfully subscribed to this debate!")
     },
 
