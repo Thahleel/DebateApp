@@ -141,6 +141,7 @@ angular.module('controllers', ['firebase'])
      endDate: debateEndDate.getTime() + debateEndTime.getTime()
    })
 
+   $scope.Topic = "";
    this.debateTitle = null;
    this.debateEndTime = null;
    this.debateEndDate = null;
@@ -208,6 +209,10 @@ angular.module('controllers', ['firebase'])
 
   $scope.pressBack = function () {
     $state.go('tab.home')
+  }
+
+  $scope.subscribe = function (debateID) {
+    fbUser.subscribeDebate(debateID);
   }
 
   $scope.refreshArguments = function () {

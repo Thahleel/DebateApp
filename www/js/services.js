@@ -131,6 +131,13 @@ angular.module('services', ['ionic','firebase'])
       return newDebateID;
     },
 
+    subscribeDebate : function(debateID){
+      var update = {}
+      update[debateID] = true;
+      firebase.database().ref('users/'+uid+'/subcribedDebates').update(update);
+      window.alert("You have sucessfully subscribed to this debate!")
+    },
+
     /* Returns a list of debates the current user created
     getMyDebates : function () {
       return myDebates;
