@@ -232,6 +232,7 @@ angular.module('services', ['ionic','firebase'])
 .factory('debateServ', function($window){
   var debateDB = firebase.database().ref('debates')
   var topicFilter = ""
+  var allTopics = ["General","Gaming","Sports","Politics","Tech","TV","Anime","Religion","Random"]
   //var allDebates = []
 
   // == Sortiing functions ==
@@ -272,6 +273,11 @@ angular.module('services', ['ionic','firebase'])
 
         return allDebates.sort(sortFunc).filter(filterFunc)
       });
+    },
+
+    /* Returns a list of all posible topics */
+    getAllTopics : function () {
+      return allTopics
     },
 
     /* After calling this function, the return of updateAllDebates will be filtered

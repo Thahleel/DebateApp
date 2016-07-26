@@ -147,11 +147,12 @@ angular.module('controllers', ['firebase'])
 
 })
 
-.controller('CreateDebateCtrl', function($scope, $state, fbUser, $ionicPopover, $sce) {
+.controller('CreateDebateCtrl', function($scope, $state, fbUser, $ionicPopover, $sce, debateServ) {
   // The debate topic will default to general. This will is changed when a user
   // Selects a topic from the drowndown list.
   $scope.topic = {choice: ""}
-  
+  $scope.allTopics = debateServ.getAllTopics()
+
   $scope.$watch("topic.choice", function(){
     fbUser.viewReset()
   })
@@ -170,7 +171,7 @@ angular.module('controllers', ['firebase'])
 
   $scope.create = function (debateTitle,debateEndDate,debateEndTime) {
    var debateIDArg = fbUser.createDebate({
-     topic: $scope.topic,
+     topic: $scope.topic.choice,
      premise: debateTitle,
      endDate: debateEndDate.getTime() + debateEndTime.getTime()
    })
