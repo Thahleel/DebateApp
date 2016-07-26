@@ -62,6 +62,9 @@ angular.module('directives', ['ionic','firebase'])
         })
       }
 
+        $state.go('mainArgument', {argInfo : scope.argInfo})
+      }
+
       firebase.database().ref('arguments/'+scope.argInfo.argumentID+'/upvoters/'+fbUser.getUid()).once('value')
       .then(function (upvotedBeforeSnap) {
         if (upvotedBeforeSnap.val()) {
