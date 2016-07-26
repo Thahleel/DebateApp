@@ -29,7 +29,7 @@ angular.module('directives', ['ionic','firebase'])
       scope.cardClass = (scope.argInfo.side === "pro" ? "proArgcard" : "conArgcard");
       var date = new Date(scope.argInfo.creationDate)
       scope.dateText = date.getHours() + ":" + (date.getMinutes() < 10 ? "0" : "") + date.getMinutes() + " | " + date.toLocaleDateString()
-      scope.name = fbUser.getFirebaseUser().displayName
+      scope.name = ""
 
       scope.upVoteArgument = function () {
         var location = 'arguments/'+scope.argInfo.argumentID+'/upvoters/'+fbUser.getUid()
@@ -40,30 +40,40 @@ angular.module('directives', ['ionic','firebase'])
             upvotedBefore = false;
           }
 
+          var updates = {}
+
           if (upvotedBefore) {
             scope.argInfo.upvotes--
-            firebase.database().ref('arguments/'+scope.argInfo.argumentID+'/upvotes').update(scope.argInfo.upvotes)
-
-            var updates = {}
             updates[fbUser.getUid()] = false
-            firebase.database().ref('arguments/'+scope.argInfo.argumentID+'/upvoters').update(updates)
-            angular.element( document.querySelector( '#upArrow' ) ).removeClass("balanced")
+            angular.element( document.querySelector( '#upArrow'+scope.argInfo.argumentID ) ).removeClass("balanced")
+
           } else {
             scope.argInfo.upvotes++
-            firebase.database().ref('arguments/'+scope.argInfo.argumentID+'/upvotes').update(scope.argInfo.upvotes)
-
-            var updates = {}
             updates[fbUser.getUid()] = true
-            firebase.database().ref('arguments/'+scope.argInfo.argumentID+'/upvoters').update(updates)
-            angular.element( document.querySelector( '#upArrow' ) ).addClass("balanced")
+            angular.element( document.querySelector( '#upArrow'+scope.argInfo.argumentID ) ).addClass("balanced")
+
           }
+
+          firebase.database().ref('arguments/'+scope.argInfo.argumentID).update(
+            {upvotes : scope.argInfo.upvotes}
+          )
+          firebase.database().ref('arguments/'+scope.argInfo.argumentID+'/upvoters').update(updates)
+          fbUser.viewReset()
         })
       }
 
-      firebase.database().ref('arguments/'+scope.argInfo.argumentID+'/upvoters/'+fbUser.getUid()).then(function (upvotedBeforeSnap) {
+      firebase.database().ref('arguments/'+scope.argInfo.argumentID+'/upvoters/'+fbUser.getUid()).once('value')
+      .then(function (upvotedBeforeSnap) {
         if (upvotedBeforeSnap.val()) {
-          angular.element( document.querySelector( '#upArrow' ) ).addClass("balanced")
+          angular.element( document.querySelector( '#upArrow'+scope.argInfo.argumentID ) ).addClass("balanced")
+          fbUser.viewReset()
         }
+      })
+
+      firebase.database().ref('users/'+scope.argInfo.creator+'/handle').once('value')
+      .then(function (nameSnap) {
+        scope.name = nameSnap.val()
+        fbUser.viewReset()
       })
     }
   }

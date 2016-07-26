@@ -85,6 +85,7 @@ angular.module('services', ['ionic','firebase'])
         if (!userDataSnap.val()) {
           // Alerts when you initialise user for the first time only
           $window.alert("Welcome to our app!");
+          initialUserObject['handle'] = firebaseUser.displayName
           userDB.set(initialUserObject);
           userData = initialUserObject;
           return;
@@ -129,7 +130,7 @@ angular.module('services', ['ionic','firebase'])
       return newDebateID;
     },
 
-    
+
     checkSubscription : function(debateID){
 
      return firebase.database().ref('users/'+uid+'/subscribedDebates/'+debateID)
