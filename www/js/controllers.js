@@ -101,7 +101,7 @@ angular.module('controllers', ['firebase'])
     fbUser.updateMyDebates().then(function (debates) {
       $scope.startedDebatesList = debates
       fbUser.viewReset()
-    });
+    })
 
     fbUser.updateSubscribedDebates().then(function (subbedDebates) {
       $scope.subscribedDebatesList = subbedDebates
