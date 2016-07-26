@@ -225,7 +225,6 @@ angular.module('controllers', ['firebase'])
     $state.go('tab.home')
   }
 
-
   $scope.subscribe = function (debateID) {
      fbUser.checkSubscription(debateID).then(function(result){
        $scope.subVal = result;
@@ -279,4 +278,11 @@ angular.module('controllers', ['firebase'])
     viewData.enableBack = true;
     $scope.refreshArguments();
   });
+})
+
+.controller('MainArgumentCtrl', function($scope, $stateParams, debateServ, $window, fbUser, $state){
+
+  $scope.pressBack = function () {
+    $state.go('mainDebate', {debateid : $scope.argInfo.debateID})
+  }
 });
