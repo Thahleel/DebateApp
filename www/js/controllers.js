@@ -274,8 +274,7 @@ angular.module('controllers', ['firebase'])
 
 .controller('MainArgumentCtrl', function($scope, $stateParams, debateServ, $window, fbUser, $state){
 
-
   $scope.pressBack = function () {
-    $state.go('mainDebate', {debateid : $stateParams.argInfo.debateID})
+    $state.go('mainDebate', {debateid : $scope.argInfo.debateID})
   }
 });
