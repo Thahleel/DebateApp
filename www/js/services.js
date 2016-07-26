@@ -232,7 +232,8 @@ angular.module('services', ['ionic','firebase'])
 .factory('debateServ', function($window){
   var debateDB = firebase.database().ref('debates')
   var topicFilter = ""
-  var allTopics = ["General","Gaming","Sports","Politics","Tech","TV","Anime","Religion","Random"]
+  var allTopics = ["General","Gaming","Sports","Politics","Tech","TV","Anime"
+                  ,"Religion","Education","History","Literature","Science","Random"]
   //var allDebates = []
 
   // == Sortiing functions ==
