@@ -208,7 +208,7 @@ angular.module('controllers', ['firebase'])
   $scope.debateData = {}
   var argManager = debateServ.makeArgumentManager(debateid);
   $scope.getArguments = []//argManager.getArguments
-  $scope.subVal = (fbUser.getUserData().subscribedDebates[debateid] ? "Unsubscribed" : "Subscribed")
+  $scope.subVal = (fbUser.getUserData().subscribedDebates[debateid] ? "Unsubscribe" : "Subscribe")
 
   debateServ.getDebate(debateid).then(function (debateSnap) {
     $scope.debateData = debateSnap.val();

@@ -139,12 +139,12 @@ angular.module('services', ['ionic','firebase'])
             var updates = {}
             updates[debateID]=true
             firebase.database().ref('users/'+uid+'/subscribedDebates').update(updates);
-            return "Subscribed"
+            return "Unsubscribe"
           }else{
             var updates = {}
             updates[debateID]=false
             firebase.database().ref('users/'+uid+'/subscribedDebates').update(updates);
-            return "Unsubscribed"
+            return "Subscribe"
           }
       })
     },
@@ -177,7 +177,7 @@ angular.module('services', ['ionic','firebase'])
       var promises = [];
 
       for (var debateid in userData.subscribedDebates) {
-        if (userData.subscribedDebates.hasOwnProperty(debateid)) {
+        if (userData.subscribedDebates.hasOwnProperty(debateid) && userData.subscribedDebates[debateid]) {
           promises.push(firebase.database().ref('debates/'+debateid).once('value'));
         }
       };
