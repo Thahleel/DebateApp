@@ -218,8 +218,10 @@ angular.module('controllers', ['firebase'])
     $state.go('tab.home')
   }
 
+
   $scope.subscribe = function (debateID) {
-    fbUser.subscribeDebate(debateID);
+    $scope.subVal = fbUser.checkSubscription(debateID);
+    window.alert($scope.subVal)
   }
 
   $scope.refreshArguments = function () {
@@ -245,6 +247,7 @@ angular.module('controllers', ['firebase'])
     }
   }
 
+
   $scope.createArgument = function() {
     var argumentData = {
       text: $scope.modelData.argText,
@@ -260,9 +263,14 @@ angular.module('controllers', ['firebase'])
 
  }
 
+
+
   // === VIEW EVENTS ===
   $scope.$on('$ionicView.beforeEnter', function (event, viewData) {
     viewData.enableBack = true;
     $scope.refreshArguments();
+    if($scope.subVal == null){
+      $scope.subVal = "Subscribe";
+    }
   });
 });

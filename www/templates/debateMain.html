@@ -2,15 +2,17 @@
   <!--
       The nav bar that will be updated as we navigate between views.
     -->
-  <ion-nav-bar class="bar-dark">
-    <ion-nav-back-button class="button-clear" ng-click="pressBack()">
-    </ion-nav-back-button>
-    <ion-nav-buttons side="right">
-      <button class="button button-clear button-light" ng-click="subscribe(debateData.debateID)">
-        Subscribe
-      </button>
-    </ion-nav-buttons>
-  </ion-nav-bar>
+  <div ng-controller="MainDebateCtrl">
+    <ion-nav-bar class="bar-dark">
+      <ion-nav-back-button class="button-clear" ng-click="pressBack()">
+      </ion-nav-back-button>
+      <ion-nav-buttons side="right">
+        <button class="button button-clear button-light" ng-click="subscribe(debateData.debateID)">
+          <p ng-bind-html="subVal"></p. 
+        </button>
+      </ion-nav-buttons>
+    </ion-nav-bar>
+  </div>
   <ion-content class="padding">
     <ion-refresher
     pulling-text="Pull to refresh..."

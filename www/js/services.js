@@ -129,21 +129,23 @@ angular.module('services', ['ionic','firebase'])
       return newDebateID;
     },
 
-    subscribeDebate : function(debateID){
-      var update = {}
-      update[debateID] = true;
+    
+    checkSubscription : function(debateID){
 
-      // THIS SHOULD RETURN TRUE IF THE USER HAS ALREADY SUBSCRIBED TO THE DEBATE
-      // THIS CURRENTLY ALWAYS RETURNS FALSE
       firebase.database().ref('users/'+uid+'/subscribedDebates/'+debateID)
       .once('value').then ( function (snapOfBool) {
           if (!snapOfBool.val()){
             var updates = {}
             updates[debateID]=true
-            firebase.database().ref('users/'+uid+'/subscribedDebates').update(update);
+            firebase.database().ref('users/'+uid+'/subscribedDebates').update(updates);
             window.alert("You have sucessfully subscribed to this debate!")
+            return "Unsubscribe";
           }else{
-            window.alert("You have already subscribed to this debate!")
+            var updates = {}
+            updates[debateID]=false
+            firebase.database().ref('users/'+uid+'/subscribedDebates').update(updates);
+            window.alert("You have sucessfully unsubscribed from this debate!")
+            return "Subscribe";
           }
       })
 
