@@ -135,10 +135,11 @@ angular.module('services', ['ionic','firebase'])
 
       // THIS SHOULD RETURN TRUE IF THE USER HAS ALREADY SUBSCRIBED TO THE DEBATE
       // THIS CURRENTLY ALWAYS RETURNS FALSE
-      firebase.database().ref('users/'+uid+'subscribedDebates/'+debateID+'/').once('value').then ( function (snapOfBool) {
-          var subbed = snapOfBool.exists();
-          window.alert(subbed)
-          if (!subbed){
+      firebase.database().ref('users/'+uid+'/subscribedDebates/'+debateID)
+      .once('value').then ( function (snapOfBool) {
+          if (!snapOfBool.val()){
+            var updates = {}
+            updates[debateID]=true
             firebase.database().ref('users/'+uid+'/subscribedDebates').update(update);
             window.alert("You have sucessfully subscribed to this debate!")
           }else{
@@ -147,7 +148,7 @@ angular.module('services', ['ionic','firebase'])
       })
 
 
-      
+
     },
 
     /* Returns a list of debates the current user created
