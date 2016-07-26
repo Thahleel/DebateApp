@@ -208,6 +208,7 @@ angular.module('controllers', ['firebase'])
   $scope.debateData = {}
   var argManager = debateServ.makeArgumentManager(debateid);
   $scope.getArguments = []//argManager.getArguments
+  $scope.subVal = (fbUser.getUserData().subscribedDebates[debateid] ? "Unsubscribed" : "Subscribed")
 
   debateServ.getDebate(debateid).then(function (debateSnap) {
     $scope.debateData = debateSnap.val();
@@ -220,7 +221,10 @@ angular.module('controllers', ['firebase'])
 
 
   $scope.subscribe = function (debateID) {
-     fbUser.checkSubscription(debateID);
+     fbUser.checkSubscription(debateID).then(function(result){
+       $scope.subVal = result;
+       fbUser.viewReset()
+     });
   }
 
   $scope.refreshArguments = function () {
@@ -268,8 +272,5 @@ angular.module('controllers', ['firebase'])
   $scope.$on('$ionicView.beforeEnter', function (event, viewData) {
     viewData.enableBack = true;
     $scope.refreshArguments();
-    if($scope.subVal == null){
-      $scope.subVal = "Subscribe";
-    }
   });
 });

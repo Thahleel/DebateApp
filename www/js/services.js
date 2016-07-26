@@ -139,21 +139,14 @@ angular.module('services', ['ionic','firebase'])
             var updates = {}
             updates[debateID]=true
             firebase.database().ref('users/'+uid+'/subscribedDebates').update(updates);
-            window.alert("You have sucessfully subscribed to this debate!")
             return "Subscribed"
           }else{
             var updates = {}
             updates[debateID]=false
             firebase.database().ref('users/'+uid+'/subscribedDebates').update(updates);
-            window.alert("You have sucessfully unsubscribed from this debate!")
             return "Unsubscribed"
           }
-      }).then(function(result){
-        $scope.subVal = result;
       })
-
-
-
     },
 
     /* Returns a list of debates the current user created
