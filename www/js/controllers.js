@@ -115,10 +115,32 @@ angular.module('controllers', ['firebase'])
 
 })
 
-.controller('SettingsCtrl', function($scope, $state, $window) {
+.controller('SettingsCtrl', function($scope, $state, $window, $ionicActionSheet, fbUser) {
   $scope.openMyInfoPage = function () {
     $state.go('tab.userinfo')
   }
+
+  $scope.showActionsheet = function() {
+    $ionicActionSheet.show({
+      titleText: 'Sign out of Debatable?',
+      destructiveText: 'Sign Out',
+      cancelText: 'Cancel',
+      cancel: function() {
+
+      },
+      buttonClicked: function(index) {
+        return true;
+      },
+      destructiveButtonClicked: function() {
+        firebase.auth().signOut().then(function() {
+          fbUser.serviceShutDown();
+          $state.go('intro');
+        }, function(error) {
+          $window.alert("Error: could not sign out");
+        });
+      }
+    });
+  };
 })
 
 .controller('UserInfoCtrl', function($scope) {
