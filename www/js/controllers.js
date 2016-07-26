@@ -150,12 +150,17 @@ angular.module('controllers', ['firebase'])
 .controller('CreateDebateCtrl', function($scope, $state, fbUser, $ionicPopover, $sce) {
   // The debate topic will default to general. This will is changed when a user
   // Selects a topic from the drowndown list.
-  $scope.Topic = "General";
-  // If time permits, clean up and remove this hardcode from the controller
-  var template = '<ion-popover-view><ion-header-bar> <h1 class="title">Choose A Topic</h1> </ion-header-bar> <ion-content><ion-list><ion-radio ng-model="choice" ng-value="\'General\'" ng-click="choose(0)">General</ion-radio><ion-radio ng-model="choice" ng-value="\'Gaming\'" ng-click="choose(1)">Gaming</ion-radio><ion-radio ng-model="choice" ng-value="\'Sports\'" ng-click="choose(2)">Sports</ion-radio><ion-radio ng-model="choice" ng-value="\'Politics\'" ng-click="choose(3)">Politics</ion-radio><ion-radio ng-model="choice" ng-value="\'Tech\'" ng-click="choose(4)">Tech</ion-radio><ion-radio ng-model="choice" ng-value="\'Random\'" ng-click="choose(5)">Random</ion-radio></ion-list></ion-content></ion-popover-view>';
+  $scope.topic = {choice: ""}
+  
+  $scope.$watch("topic.choice", function(){
+    fbUser.viewReset()
+  })
 
-  $scope.popover = $ionicPopover.fromTemplate(template, {
-    scope: $scope
+  $ionicPopover.fromTemplateUrl('templates/topics.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.popover = modal;
   });
 
 
@@ -165,47 +170,17 @@ angular.module('controllers', ['firebase'])
 
   $scope.create = function (debateTitle,debateEndDate,debateEndTime) {
    var debateIDArg = fbUser.createDebate({
-     topic: $scope.Topic,
+     topic: $scope.topic,
      premise: debateTitle,
      endDate: debateEndDate.getTime() + debateEndTime.getTime()
    })
 
-   $scope.Topic = "";
+   $scope.topic = "";
    this.debateTitle = null;
    this.debateEndTime = null;
    this.debateEndDate = null;
 
    $state.go('mainDebate', {debateid : debateIDArg})
-  }
-
-  $scope.choose = function(topicChoice){
-
-    switch(topicChoice){
-      case 0:
-        $scope.Topic = 'General'
-        break;
-      case 1:
-        $scope.Topic = 'Gaming'
-        break;
-      case 2:
-        $scope.Topic = 'Sports'
-        break;
-      case 3:
-        $scope.Topic = 'Politics'
-        break;
-      case 4:
-        $scope.Topic = 'Tech'
-        break;
-      case 5:
-        $scope.Topic = 'Random'
-        break;
-      default:
-        $scope.Topic = 'General'
-        break;
-    }
-
-    fbUser.viewReset()
-    $scope.closePopover();
   }
 
   $scope.openPopover = function($event) {
