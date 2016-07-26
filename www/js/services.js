@@ -39,8 +39,6 @@ angular.module('services', ['ionic','firebase'])
       } else {
         self.tags = true;
       }
-
-    firebase.database().ref('debates')
   })
 
   }
