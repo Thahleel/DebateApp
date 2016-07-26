@@ -1,12 +1,4 @@
-app.directive('backImg', function(){
-    return function(scope, element, attrs){
-        var url = attrs.backImg;
-        element.css({
-            'background-image': 'url(' + url +')',
-            'background-size' : 'cover'
-        });
-    };
-})
+angular.module('directives', ['ionic','firebase'])
 
 .directive('debateCard', function($window, $state) {
   return {
@@ -26,7 +18,7 @@ app.directive('backImg', function(){
   }
 })
 
-.directive('argumentCard', function($window, $state, $compile) {
+.directive('argumentCard', function($window, $state, $compile, fbUser) {
   return {
     restrict: 'E',
     scope: {
@@ -37,6 +29,42 @@ app.directive('backImg', function(){
       scope.cardClass = (scope.argInfo.side === "pro" ? "proArgcard" : "conArgcard");
       var date = new Date(scope.argInfo.creationDate)
       scope.dateText = date.getHours() + ":" + (date.getMinutes() < 10 ? "0" : "") + date.getMinutes() + " | " + date.toLocaleDateString()
+      scope.name = fbUser.getFirebaseUser().displayName
+
+      scope.upVoteArgument = function () {
+        var location = 'arguments/'+scope.argInfo.argumentID+'/upvoters/'+fbUser.getUid()
+        firebase.database().ref(location).once('value').then(function (upvotedBeforeSnap) {
+          var upvotedBefore = upvotedBeforeSnap.val()
+
+          if (upvotedBefore === undefined) {
+            upvotedBefore = false;
+          }
+
+          if (upvotedBefore) {
+            scope.argInfo.upvotes--
+            firebase.database().ref('arguments/'+scope.argInfo.argumentID+'/upvotes').update(scope.argInfo.upvotes)
+
+            var updates = {}
+            updates[fbUser.getUid()] = false
+            firebase.database().ref('arguments/'+scope.argInfo.argumentID+'/upvoters').update(updates)
+            angular.element( document.querySelector( '#upArrow' ) ).removeClass("balanced")
+          } else {
+            scope.argInfo.upvotes++
+            firebase.database().ref('arguments/'+scope.argInfo.argumentID+'/upvotes').update(scope.argInfo.upvotes)
+
+            var updates = {}
+            updates[fbUser.getUid()] = true
+            firebase.database().ref('arguments/'+scope.argInfo.argumentID+'/upvoters').update(updates)
+            angular.element( document.querySelector( '#upArrow' ) ).addClass("balanced")
+          }
+        })
+      }
+
+      firebase.database().ref('arguments/'+scope.argInfo.argumentID+'/upvoters/'+fbUser.getUid()).then(function (upvotedBeforeSnap) {
+        if (upvotedBeforeSnap.val()) {
+          angular.element( document.querySelector( '#upArrow' ) ).addClass("balanced")
+        }
+      })
     }
   }
 });

@@ -2,11 +2,13 @@
   <div class="item item-text-wrap">
     <div class="row">
       <div class="col col-90"><h2>{{argInfo.text}}</h2></div>
-      <div class="col .col-offset-90"><i class="ion-chevron-up"></i>
-      <h2 ng-class="{position: absolute, left: 10px}">{{argInfo.upvotes}}</h2></div>
+      <div class="col .col-offset-90">
+        <i class="ion-chevron-up" id="upArrow" ng-click="upVoteArgument()"></i>
+        <h2 ng-class="{position: absolute, left: 10px}">{{argInfo.upvotes}}</h2>
+      </div>
     </div>
     <div class="row">
-      <div class="col"><p> {{dateText}} <p></div>
+      <div class="col"><p> by {{name}} at {{dateText}} <p></div>
     </div>
   </div>
 </div>

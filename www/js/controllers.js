@@ -249,7 +249,8 @@ angular.module('controllers', ['firebase'])
     var argumentData = {
       text: $scope.modelData.argText,
       debateID: debateid,
-      side: argumentState
+      side: argumentState,
+      upvoters: {}
     }
 
    debateServ.createArgument(argumentData, fbUser.getUid());
