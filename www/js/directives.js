@@ -62,6 +62,7 @@ angular.module('directives', ['ionic','firebase'])
         })
       }
 
+      scope.goArgumentView = function () {
         $state.go('mainArgument', {argInfo : scope.argInfo})
       }
 
