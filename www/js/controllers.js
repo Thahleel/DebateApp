@@ -143,15 +143,15 @@ angular.module('controllers', ['firebase'])
   };
 })
 
-.controller('UserInfoCtrl', function($scope) {
-
+.controller('UserInfoCtrl', function($scope, fbUser) {
+  $scope.name = fbUser.getFirebaseUser().displayName;
 })
 
 .controller('CreateDebateCtrl', function($scope, $state, fbUser, $ionicPopover, $sce) {
   // The debate topic will default to general. This will is changed when a user
   // Selects a topic from the drowndown list.
   $scope.topic = {choice: ""}
-  
+
   $scope.$watch("topic.choice", function(){
     fbUser.viewReset()
   })
