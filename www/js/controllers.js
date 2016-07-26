@@ -220,8 +220,7 @@ angular.module('controllers', ['firebase'])
 
 
   $scope.subscribe = function (debateID) {
-    $scope.subVal = fbUser.checkSubscription(debateID);
-    window.alert($scope.subVal)
+     fbUser.checkSubscription(debateID);
   }
 
   $scope.refreshArguments = function () {
