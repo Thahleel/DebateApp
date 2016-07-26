@@ -255,7 +255,6 @@ angular.module('controllers', ['firebase'])
     }
   }
 
-
   $scope.createArgument = function() {
     var argumentData = {
       text: $scope.modelData.argText,
@@ -281,8 +280,41 @@ angular.module('controllers', ['firebase'])
 })
 
 .controller('MainArgumentCtrl', function($scope, $stateParams, debateServ, $window, fbUser, $state){
+  $scope.argInfo = $stateParams.argInfo
+  $scope.modelData = {}
+  $scope.getCounterArguments = []
+
+  $scope.createCounterArgument = function() {
+    var argumentData = {
+      text: $scope.modelData.argText,
+      origArgumentID: $scope.argInfo.argumentID,
+      upvoters: {}
+    }
+
+    debateServ.createCounterArgument(argumentData, fbUser.getUid());
+
+    $scope.modelData.argText = ""
+    $scope.refreshCounterArguments()
+
+  }
+
+  $scope.refreshCounterArguments = function () {
+    var promise = debateServ.updateCounterArguments($scope.argInfo.argumentID);
+
+    promise.then(function (arguments) {
+      $scope.getCounterArguments = arguments
+      $scope.$broadcast('scroll.refreshComplete');
+      fbUser.viewReset()
+   });
+  }
 
   $scope.pressBack = function () {
     $state.go('mainDebate', {debateid : $scope.argInfo.debateID})
   }
+
+  // === VIEW EVENTS ===
+  $scope.$on('$ionicView.beforeEnter', function (event, viewData) {
+    viewData.enableBack = true;
+    $scope.refreshCounterArguments();
+  });
 });

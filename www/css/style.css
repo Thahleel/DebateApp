@@ -144,3 +144,14 @@ body {
   border-top-width: 3px;
   border-top-color: rgb(160, 160, 255);
 }
+
+.unArgcard {
+  border-style: solid;
+  border-top-width: 3px;
+  border-top-color: rgb(173, 126, 195);
+}
+
+.bottomArgSubmit {
+  position: fixed;
+  bottom: 0px;
+}

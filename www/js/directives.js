@@ -26,7 +26,8 @@ angular.module('directives', ['ionic','firebase'])
     },
     templateUrl: 'js/directives/argumentCard.html',
     link: function(scope, elem, attrs) {
-      scope.cardClass = (scope.argInfo.side === "pro" ? "proArgcard" : "conArgcard");
+      scope.cardClass = (scope.argInfo.side === "pro" ? "proArgcard" :
+                         (scope.argInfo.side === "con" ? "conArgcard" : "unArgcard"));
       var date = new Date(scope.argInfo.creationDate)
       scope.dateText = date.getHours() + ":" + (date.getMinutes() < 10 ? "0" : "") + date.getMinutes() + " | " + date.toLocaleDateString()
       scope.name = ""

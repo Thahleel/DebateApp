@@ -7,6 +7,19 @@
   </div>
 
   <ion-content class="padding">
+    <ion-refresher
+    pulling-text="Pull to refresh..."
+    on-refresh="refreshCounterArguments()">
+    </ion-refresher>
+    <div class="row bottomArgSubmit">
+      <textarea rows="4" cols="33" ng-model="modelData.argText" placeholder="Add argument"></textarea>
+      <button class="button button-small" ng-click="createCounterArgument()">
+        Submit
+      </button>
+    </div>
     <argument-card arg-info="argInfo"></argument-card>
+    <div ng-repeat="argument in getCounterArguments">
+      <argument-card arg-info="argument"></argument-card>
+    </div>
   </ion-content>
 </ion-view>
