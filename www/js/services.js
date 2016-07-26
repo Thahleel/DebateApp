@@ -274,10 +274,18 @@ angular.module('services', ['ionic','firebase'])
       });
     },
 
+    /*After calling this function, the return of updateAllDebates will be filtered
+      by the desired topic */
     addTopicFilter : function (topic) {
       filterFunc = byTopicFilter
       topicFilter = topic
     },
+
+    removeFilter : function () {
+      filterFunc = byTopicFilter
+      topicFilter = ""
+    },
+
 
     /* Returns a list of all debates
     getAllDebates : function () {
