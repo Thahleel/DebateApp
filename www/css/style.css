@@ -7,6 +7,10 @@ body {
   color: white;
 }
 
+.back-button {
+  color: white !important;
+}
+
 .pane {
     background-color: #efeff4 !important;
 }
