@@ -95,6 +95,40 @@ body {
   color: red;
 }
 
+.user-profile-img-div {
+    padding-top: 20px;
+    margin: 0 auto;
+    width: 50%;
+}
+
+.user-img-padding {
+  padding: 10px;
+  background-color: white;
+}
+
+.user-profile-img {
+  width: 100%;
+}
+
+.user-profile-name {
+  padding-top: 20px;
+  text-align: center;
+  font-size: 40px;
+  font-weight: bold;
+}
+
+.user-debate-rank {
+  padding-top: 20px;
+  text-align: center;
+  font-size: 25px;
+}
+
+.user-debate-count {
+  padding-top: 10px;
+  text-align: center;
+  font-size: 18px;
+}
+
 .conArgcard {
   position: relative;
   border-style: solid;

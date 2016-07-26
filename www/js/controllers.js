@@ -25,7 +25,7 @@ angular.module('controllers', ['firebase'])
           });
 
           // Prepare app and switch to home view
-          prepareApp(firebaseUser);
+          prepareApp(firebaseUser, $ionicHistory);
 
         }).catch(function(error) {
           console.log("Authentication failed:", error);
@@ -34,7 +34,7 @@ angular.module('controllers', ['firebase'])
     }
 
     // prepares app after the login process succeeds
-    var prepareApp = function(firebaseUser) {
+    var prepareApp = function(firebaseUser, $ionicHistory) {
       /*Initilises service with the firebaseUser object of the logged in user.
         The call attempts to retrieve data from the database. This is performed asynchronously hence
         at this moment in time the data may not be in the correct place yet. So the function returns a promise
@@ -44,7 +44,12 @@ angular.module('controllers', ['firebase'])
       /* Instead of rushing off to the home view, we use the promise to wait until the data retrieval from the
          database was successful. If so, we run a function that sends us to the home view */
       promise.then(function () {
+        $ionicHistory.nextViewOptions({
+          disableBack: false
+        });
+
         $state.go("tab.home");
+
         //$location.path("/tab/home");
       }, function () {
         $window.alert("Error: unable to initialise data");
@@ -145,6 +150,9 @@ angular.module('controllers', ['firebase'])
 
 .controller('UserInfoCtrl', function($scope, fbUser) {
   $scope.name = fbUser.getFirebaseUser().displayName;
+  $scope.photoURL = fbUser.getFirebaseUser().photoURL;
+  $scope.debateRank = fbUser.getUserData().debateRank;
+  //$scope.debateCount = fbUser.getDebateCount();
 })
 
 .controller('CreateDebateCtrl', function($scope, $state, fbUser, $ionicPopover, $sce, debateServ) {

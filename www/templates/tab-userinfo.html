@@ -1,6 +1,10 @@
-<ion-view view-title="{{ name }}">
+<ion-view view-title="Me">
   <ion-content>
-    <h1> Hello {{ name }} end<h1>
-	<p>  </p>
+    <div class="user-profile-img-div"><div class="user-img-padding">
+      <img src="{{ photoURL }}" class="user-profile-img"/>
+    </div></div>
+    <div class="user-profile-name">{{ name }}</div>
+    <div class="user-debate-rank">Score: {{ debateRank }}</div>
+    <div class="user-debate-count">Total debates started: {{ debateCount }}</div>
   </ion-content>
 </ion-view>
