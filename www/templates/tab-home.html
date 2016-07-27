@@ -5,6 +5,12 @@
     on-refresh="refreshDebates()">
     </ion-refresher>
 
+    <div class="button-bar">
+      <a class="button" ng-click="applySort('recent')">Recent</a>
+      <a class="button" ng-click="applySort('popular')">Popular</a>
+      <a class="button" ng-click="applySort('preference')">Preference</a>
+   </div>
+
     <h2> Welcome {{ name }}</h2>
     <button class="button button-block button-positive" ng-click="modal.show()"> Create Debate </button>
     <label class="item item-input" ng-click="openFilterPopover($event)" >

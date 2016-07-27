@@ -124,6 +124,7 @@ angular.module('controllers', ['firebase'])
   // === VIEW EVENTS ===
   $scope.$on('$ionicView.enter', function(){
     $scope.refreshDebates();
+    debateServ.addMostRecentSort();
   });
 
   $ionicModal.fromTemplateUrl('templates/modal.html', {
@@ -163,6 +164,18 @@ angular.module('controllers', ['firebase'])
   document.getElementById("endtime").value = "";
 
   $state.go('vote', {debateid : debateIDArg})
+ }
+
+ $scope.applySort = function (type) {
+   if (type === "recent") {
+     debateServ.addMostRecentSort()
+   } else if (type === "popular") {
+     debateServ.addPopularSort()
+   } else if (type === "Preference") {
+
+   }
+
+   $scope.refreshDebates()
  }
 
  $scope.openPopover = function($event) {

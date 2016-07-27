@@ -240,6 +240,10 @@ angular.module('services', ['ionic','firebase'])
     return b.creationDate - a.creationDate
   }
 
+  var popularSort = function (a, b) {
+    return b.premise > a.premise
+  }
+
   // == Filter functions ==
   var byTopicFilter = function (debate) {
     return (topicFilter === "" ? true : debate.topic === topicFilter)
@@ -271,7 +275,7 @@ angular.module('services', ['ionic','firebase'])
           }
         };
 
-        return allDebates.sort(sortFunc).filter(filterFunc)
+        return allDebates.filter(filterFunc).sort(sortFunc)
       });
     },
 
@@ -293,6 +297,17 @@ angular.module('services', ['ionic','firebase'])
       topicFilter = ""
     },
 
+    /* After calling this function, the return of updateAllDebates will be sorted
+       by most recent debate */
+    addMostRecentSort : function () {
+      sortFunc = mostRecentSort
+    },
+
+    /* After calling this function, the return of updateAllDebates will be sorted
+       by most recent debate */
+    addPopularSort : function () {
+      sortFunc = popularSort
+    },
 
     /* Returns a list of all debates
     getAllDebates : function () {
