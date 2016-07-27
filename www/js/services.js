@@ -232,6 +232,8 @@ angular.module('services', ['ionic','firebase'])
 .factory('debateServ', function($window){
   var debateDB = firebase.database().ref('debates')
   var topicFilter = ""
+  var allTopics = ["General","Gaming","Sports","Politics","Tech","TV","Anime"
+                  ,"Religion","Education","History","Literature","Science","Random"]
   //var allDebates = []
 
   // == Sortiing functions ==
@@ -272,6 +274,11 @@ angular.module('services', ['ionic','firebase'])
 
         return allDebates.sort(sortFunc).filter(filterFunc)
       });
+    },
+
+    /* Returns a list of all posible topics */
+    getAllTopics : function () {
+      return allTopics
     },
 
     /* After calling this function, the return of updateAllDebates will be filtered
@@ -354,6 +361,22 @@ angular.module('services', ['ionic','firebase'])
       } (debateID)
     },
 
+    /* Returns a promise for a list of counter arguments for a specified argument */
+    updateCounterArguments : function (argumentID) {
+      return firebase.database().ref('arguments/'+argumentID+"/counterArguments")
+      .once('value').then(function (argumentSnap) {
+        var counterArguments = []
+
+        for (var argumentid in argumentSnap.val()) {
+          if (argumentSnap.val().hasOwnProperty(argumentid)) {
+            counterArguments.push(argumentSnap.val()[argumentid])
+          }
+        };
+
+        return counterArguments
+      })
+    },
+
     /* Adds a new argument to the debate with the specified debateid */
     createArgument : function (argumentData, uid) {
       argumentData['creator'] = uid
@@ -366,6 +389,21 @@ angular.module('services', ['ionic','firebase'])
       var updates = {}
       updates[argumentid] = true
       firebase.database().ref('debates/'+argumentData.debateID+'/'+argumentData.side+'Arguments').update(updates);
+
+      return argumentid
+    },
+
+    /* Creates a new counter argument for an original argument */
+    createCounterArgument : function (argumentData, uid) {
+      argumentData['creator'] = uid
+      argumentData['creationDate'] = Date.now()
+      argumentData['upvotes'] = 0
+      argumentData['side'] = "undecided"
+
+      var counterArgumentid = firebase.database()
+      .ref('arguments/'+argumentData.origArgumentID+'/counterArguments').push(argumentData).key
+      firebase.database().ref('arguments/'+argumentData.origArgumentID+'/counterArguments/'+counterArgumentid)
+      .update({argumentID : counterArgumentid})
 
       return argumentid
     },

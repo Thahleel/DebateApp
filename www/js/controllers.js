@@ -25,7 +25,7 @@ angular.module('controllers', ['firebase'])
           });
 
           // Prepare app and switch to home view
-          prepareApp(firebaseUser);
+          prepareApp(firebaseUser, $ionicHistory);
 
         }).catch(function(error) {
           console.log("Authentication failed:", error);
@@ -34,7 +34,7 @@ angular.module('controllers', ['firebase'])
     }
 
     // prepares app after the login process succeeds
-    var prepareApp = function(firebaseUser) {
+    var prepareApp = function(firebaseUser, $ionicHistory) {
       /*Initilises service with the firebaseUser object of the logged in user.
         The call attempts to retrieve data from the database. This is performed asynchronously hence
         at this moment in time the data may not be in the correct place yet. So the function returns a promise
@@ -44,7 +44,12 @@ angular.module('controllers', ['firebase'])
       /* Instead of rushing off to the home view, we use the promise to wait until the data retrieval from the
          database was successful. If so, we run a function that sends us to the home view */
       promise.then(function () {
+        $ionicHistory.nextViewOptions({
+          disableBack: false
+        });
+
         $state.go("tab.home");
+
         //$location.path("/tab/home");
       }, function () {
         $window.alert("Error: unable to initialise data");
@@ -60,7 +65,7 @@ angular.module('controllers', ['firebase'])
   };
 })
 
-.controller('HomeCtrl', function($scope, fbUser, $window, debateServ, $state) {
+.controller('HomeCtrl', function($scope, fbUser, $window, debateServ, $state, $ionicModal, $ionicPopover, $sce, debateServ) {
   $scope.name = fbUser.getFirebaseUser().displayName;
   $scope.userData = fbUser.getUserData();
   $scope.allDebates = [];
@@ -82,14 +87,75 @@ angular.module('controllers', ['firebase'])
    });
   }
 
-  $scope.switchCreatePage = function () {
-    $state.go("createDebate");
+  $scope.hideModal = function () {
+    $scope.topic = {choice: ""};
+    document.getElementById("premise").value = "";
+    document.getElementById("enddate").value = "";
+    document.getElementById("endtime").value = "";
+
+    $scope.modal.hide();
   }
 
   // === VIEW EVENTS ===
   $scope.$on('$ionicView.enter', function(){
     $scope.refreshDebates();
   });
+
+  $ionicModal.fromTemplateUrl('templates/modal.html', {
+   scope: $scope
+ }).then(function(modal) {
+   $scope.modal = modal;
+ });
+
+ // The debate topic will default to general. This will is changed when a user
+ // Selects a topic from the drowndown list.
+ $scope.topic = {choice: ""}
+ $scope.allTopics = debateServ.getAllTopics()
+
+ $scope.$watch("topic.choice", function(){
+   fbUser.viewReset()
+ })
+
+ $ionicPopover.fromTemplateUrl('templates/topics.html', {
+   scope: $scope,
+   animation: 'slide-in-up'
+ }).then(function(modal) {
+   $scope.popover = modal;
+ });
+
+ $scope.create = function (debateTitle,debateEndDate,debateEndTime) {
+  var debateIDArg = fbUser.createDebate({
+    topic: $scope.topic.choice,
+    premise: debateTitle,
+    endDate: debateEndDate.getTime() + debateEndTime.getTime()
+  })
+
+  //$scope.topic = ""; This doesn't work, if you do this, it will only let you add 1 debate per session
+  this.debateTitle = null;
+  this.debateEndTime = null;
+  this.debateEndDate = null;
+
+  $scope.modal.hide();
+  $scope.topic = {choice: ""};
+  document.getElementById("premise").value = "";
+  document.getElementById("enddate").value = "";
+  document.getElementById("endtime").value = "";
+
+  $state.go('mainDebate', {debateid : debateIDArg})
+ }
+
+ $scope.openPopover = function($event) {
+   $scope.popover.show($event);
+ };
+ $scope.closePopover = function() {
+   $scope.popover.hide();
+ };
+
+ // Execute action on hide popover
+ $scope.$on('popover.hidden', function() {
+
+   // Execute action
+ });
 })
 
 .controller('PersonalCtrl', function($scope, fbUser) {
@@ -115,9 +181,28 @@ angular.module('controllers', ['firebase'])
 
 })
 
-.controller('SettingsCtrl', function($scope, $state, $window, $ionicActionSheet, fbUser) {
+.controller('SettingsCtrl', function($scope, $state, $window, $ionicActionSheet, fbUser, $ionicModal) {
   $scope.openMyInfoPage = function () {
     $state.go('tab.userinfo')
+  }
+
+  $scope.hideModal = function () {
+    document.getElementById("handle").value = "";
+
+    $scope.modal.hide();
+  }
+
+  $ionicModal.fromTemplateUrl('templates/modal.html', {
+   scope: $scope
+  }).then(function(modal) {
+   $scope.modal = modal;
+  });
+
+
+  $scope.saveHandle = function ($handle) {
+    var handleChoice = fbUser.setHandle({
+      handle: $handle
+    })
   }
 
   $scope.showActionsheet = function() {
@@ -143,58 +228,15 @@ angular.module('controllers', ['firebase'])
   };
 })
 
-.controller('UserInfoCtrl', function($scope) {
-
+.controller('UserInfoCtrl', function($scope, fbUser) {
+  $scope.name = fbUser.getFirebaseUser().displayName;
+  $scope.photoURL = fbUser.getFirebaseUser().photoURL;
+  $scope.debateRank = fbUser.getUserData().debateRank;
+  //$scope.debateCount = fbUser.getDebateCount();
 })
 
-.controller('CreateDebateCtrl', function($scope, $state, fbUser, $ionicPopover, $sce) {
-  // The debate topic will default to general. This will is changed when a user
-  // Selects a topic from the drowndown list.
-  $scope.topic = {choice: ""}
-  
-  $scope.$watch("topic.choice", function(){
-    fbUser.viewReset()
-  })
+.controller('CreateDebateCtrl', function($scope, $state, fbUser, $ionicPopover, $sce, debateServ) {
 
-  $ionicPopover.fromTemplateUrl('templates/topics.html', {
-    scope: $scope,
-    animation: 'slide-in-up'
-  }).then(function(modal) {
-    $scope.popover = modal;
-  });
-
-
-  $scope.goBackHome = function () {
-    $state.go('tab.home')
-  }
-
-  $scope.create = function (debateTitle,debateEndDate,debateEndTime) {
-   var debateIDArg = fbUser.createDebate({
-     topic: $scope.topic,
-     premise: debateTitle,
-     endDate: debateEndDate.getTime() + debateEndTime.getTime()
-   })
-
-   $scope.topic = "";
-   this.debateTitle = null;
-   this.debateEndTime = null;
-   this.debateEndDate = null;
-
-   $state.go('mainDebate', {debateid : debateIDArg})
-  }
-
-  $scope.openPopover = function($event) {
-    $scope.popover.show($event);
-  };
-  $scope.closePopover = function() {
-    $scope.popover.hide();
-  };
-
-  // Execute action on hide popover
-  $scope.$on('popover.hidden', function() {
-
-    // Execute action
-  });
 
 })
 
@@ -215,7 +257,6 @@ angular.module('controllers', ['firebase'])
   $scope.pressBack = function () {
     $state.go('tab.home')
   }
-
 
   $scope.subscribe = function (debateID) {
      fbUser.checkSubscription(debateID).then(function(result){
@@ -247,7 +288,6 @@ angular.module('controllers', ['firebase'])
     }
   }
 
-
   $scope.createArgument = function() {
     var argumentData = {
       text: $scope.modelData.argText,
@@ -269,5 +309,45 @@ angular.module('controllers', ['firebase'])
   $scope.$on('$ionicView.beforeEnter', function (event, viewData) {
     viewData.enableBack = true;
     $scope.refreshArguments();
+  });
+})
+
+.controller('MainArgumentCtrl', function($scope, $stateParams, debateServ, $window, fbUser, $state){
+  $scope.argInfo = $stateParams.argInfo
+  $scope.modelData = {}
+  $scope.getCounterArguments = []
+
+  $scope.createCounterArgument = function() {
+    var argumentData = {
+      text: $scope.modelData.argText,
+      origArgumentID: $scope.argInfo.argumentID,
+      upvoters: {}
+    }
+
+    debateServ.createCounterArgument(argumentData, fbUser.getUid());
+
+    $scope.modelData.argText = ""
+    $scope.refreshCounterArguments()
+
+  }
+
+  $scope.refreshCounterArguments = function () {
+    var promise = debateServ.updateCounterArguments($scope.argInfo.argumentID);
+
+    promise.then(function (arguments) {
+      $scope.getCounterArguments = arguments
+      $scope.$broadcast('scroll.refreshComplete');
+      fbUser.viewReset()
+   });
+  }
+
+  $scope.pressBack = function () {
+    $state.go('mainDebate', {debateid : $scope.argInfo.debateID})
+  }
+
+  // === VIEW EVENTS ===
+  $scope.$on('$ionicView.beforeEnter', function (event, viewData) {
+    viewData.enableBack = true;
+    $scope.refreshCounterArguments();
   });
 });

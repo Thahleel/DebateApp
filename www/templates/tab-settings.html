@@ -4,16 +4,16 @@
       <button class="button button-full button-light settings-button" ng-click="openMyInfoPage()">
         <div class="btn-name">My Info</div><div class="btn-arrow">></div>
       </button>
-      <button class="button button-full button-light settings-button">
+      <button class="button button-full button-light settings-button" ng-click="modal.show()">
         <div class="btn-name">Set Handle</div><div class="btn-arrow">></div>
       </button>
     </div>
     <div class="btn-group">
       <button class="button button-full button-light settings-button">
-        <div class="btn-name">Theme</div><div class="btn-arrow">></div>
+        <div class="btn-name">Community Guidelines</div><div class="btn-arrow">></div>
       </button>
       <button class="button button-full button-light settings-button">
-        <div class="btn-name">My Topics</div><div class="btn-arrow">></div>
+        <div class="btn-name">Preferences</div><div class="btn-arrow">></div>
       </button>
     </div>
     <div class="btn-group">
@@ -22,4 +22,24 @@
       </button>
     </div>
   </ion-content>
+
+  <script id="templates/modal.html" type="text/ng-template">
+        <ion-modal-view>
+          <ion-header-bar class="bar bar-header bar-modal">
+            <h1 class="title">Set your handle</h1>
+            <button class="button button-clear button-primary" ng-click="hideModal()">Cancel</button>
+          </ion-header-bar>
+          <ion-content class="padding">
+            <div class="handle-upper-pad"></div>
+            <div class="list">
+
+              <label class="item item-input">
+                <input id="handle" type="text" placeholder="Enter your handle" ng-model="Handle">
+              </label>
+
+              <button class="button button-full button-modal" ng-click="saveHandle(Handle)">Save Handle</button>
+            </div>
+          </ion-content>
+        </ion-modal-view>
+    </script>
 </ion-view>
