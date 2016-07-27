@@ -33,7 +33,10 @@ angular.module('directives', ['ionic','firebase'])
       scope.name = ""
 
       scope.upVoteArgument = function () {
-        var location = 'arguments/'+scope.argInfo.argumentID+'/upvoters/'+fbUser.getUid()
+        var location = 'arguments/'+
+        (scope.argInfo.side === "undecided" ? scope.argInfo.origArgumentID+"/counterArguments/" : "")+
+        scope.argInfo.argumentID+'/upvoters/'+fbUser.getUid()
+
         firebase.database().ref(location).once('value').then(function (upvotedBeforeSnap) {
           var upvotedBefore = upvotedBeforeSnap.val()
 
@@ -55,10 +58,14 @@ angular.module('directives', ['ionic','firebase'])
 
           }
 
-          firebase.database().ref('arguments/'+scope.argInfo.argumentID).update(
+          firebase.database().ref('arguments/'+
+          (scope.argInfo.side === "undecided" ? scope.argInfo.origArgumentID+"/counterArguments/" : "")+
+          scope.argInfo.argumentID).update(
             {upvotes : scope.argInfo.upvotes}
           )
-          firebase.database().ref('arguments/'+scope.argInfo.argumentID+'/upvoters').update(updates)
+          firebase.database().ref('arguments/'+
+          (scope.argInfo.side === "undecided" ? scope.argInfo.origArgumentID+"/counterArguments/" : "")+
+          scope.argInfo.argumentID+'/upvoters').update(updates)
           fbUser.viewReset()
         })
       }
