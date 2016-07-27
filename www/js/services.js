@@ -405,7 +405,7 @@ angular.module('services', ['ionic','firebase'])
       firebase.database().ref('arguments/'+argumentData.origArgumentID+'/counterArguments/'+counterArgumentid)
       .update({argumentID : counterArgumentid})
 
-      return argumentid
+      return counterArgumentid
     },
 
     /* Returns promise for the debate information of debateid */

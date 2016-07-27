@@ -240,11 +240,6 @@ body {
   border-top-color: rgb(173, 126, 195);
 }
 
-.bottomArgSubmit {
-  position: fixed;
-  bottom: 0px;
-}
-
 .handle-upper-pad {
   height: 40px;
 }
