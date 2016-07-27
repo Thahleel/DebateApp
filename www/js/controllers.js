@@ -346,7 +346,6 @@ angular.module('controllers', ['firebase'])
     }
 
     debateServ.createCounterArgument(argumentData, fbUser.getUid());
-
     $scope.modelData.argText = ""
     $scope.refreshCounterArguments()
 

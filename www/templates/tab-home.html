@@ -7,10 +7,6 @@
 
     <h2> Welcome {{ name }}</h2>
     <button class="button button-block button-positive" ng-click="modal.show()"> Create Debate </button>
-
-    <p>Recent(ordered by new) / Popular / Preferences </p>
-    <p> Filter (Open/Closed)</p>
-
     <label class="item item-input" ng-click="openFilterPopover($event)" >
       <span class="input-label" >Filter By:</span>
       <span>{{filter.choice}}</span>
