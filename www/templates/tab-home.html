@@ -11,6 +11,11 @@
     <p>Recent(ordered by new) / Popular / Preferences </p>
     <p> Filter (Open/Closed)</p>
 
+    <label class="item item-input" ng-click="openFilterPopover($event)" >
+      <span class="input-label" >Filter By:</span>
+      <span>{{filter.choice}}</span>
+    </label>
+
     <div ng-repeat="debate in allDebates">
       <debate-card debate-info="debate"></debate-card>
     </div>

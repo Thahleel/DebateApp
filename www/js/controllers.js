@@ -71,6 +71,27 @@ angular.module('controllers', ['firebase'])
   $scope.allDebates = [];
   $scope.state = $state;
 
+  $scope.filter = {choice: "All"}
+
+  $scope.$watch('filter.choice', function(){
+    if($scope.filter.choice === "All"){
+      debateServ.removeFilter();
+      $scope.refreshDebates();
+    }else{
+      debateServ.addTopicFilter($scope.filter.choice);
+      $scope.refreshDebates();
+    }
+  })
+
+
+  $ionicPopover.fromTemplateUrl('templates/filters.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.filterPopover = modal;
+  });
+
+
   $scope.refreshDebates = function () {
     var promise = debateServ.updateAllDebates();
 
@@ -96,6 +117,10 @@ angular.module('controllers', ['firebase'])
     $scope.modal.hide();
   }
 
+  $scope.openFilterPopover = function($event) {
+    $scope.filterPopover.show($event);
+  };
+
   // === VIEW EVENTS ===
   $scope.$on('$ionicView.enter', function(){
     $scope.refreshDebates();
@@ -111,10 +136,6 @@ angular.module('controllers', ['firebase'])
  // Selects a topic from the drowndown list.
  $scope.topic = {choice: ""}
  $scope.allTopics = debateServ.getAllTopics()
-
- $scope.$watch("topic.choice", function(){
-   fbUser.viewReset()
- })
 
  $ionicPopover.fromTemplateUrl('templates/topics.html', {
    scope: $scope,
