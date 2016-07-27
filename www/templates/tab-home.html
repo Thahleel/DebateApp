@@ -1,4 +1,4 @@
-<ion-view view-title="Home">
+<ion-view view-title="Debatable">
   <ion-content class="padding">
     <ion-refresher
     pulling-text="Pull to refresh..."
@@ -20,7 +20,7 @@
 
   <script id="templates/modal.html" type="text/ng-template">
         <ion-modal-view>
-          <ion-header-bar class="bar bar-header bar-positive">
+          <ion-header-bar class="bar bar-header bar-modal">
             <h1 class="title">New Debate</h1>
             <button class="button button-clear button-primary" ng-click="hideModal()">Cancel</button>
           </ion-header-bar>
@@ -45,7 +45,7 @@
           	    <span class="input-label">End Time</span>
           	    <input id="endtime" type="time" ng-model="EndTime">
           	  </label>
-              <button class="button button-full button-positive" ng-click="create(Premise,EndDate,EndTime)">Create</button>
+              <button class="button button-full button-modal" ng-click="create(Premise,EndDate,EndTime)">Create</button>
             </div>
           </ion-content>
         </ion-modal-view>

@@ -4,8 +4,7 @@
     -->
   <div ng-controller="MainDebateCtrl">
     <ion-nav-bar class="bar-main">
-      <ion-nav-back-button class="button-clear">
-      </ion-nav-back-button>
+      <ion-nav-back-button class="button-clear">        </ion-nav-back-button>
       <ion-nav-buttons side="right">
         <button class="button button-clear button-light" ng-click="subscribe(debateData.debateID)">
           <p ng-bind-html="subVal"></p>
@@ -18,7 +17,7 @@
     pulling-text="Pull to refresh..."
     on-refresh="refreshArguments()">
     </ion-refresher>
-    <H1> {{ debateData.premise }} </H1>
+    <h1> {{ debateData.premise }} </h1>
     <div class="button-bar">
       <a id="proBut" ng-click="switchArgState('pro')" class="button button-positive">Pro</a>
       <a id="conBut" ng-click="switchArgState('con')" class="button button-assertive button-outline">Con</a>

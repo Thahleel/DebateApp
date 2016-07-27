@@ -181,9 +181,28 @@ angular.module('controllers', ['firebase'])
 
 })
 
-.controller('SettingsCtrl', function($scope, $state, $window, $ionicActionSheet, fbUser) {
+.controller('SettingsCtrl', function($scope, $state, $window, $ionicActionSheet, fbUser, $ionicModal) {
   $scope.openMyInfoPage = function () {
     $state.go('tab.userinfo')
+  }
+
+  $scope.hideModal = function () {
+    document.getElementById("handle").value = "";
+
+    $scope.modal.hide();
+  }
+
+  $ionicModal.fromTemplateUrl('templates/modal.html', {
+   scope: $scope
+  }).then(function(modal) {
+   $scope.modal = modal;
+  });
+
+
+  $scope.saveHandle = function ($handle) {
+    var handleChoice = fbUser.setHandle({
+      handle: $handle
+    })
   }
 
   $scope.showActionsheet = function() {
