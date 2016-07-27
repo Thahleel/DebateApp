@@ -130,7 +130,6 @@ angular.module('services', ['ionic','firebase'])
       return newDebateID;
     },
 
-
     checkSubscription : function(debateID){
 
      return firebase.database().ref('users/'+uid+'/subscribedDebates/'+debateID)

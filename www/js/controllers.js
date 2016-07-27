@@ -162,7 +162,7 @@ angular.module('controllers', ['firebase'])
   document.getElementById("enddate").value = "";
   document.getElementById("endtime").value = "";
 
-  $state.go('mainDebate', {debateid : debateIDArg})
+  $state.go('vote', {debateid : debateIDArg})
  }
 
  $scope.openPopover = function($event) {
@@ -262,21 +262,16 @@ angular.module('controllers', ['firebase'])
 })
 
 .controller('MainDebateCtrl', function($scope, $stateParams, debateServ, $window, fbUser, $state){
-  var debateid = $stateParams.debateid
+  var debateid = $stateParams.debateData.debateID
   var argumentState = 'pro'
   $scope.modelData = {}
-  $scope.debateData = {}
+  $scope.debateData = $stateParams.debateData
   var argManager = debateServ.makeArgumentManager(debateid);
   $scope.getArguments = []//argManager.getArguments
   $scope.subVal = (fbUser.getUserData().subscribedDebates[debateid] ? "Unsubscribe" : "Subscribe")
 
-  debateServ.getDebate(debateid).then(function (debateSnap) {
-    $scope.debateData = debateSnap.val();
-    fbUser.viewReset()
-  })
-
   $scope.pressBack = function () {
-    $state.go('tab.home')
+    $state.go('vote', {debateid : debateid})
   }
 
   $scope.subscribe = function (debateID) {
@@ -346,7 +341,7 @@ angular.module('controllers', ['firebase'])
     }
 
     debateServ.createCounterArgument(argumentData, fbUser.getUid());
-    
+
     $scope.modelData.argText = ""
     $scope.refreshCounterArguments()
 
@@ -363,7 +358,10 @@ angular.module('controllers', ['firebase'])
   }
 
   $scope.pressBack = function () {
-    $state.go('mainDebate', {debateid : $scope.argInfo.debateID})
+    firebase.database().ref('debates/'+$scope.argInfo.debateID).once('value')
+    .then(function (debateSnap) {
+      $state.go('mainDebate', {debateData : debateSnap.val()})
+    })
   }
 
   // === VIEW EVENTS ===
@@ -371,4 +369,44 @@ angular.module('controllers', ['firebase'])
     viewData.enableBack = true;
     $scope.refreshCounterArguments();
   });
-});
+})
+
+.controller('VoteCtrl', function($scope, $stateParams, debateServ, $window, fbUser, $state){
+  var debateid = $stateParams.debateid
+  $scope.debateData = {}
+  $scope.name = ""
+  $scope.dateText = ""
+  $scope.endDateText = ""
+  $scope.stage = ""
+  $scope.isVoter = false;
+
+  // == Data base variable retrievals ==
+  debateServ.getDebate(debateid).then(function (debateSnap) {
+    $scope.debateData = debateSnap.val();
+
+    firebase.database().ref('debates/'+debateid+'/preVoters/'+fbUser.getUid()).once('value')
+    .then(function (voterSnap) {
+      $scope.isVoter = (voterSnap.val() == null ? false : voterSnap.val())
+    })
+
+    firebase.database().ref('users/'+$scope.debateData.creator+'/handle').once('value')
+    .then(function (nameSnap) {
+      $scope.name = nameSnap.val()
+      fbUser.viewReset()
+    })
+
+    var date = new Date($scope.debateData.creationDate)
+    $scope.dateText = date.toLocaleDateString()
+    date = new Date($scope.debateData.endDate)
+    $scope.endDateText = date.getHours() + ":" + (date.getMinutes() < 10 ? "0" : "") +
+                         date.getMinutes() + " | " + date.toLocaleDateString()
+    $scope.stage = $scope.debateData.endDate - Date.now()  > 0 ? "debate" :
+                ($scope.debateData.endDate + 24*3600*1000 - Date.now()  > 0
+                ? "post-debate" : "closed")
+  })
+
+  $scope.goMainDebate = function () {
+    $state.go('mainDebate', {debateData : $scope.debateData})
+  }
+})
+;

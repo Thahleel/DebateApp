@@ -8,11 +8,12 @@ angular.module('directives', ['ionic','firebase'])
     },
     templateUrl: 'js/directives/debateCard.html',
     link: function(scope, elem, attrs) {
-      scope.stage = Date.now() - scope.debateInfo.endDate > 0
-                    ? "debate" : "post-debate"
+      scope.stage = scope.debateInfo.endDate - Date.now()  > 0 ? "debate" :
+                   (scope.debateInfo.endDate + 24*3600*1000 - Date.now()  > 0
+                   ? "post-debate" : "closed")
 
       elem.bind("click", function (e) {
-        $state.go('mainDebate', {debateid : scope.debateInfo.debateID})
+        $state.go('vote', {debateid : scope.debateInfo.debateID})
       })
     }
   }

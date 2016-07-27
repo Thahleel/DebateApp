@@ -102,7 +102,7 @@ var app = angular.module('starter', ['ionic', 'controllers', 'firebase', 'servic
     templateUrl: 'templates/debateMain.html',
     controller: 'MainDebateCtrl',
     params: {
-      debateid: null
+      debateData: null
     }
   })
 
@@ -112,6 +112,15 @@ var app = angular.module('starter', ['ionic', 'controllers', 'firebase', 'servic
     controller: 'MainArgumentCtrl',
     params: {
       argInfo: null
+    }
+  })
+
+  .state('vote', {
+    url: '/vote',
+    templateUrl: 'templates/votePage.html',
+    controller: 'VoteCtrl',
+    params: {
+      debateid: null
     }
   });
 

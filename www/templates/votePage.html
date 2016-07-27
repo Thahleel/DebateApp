@@ -1,0 +1,29 @@
+<ion-view cache-view="false">
+  <!--
+      The nav bar that will be updated as we navigate between views.
+    -->
+  <div ng-controller="VoteCtrl">
+    <ion-nav-bar class="bar-main">
+      <ion-nav-back-button class="button-clear"></ion-nav-back-button>
+      <ion-nav-buttons side="right">
+        <button class="button button-clear button-light" ng-click="">
+          <p ng-bind-html="subVal"></p>
+        </button>
+      </ion-nav-buttons>
+    </ion-nav-bar>
+  </div>
+  <ion-content class="">
+    <h1> {{ debateData.premise }} </h1>
+    <h3> Made by {{ name }} on {{ dateText }}</h3>
+    <h3> Debate ends at: {{ endDateText }}</h3>
+    <h3> Stage : {{ stage }}</h3>
+
+    <button class="button button-full button-calm" ng-hide="!isVoter">
+      Vote on the debate!
+    </button>
+    <button class="button button-full button-royal" ng-hide="isVoter"
+            ng-click="goMainDebate()">
+      Start debating!
+    </button>
+  </ion-content>
+</ion-view>
