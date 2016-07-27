@@ -65,7 +65,7 @@ angular.module('controllers', ['firebase'])
   };
 })
 
-.controller('HomeCtrl', function($scope, fbUser, $window, debateServ, $state) {
+.controller('HomeCtrl', function($scope, fbUser, $window, debateServ, $state, $ionicModal, $ionicPopover, $sce, debateServ) {
   $scope.name = fbUser.getFirebaseUser().displayName;
   $scope.userData = fbUser.getUserData();
   $scope.allDebates = [];
@@ -87,14 +87,75 @@ angular.module('controllers', ['firebase'])
    });
   }
 
-  $scope.switchCreatePage = function () {
-    $state.go("createDebate");
+  $scope.hideModal = function () {
+    $scope.topic = {choice: ""};
+    document.getElementById("premise").value = "";
+    document.getElementById("enddate").value = "";
+    document.getElementById("endtime").value = "";
+
+    $scope.modal.hide();
   }
 
   // === VIEW EVENTS ===
   $scope.$on('$ionicView.enter', function(){
     $scope.refreshDebates();
   });
+
+  $ionicModal.fromTemplateUrl('templates/modal.html', {
+   scope: $scope
+ }).then(function(modal) {
+   $scope.modal = modal;
+ });
+
+ // The debate topic will default to general. This will is changed when a user
+ // Selects a topic from the drowndown list.
+ $scope.topic = {choice: ""}
+ $scope.allTopics = debateServ.getAllTopics()
+
+ $scope.$watch("topic.choice", function(){
+   fbUser.viewReset()
+ })
+
+ $ionicPopover.fromTemplateUrl('templates/topics.html', {
+   scope: $scope,
+   animation: 'slide-in-up'
+ }).then(function(modal) {
+   $scope.popover = modal;
+ });
+
+ $scope.create = function (debateTitle,debateEndDate,debateEndTime) {
+  var debateIDArg = fbUser.createDebate({
+    topic: $scope.topic.choice,
+    premise: debateTitle,
+    endDate: debateEndDate.getTime() + debateEndTime.getTime()
+  })
+
+  //$scope.topic = ""; This doesn't work, if you do this, it will only let you add 1 debate per session
+  this.debateTitle = null;
+  this.debateEndTime = null;
+  this.debateEndDate = null;
+
+  $scope.modal.hide();
+  $scope.topic = {choice: ""};
+  document.getElementById("premise").value = "";
+  document.getElementById("enddate").value = "";
+  document.getElementById("endtime").value = "";
+
+  $state.go('mainDebate', {debateid : debateIDArg})
+ }
+
+ $scope.openPopover = function($event) {
+   $scope.popover.show($event);
+ };
+ $scope.closePopover = function() {
+   $scope.popover.hide();
+ };
+
+ // Execute action on hide popover
+ $scope.$on('popover.hidden', function() {
+
+   // Execute action
+ });
 })
 
 .controller('PersonalCtrl', function($scope, fbUser) {
@@ -156,54 +217,7 @@ angular.module('controllers', ['firebase'])
 })
 
 .controller('CreateDebateCtrl', function($scope, $state, fbUser, $ionicPopover, $sce, debateServ) {
-  // The debate topic will default to general. This will is changed when a user
-  // Selects a topic from the drowndown list.
-  $scope.topic = {choice: ""}
-  $scope.allTopics = debateServ.getAllTopics()
 
-  $scope.$watch("topic.choice", function(){
-    fbUser.viewReset()
-  })
-
-  $ionicPopover.fromTemplateUrl('templates/topics.html', {
-    scope: $scope,
-    animation: 'slide-in-up'
-  }).then(function(modal) {
-    $scope.popover = modal;
-  });
-
-
-  $scope.goBackHome = function () {
-    $state.go('tab.home')
-  }
-
-  $scope.create = function (debateTitle,debateEndDate,debateEndTime) {
-   var debateIDArg = fbUser.createDebate({
-     topic: $scope.topic.choice,
-     premise: debateTitle,
-     endDate: debateEndDate.getTime() + debateEndTime.getTime()
-   })
-
-   $scope.topic = "";
-   this.debateTitle = null;
-   this.debateEndTime = null;
-   this.debateEndDate = null;
-
-   $state.go('mainDebate', {debateid : debateIDArg})
-  }
-
-  $scope.openPopover = function($event) {
-    $scope.popover.show($event);
-  };
-  $scope.closePopover = function() {
-    $scope.popover.hide();
-  };
-
-  // Execute action on hide popover
-  $scope.$on('popover.hidden', function() {
-
-    // Execute action
-  });
 
 })
 

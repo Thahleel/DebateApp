@@ -6,7 +6,7 @@
     </ion-refresher>
 
     <h2> Welcome {{ name }}</h2>
-    <button class="button button-block button-positive" ng-click="switchCreatePage()"> Create Debate </button>
+    <button class="button button-block button-positive" ng-click="modal.show()"> Create Debate </button>
 
     <p>Recent(ordered by new) / Popular / Preferences </p>
     <p> Filter (Open/Closed)</p>
@@ -16,4 +16,39 @@
     </div>
 
   </ion-content>
+
+
+  <script id="templates/modal.html" type="text/ng-template">
+        <ion-modal-view>
+          <ion-header-bar class="bar bar-header bar-positive">
+            <h1 class="title">New Debate</h1>
+            <button class="button button-clear button-primary" ng-click="hideModal()">Cancel</button>
+          </ion-header-bar>
+          <ion-content class="padding">
+            <div class="list">
+              <label class="item item-input" ng-click="openPopover($event)" >
+          	    <span class="input-label" >Topic</span>
+          	    <span id="debatetopic">{{topic.choice}}</span>
+          	  </label>
+
+          	  <label class="item item-input">
+          	    <span class="input-label" >Debate Premise</span>
+          	    <input id="premise" type="text" ng-model="Premise">
+          	  </label>
+
+          	  <label class="item item-input">
+          	    <span class="input-label">End Date</span>
+          	    <input id="enddate" type="date" ng-model="EndDate">
+          	  </label>
+
+          	  <label class="item item-input">
+          	    <span class="input-label">End Time</span>
+          	    <input id="endtime" type="time" ng-model="EndTime">
+          	  </label>
+              <button class="button button-full button-positive" ng-click="create(Premise,EndDate,EndTime)">Create</button>
+            </div>
+          </ion-content>
+        </ion-modal-view>
+    </script>
+
 </ion-view>
