@@ -418,8 +418,18 @@ angular.module('controllers', ['firebase'])
                 ? "post-debate" : "closed")
   })
 
+  $scope.pressBack = function () {
+    $state.go('tab.home');
+  }
+
   $scope.goMainDebate = function () {
     $state.go('mainDebate', {debateData : $scope.debateData})
   }
+
+  // === VIEW EVENTS ===
+  $scope.$on('$ionicView.beforeEnter', function (event, viewData) {
+    viewData.enableBack = true;
+    $scope.refreshArguments();
+  });
 })
 ;
