@@ -21,9 +21,18 @@
     <button class="button button-full button-calm" ng-hide="!isVoter">
       Vote on the debate!
     </button>
-    <button class="button button-full button-royal" ng-hide="isVoter"
-            ng-click="goMainDebate()">
-      Start debating!
+
+    <button class="button button-block button-positive" ng-hide="isVoter"
+            ng-click="goMainDebate('proposition')">
+      I Support The Proposed Premise
+    </button>
+    <button class="button button-block button-dark" ng-hide="isVoter"
+            ng-click="goMainDebate('undecided')">
+      I Am Undecided
+    </button>
+    <button class="button button-block button-assertive" ng-hide="isVoter"
+            ng-click="goMainDebate('opposition')">
+      I Oppose The Proposed Premise
     </button>
   </ion-content>
 </ion-view>

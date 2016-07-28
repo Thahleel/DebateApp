@@ -283,6 +283,8 @@ angular.module('controllers', ['firebase'])
   $scope.getArguments = []//argManager.getArguments
   $scope.subVal = (fbUser.getUserData().subscribedDebates[debateid] ? "Unsubscribe" : "Subscribe")
 
+
+
   $scope.pressBack = function () {
     $state.go('vote', {debateid : debateid})
   }
@@ -393,6 +395,7 @@ angular.module('controllers', ['firebase'])
   $scope.stage = ""
   $scope.isVoter = false;
 
+
   // == Data base variable retrievals ==
   debateServ.getDebate(debateid).then(function (debateSnap) {
     $scope.debateData = debateSnap.val();
@@ -422,7 +425,8 @@ angular.module('controllers', ['firebase'])
     $state.go('tab.home');
   }
 
-  $scope.goMainDebate = function () {
+  $scope.goMainDebate = function (side) {
+    window.alert(side);
     $state.go('mainDebate', {debateData : $scope.debateData})
   }
 
