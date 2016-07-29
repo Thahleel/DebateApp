@@ -402,7 +402,7 @@ angular.module('controllers', ['firebase'])
 
     firebase.database().ref('debates/'+debateid+'/preVoters/'+fbUser.getUid()).once('value')
     .then(function (voterSnap) {
-      $scope.isVoter = (voterSnap.val() == null ? false : voterSnap.val())
+      $scope.isVoter = (voterSnap.val() == null ? false : true)
     })
 
     firebase.database().ref('users/'+$scope.debateData.creator+'/handle').once('value')
@@ -425,8 +425,7 @@ angular.module('controllers', ['firebase'])
     $state.go('tab.home');
   }
 
-  $scope.goMainDebate = function (side) {
-    window.alert(side);
+  $scope.goMainDebate = function () {
     $state.go('mainDebate', {debateData : $scope.debateData})
   }
 
