@@ -152,7 +152,6 @@ angular.module('controllers', ['firebase'])
     endDate: debateEndDate.getTime() + debateEndTime.getTime()
   })
 
-  //$scope.topic = ""; This doesn't work, if you do this, it will only let you add 1 debate per session
   this.debateTitle = null;
   this.debateEndTime = null;
   this.debateEndDate = null;
@@ -185,11 +184,6 @@ angular.module('controllers', ['firebase'])
    $scope.popover.hide();
  };
 
- // Execute action on hide popover
- $scope.$on('popover.hidden', function() {
-
-   // Execute action
- });
 })
 
 .controller('PersonalCtrl', function($scope, fbUser) {
@@ -219,12 +213,6 @@ angular.module('controllers', ['firebase'])
   $scope.userData = fbUser.getUserData();
   $scope.openMyInfoPage = function () {
     $state.go('tab.userinfo')
-  }
-
-  $scope.hideModal = function () {
-    //document.getElementById("handle").value = "";
-
-    $scope.modal.hide();
   }
 
   $ionicModal.fromTemplateUrl('templates/modal.html', {
