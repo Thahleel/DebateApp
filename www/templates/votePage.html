@@ -16,13 +16,16 @@
     <h1> {{ debateData.premise }} </h1>
     <h3> Made by {{ name }} on {{ dateText }}</h3>
     <h3> Debate ends at: {{ endDateText }}</h3>
-    <h3> Stage : {{ stage }}</h3>
+    <h3> Stage : {{ stageText }}</h3>
 
     <button class="button button-full button-calm" ng-show="isVoter&&voteChecked" ng-click="goMainDebate()">
       Start debating!
     </button>
 
     <div ng-show="!isVoter&&voteChecked">
+      <h3 ng-show="stage === 'post'"> The debate over and post debate voting is now open. Please
+                                      add another vote for the motion so a final score can be determined.
+                                      (If this is your first time voting, your vote wont count towards final score)</h3>
       <button class="button button-block button-positive" ng-click="makeVote('Pro')">
         I Support The Proposed Premise
       </button>

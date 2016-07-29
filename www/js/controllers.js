@@ -386,6 +386,7 @@ angular.module('controllers', ['firebase'])
   $scope.name = ""
   $scope.dateText = ""
   $scope.endDateText = ""
+  $scope.stageText = ""
   $scope.stage = ""
   $scope.isVoter = false;
 
@@ -412,9 +413,11 @@ angular.module('controllers', ['firebase'])
     date = new Date($scope.debateData.endDate)
     $scope.endDateText = date.getHours() + ":" + (date.getMinutes() < 10 ? "0" : "") +
                          date.getMinutes() + " | " + date.toLocaleDateString()
-    $scope.stage = $scope.debateData.endDate - Date.now()  > 0 ? "debate" :
+    $scope.stage = $scope.debateData.endDate - Date.now()  > 0 ? "pre" :
                 ($scope.debateData.endDate + 24*3600*1000 - Date.now()  > 0
-                ? "post-debate" : "closed")
+                ? "post" : "closed")
+    $scope.stageText = $scope.stage === "pre" ? "debate" :
+                ($scope.stage === "post" ? "post-debate" : "closed")
   })
 
   $scope.pressBack = function () {
