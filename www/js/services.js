@@ -70,6 +70,12 @@ angular.module('services', ['ionic','firebase'])
       return uid
     },
 
+    updateUserHandle : function(newHandle){
+      
+       firebase.database().ref('users/'+uid).update({"handle" : newHandle})
+    },
+
+
     // Used to initialise any data the user needs when signing in
     initalUserSetup : function (user) {
       if (!user) {

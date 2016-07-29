@@ -233,13 +233,17 @@ angular.module('controllers', ['firebase'])
    $scope.modal = modal;
   });
 
-  $scope.handle = {name : "default"}
-  $scope.$watch('handle.name', function(){
-    window.alert($scope.handle.name)
+  $scope.handle = {name : $scope.userData.handle}
+  
 
-    //$scope.modal.hide();
-  })
-
+  $scope.updateHandle = function (){
+    if($scope.handle.name == ""){
+      window.alert("You Must Enter A Handle Before Saving!")
+    }else{
+      fbUser.updateUserHandle($scope.handle.name);
+      $scope.modal.hide();
+    }
+  }
   $scope.showActionsheet = function() {
     $ionicActionSheet.show({
       titleText: 'Sign out of Debatable?',
