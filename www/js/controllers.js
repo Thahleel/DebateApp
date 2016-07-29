@@ -369,7 +369,10 @@ angular.module('controllers', ['firebase'])
   $scope.pressBack = function () {
     firebase.database().ref('debates/'+$scope.argInfo.debateID).once('value')
     .then(function (debateSnap) {
-      $state.go('mainDebate', {debateData : debateSnap.val()})
+      var stagev = debateSnap.val().endDate - Date.now()  > 0 ? "pre" :
+                  (debateSnap.val().endDate + 24*3600*1000 - Date.now()  > 0
+                  ? "post" : "closed")
+      $state.go('mainDebate', {debateData : debateSnap.val(), stage : stagev})
     })
   }
 
