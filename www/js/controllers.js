@@ -216,12 +216,13 @@ angular.module('controllers', ['firebase'])
 })
 
 .controller('SettingsCtrl', function($scope, $state, $window, $ionicActionSheet, fbUser, $ionicModal) {
+  $scope.userData = fbUser.getUserData();
   $scope.openMyInfoPage = function () {
     $state.go('tab.userinfo')
   }
 
   $scope.hideModal = function () {
-    document.getElementById("handle").value = "";
+    //document.getElementById("handle").value = "";
 
     $scope.modal.hide();
   }
@@ -232,12 +233,12 @@ angular.module('controllers', ['firebase'])
    $scope.modal = modal;
   });
 
+  $scope.handle = {name : "default"}
+  $scope.$watch('handle.name', function(){
+    window.alert($scope.handle.name)
 
-  $scope.saveHandle = function ($handle) {
-    var handleChoice = fbUser.setHandle({
-      handle: $handle
-    })
-  }
+    //$scope.modal.hide();
+  })
 
   $scope.showActionsheet = function() {
     $ionicActionSheet.show({
