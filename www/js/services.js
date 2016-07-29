@@ -237,11 +237,10 @@ angular.module('services', ['ionic','firebase'])
         $window.alert("Firebase user is null")
       }
     }
-
   }
 })
 
-.factory('debateServ', function($window){
+.factory('debateServ', function($window) {
   var debateDB = firebase.database().ref('debates')
   var topicFilter = ""
   var allTopics = ["General","Gaming","Sports","Politics","Tech","TV","Anime"
