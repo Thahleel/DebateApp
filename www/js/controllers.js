@@ -396,13 +396,6 @@ angular.module('controllers', ['firebase'])
   debateServ.getDebate(debateid).then(function (debateSnap) {
     $scope.debateData = debateSnap.val();
 
-    firebase.database().ref('debates/'+debateid+'/preVoters/'+fbUser.getUid()).once('value')
-    .then(function (voterSnap) {
-      $scope.isVoter = (voterSnap.val() == null ? false : true)
-      $scope.voteChecked = true;
-      fbUser.viewReset()
-    })
-
     firebase.database().ref('users/'+$scope.debateData.creator+'/handle').once('value')
     .then(function (nameSnap) {
       $scope.name = nameSnap.val()
@@ -419,6 +412,13 @@ angular.module('controllers', ['firebase'])
                 ? "post" : "closed")
     $scope.stageText = $scope.stage === "pre" ? "debate" :
                 ($scope.stage === "post" ? "post-debate" : "closed")
+
+    firebase.database().ref('debates/'+debateid+'/'+$scope.stage+'Voters/'+fbUser.getUid()).once('value')
+    .then(function (voterSnap) {
+      $scope.isVoter = (voterSnap.val() == null ? false : true)
+      $scope.voteChecked = true;
+      fbUser.viewReset()
+    })
   })
 
   $scope.pressBack = function () {
@@ -430,14 +430,14 @@ angular.module('controllers', ['firebase'])
   }
 
   $scope.makeVote = function (vote) {
-    $scope.debateData['pre'+vote+'Votes']++
+    $scope.debateData[$scope.stage+vote+'Votes']++
     var updates = {}
-    updates['pre'+vote+'Votes'] = $scope.debateData['pre'+vote+'Votes']
+    updates[$scope.stage+vote+'Votes'] = $scope.debateData[$scope.stage+vote+'Votes']
     firebase.database().ref('debates/'+debateid).update(updates)
 
     updates = {}
     updates[fbUser.getUid()] = vote
-    firebase.database().ref('debates/'+debateid+'/preVoters').update(updates)
+    firebase.database().ref('debates/'+debateid+'/'+$scope.stage+'Voters').update(updates)
 
     $scope.goMainDebate()
   }
