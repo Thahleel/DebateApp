@@ -34,6 +34,16 @@ angular.module('directives', ['ionic','firebase'])
       scope.dateText = date.getHours() + ":" + (date.getMinutes() < 10 ? "0" : "") + date.getMinutes() + " | " + date.toLocaleDateString()
       scope.name = ""
 
+      //If we want the text truncated and its long enough to be
+      if(scope.truncate === true && scope.argInfo.text.length <= 50 ){
+        //truncate the text
+        var textToDisplay = scope.argInfo.text.substring(0,47) + "..."
+      }else{
+        //original text remians
+        var textToDisplay = scope.argInfo.text;
+      }
+
+
       scope.upVoteArgument = function () {
         var location = 'arguments/'+
         (scope.argInfo.side === "undecided" ? scope.argInfo.origArgumentID+"/counterArguments/" : "")+
