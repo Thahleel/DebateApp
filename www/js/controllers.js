@@ -276,7 +276,7 @@ angular.module('controllers', ['firebase'])
   var argManager = debateServ.makeArgumentManager(debateid);
   $scope.getArguments = [];
 
-  
+
   $scope.pressBack = function () {
     $state.go('vote', {debateid : debateid})
   }
@@ -385,21 +385,6 @@ angular.module('controllers', ['firebase'])
   $scope.stage = ""
   $scope.isVoter = false;
 
-  var isSub = fbUser.getUserData().subscribedDebates
-  isSub = (isSub === undefined ? false : isSub[debateid])
-  $scope.subVal = ( isSub ? "Unsubscribe" : "Subscribe");
-  
-  $scope.pressBack = function () {
-    $state.go('vote', {debateid : debateid})
-  }
-
-  $scope.subscribe = function (debateID) {
-     fbUser.checkSubscription(debateID).then(function(result){
-       $scope.subVal = result;
-       fbUser.viewReset()
-     });
-  }
-
   // == Data base variable retrievals ==
   debateServ.getDebate(debateid).then(function (debateSnap) {
     $scope.debateData = debateSnap.val();
@@ -421,13 +406,36 @@ angular.module('controllers', ['firebase'])
     $scope.stageText = $scope.stage === "pre" ? "debate" :
                 ($scope.stage === "post" ? "post-debate" : "closed")
 
-    firebase.database().ref('debates/'+debateid+'/'+$scope.stage+'Voters/'+fbUser.getUid()).once('value')
-    .then(function (voterSnap) {
-      $scope.isVoter = (voterSnap.val() == null ? false : true)
+    if ($scope.stage === "closed") {
       $scope.voteChecked = true;
       fbUser.viewReset()
-    })
+    } else {
+      firebase.database().ref('debates/'+debateid+'/'+$scope.stage+'Voters/'+fbUser.getUid()).once('value')
+      .then(function (voterSnap) {
+        $scope.isVoter = (voterSnap.val() == null ? false : true)
+        $scope.voteChecked = true;
+        fbUser.viewReset()
+      })
+    }
+
+
+    fbUser.viewReset()
   })
+
+  var isSub = fbUser.getUserData().subscribedDebates
+  isSub = (isSub === undefined ? false : isSub[debateid])
+  $scope.subVal = ( isSub ? "Unsubscribe" : "Subscribe");
+
+  $scope.pressBack = function () {
+    $state.go('vote', {debateid : debateid})
+  }
+
+  $scope.subscribe = function (debateID) {
+     fbUser.checkSubscription(debateID).then(function(result){
+       $scope.subVal = result;
+       fbUser.viewReset()
+     });
+  }
 
   $scope.pressBack = function () {
     $state.go('tab.home');
