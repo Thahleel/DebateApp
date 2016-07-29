@@ -28,6 +28,7 @@ angular.module('directives', ['ionic','firebase'])
     },
     templateUrl: 'js/directives/argumentCard.html',
     link: function(scope, elem, attrs) {
+      scope.argText = ""
       scope.cardClass = (scope.argInfo.side === "pro" ? "proArgcard" :
                          (scope.argInfo.side === "con" ? "conArgcard" : "unArgcard"));
       var date = new Date(scope.argInfo.creationDate)
@@ -35,12 +36,12 @@ angular.module('directives', ['ionic','firebase'])
       scope.name = ""
 
       //If we want the text truncated and its long enough to be
-      if(scope.truncate === true && scope.argInfo.text.length <= 50 ){
+      if(scope.truncate === true && scope.argInfo.text.length >= 50 ){
         //truncate the text
-        var textToDisplay = scope.argInfo.text.substring(0,47) + "..."
+        scope.argText = scope.argInfo.text.substring(0,47) + "..."
       }else{
         //original text remians
-        var textToDisplay = scope.argInfo.text;
+        scope.argText = scope.argInfo.text;
       }
 
 
