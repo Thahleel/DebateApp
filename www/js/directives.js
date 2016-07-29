@@ -36,9 +36,9 @@ angular.module('directives', ['ionic','firebase'])
       scope.name = ""
 
       //If we want the text truncated and its long enough to be
-      if(scope.truncate === true && scope.argInfo.text.length >= 50 ){
+      if(scope.truncate === true && scope.argInfo.text.length >= 200 ){
         //truncate the text
-        scope.argText = scope.argInfo.text.substring(0,47) + "..."
+        scope.argText = scope.argInfo.text.substring(0,197) + "..."
       }else{
         //original text remians
         scope.argText = scope.argInfo.text;
