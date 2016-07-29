@@ -276,18 +276,9 @@ angular.module('controllers', ['firebase'])
   var argManager = debateServ.makeArgumentManager(debateid);
   $scope.getArguments = [];
 
-  var isSub = fbUser.getUserData().subscribedDebates
-  isSub = (isSub === undefined ? false : isSub[debateid])
-  $scope.subVal = ( isSub ? "Unsubscribe" : "Subscribe");
+  
   $scope.pressBack = function () {
     $state.go('vote', {debateid : debateid})
-  }
-
-  $scope.subscribe = function (debateID) {
-     fbUser.checkSubscription(debateID).then(function(result){
-       $scope.subVal = result;
-       fbUser.viewReset()
-     });
   }
 
   $scope.refreshArguments = function () {
@@ -394,6 +385,20 @@ angular.module('controllers', ['firebase'])
   $scope.stage = ""
   $scope.isVoter = false;
 
+  var isSub = fbUser.getUserData().subscribedDebates
+  isSub = (isSub === undefined ? false : isSub[debateid])
+  $scope.subVal = ( isSub ? "Unsubscribe" : "Subscribe");
+  
+  $scope.pressBack = function () {
+    $state.go('vote', {debateid : debateid})
+  }
+
+  $scope.subscribe = function (debateID) {
+     fbUser.checkSubscription(debateID).then(function(result){
+       $scope.subVal = result;
+       fbUser.viewReset()
+     });
+  }
 
   // == Data base variable retrievals ==
   debateServ.getDebate(debateid).then(function (debateSnap) {
