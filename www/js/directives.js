@@ -23,7 +23,8 @@ angular.module('directives', ['ionic','firebase'])
   return {
     restrict: 'E',
     scope: {
-      argInfo: '='
+      argInfo: '=',
+      truncate: '='
     },
     templateUrl: 'js/directives/argumentCard.html',
     link: function(scope, elem, attrs) {

@@ -17,20 +17,25 @@
     pulling-text="Pull to refresh..."
     on-refresh="refreshArguments()">
     </ion-refresher>
-    <div class="button-bar">
-      <a id="proBut" ng-click="switchArgState('pro')" class="button button-positive">Pro</a>
-      <a id="conBut" ng-click="switchArgState('con')" class="button button-assertive button-outline">Con</a>
+
+    <div ng-show="stage === 'pre'">
+      <div class="button-bar">
+        <a id="proBut" ng-click="switchArgState('pro')" class="button button-positive">Pro</a>
+        <a id="conBut" ng-click="switchArgState('con')" class="button button-assertive button-outline">Con</a>
+      </div>
+
+      <div class="row">
+        <textarea rows="4" cols="40" ng-model="modelData.argText" placeholder="Add argument"></textarea>
+        <button class="button button-small" ng-click="createArgument()">
+          <i class="icon ion-paper-airplane"></i>
+        </button>
+      </div>
     </div>
 
-    <div class="row">
-      <textarea rows="4" cols="40" ng-model="modelData.argText" placeholder="Add argument"></textarea>
-      <button class="button button-small" ng-click="createArgument()">
-        <i class="icon ion-paper-airplane"></i>
-      </button>
-    </div>
+    <h4 ng-show="stage !== 'pre'"> No more arguments allowed as the debate is over </h4>
 
     <div ng-repeat="argument in getArguments">
-      <argument-card arg-info="argument"></argument-card>
+      <argument-card arg-info="argument" truncate=true></argument-card>
     </div>
 
   </ion-content>

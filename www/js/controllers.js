@@ -222,7 +222,7 @@ angular.module('controllers', ['firebase'])
   });
 
   $scope.handle = {name : $scope.userData.handle}
-  
+
 
   $scope.updateHandle = function (){
     if($scope.handle.name == ""){
@@ -270,6 +270,7 @@ angular.module('controllers', ['firebase'])
 .controller('MainDebateCtrl', function($scope, $stateParams, debateServ, $window, fbUser, $state){
   var debateid = $stateParams.debateData.debateID
   var argumentState = 'pro';
+  $scope.stage = $stateParams.stage
   $scope.modelData = {};
   $scope.debateData = $stateParams.debateData;
   var argManager = debateServ.makeArgumentManager(debateid);
@@ -425,7 +426,7 @@ angular.module('controllers', ['firebase'])
   }
 
   $scope.goMainDebate = function () {
-    $state.go('mainDebate', {debateData : $scope.debateData})
+    $state.go('mainDebate', {debateData : $scope.debateData, stage : $scope.stage})
   }
 
   $scope.makeVote = function (vote) {

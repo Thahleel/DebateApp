@@ -102,7 +102,8 @@ var app = angular.module('starter', ['ionic', 'controllers', 'firebase', 'servic
     templateUrl: 'templates/debateMain.html',
     controller: 'MainDebateCtrl',
     params: {
-      debateData: null
+      debateData: null,
+      stage: null
     }
   })
 
