@@ -71,7 +71,7 @@ angular.module('services', ['ionic','firebase'])
     },
 
     updateUserHandle : function(newHandle){
-      
+
        firebase.database().ref('users/'+uid).update({"handle" : newHandle})
     },
 
@@ -130,7 +130,7 @@ angular.module('services', ['ionic','firebase'])
       debateDetails['preConVotes'] = 0;
       debateDetails['preProVotes'] = 0;
       debateDetails['preUndecidedVotes'] = 0;
-      debateDetails['postConVotes'] = 0;
+      debateDetails['postProVotes'] = 0;
       debateDetails['postConVotes'] = 0;
       debateDetails['postUndecidedVotes'] = 0;
 

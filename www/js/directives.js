@@ -84,10 +84,16 @@ angular.module('directives', ['ionic','firebase'])
       }
 
       scope.goArgumentView = function () {
+        if (scope.argInfo.side === 'undecided') {
+          return
+        }
         $state.go('mainArgument', {argInfo : scope.argInfo})
       }
 
-      firebase.database().ref('arguments/'+scope.argInfo.argumentID+'/upvoters/'+fbUser.getUid()).once('value')
+      var location = (scope.argInfo.side !== 'undecided' ?
+                      'arguments/'+scope.argInfo.argumentID+'/upvoters/'+fbUser.getUid():
+                      'arguments/'+scope.argInfo.origArgumentID+'/counterArguments/'+scope.argInfo.argumentID+'/upvoters/'+fbUser.getUid())
+      firebase.database().ref(location).once('value')
       .then(function (upvotedBeforeSnap) {
         if (upvotedBeforeSnap.val()) {
           angular.element( document.querySelector( '#upArrow'+scope.argInfo.argumentID ) ).addClass("balanced")
