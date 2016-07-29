@@ -18,18 +18,18 @@
     <h3> Debate ends at: {{ endDateText }}</h3>
     <h3> Stage : {{ stage }}</h3>
 
-    <button class="button button-full button-calm" ng-show="isVoter" ng-click="goMainDebate()">
+    <button class="button button-full button-calm" ng-show="isVoter&&voteChecked" ng-click="goMainDebate()">
       Start debating!
     </button>
 
-    <div ng-show="!isVoter">
-      <button class="button button-block button-positive" ng-click="">
+    <div ng-show="!isVoter&&voteChecked">
+      <button class="button button-block button-positive" ng-click="makeVote('Pro')">
         I Support The Proposed Premise
       </button>
-      <button class="button button-block button-dark" ng-click="">
+      <button class="button button-block button-dark" ng-click="makeVote('Undecided')">
         I Am Undecided
       </button>
-      <button class="button button-block button-assertive" ng-click="">
+      <button class="button button-block button-assertive" ng-click="makeVote('Con')">
         I Oppose The Proposed Premise
       </button>
     </div>

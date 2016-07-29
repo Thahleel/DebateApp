@@ -121,6 +121,13 @@ angular.module('services', ['ionic','firebase'])
       debateDetails['preVoters'] = {};
       debateDetails['postVoters'] = {};
 
+      debateDetails['preConVotes'] = 0;
+      debateDetails['preProVotes'] = 0;
+      debateDetails['preUndecidedVotes'] = 0;
+      debateDetails['postConVotes'] = 0;
+      debateDetails['postConVotes'] = 0;
+      debateDetails['postUndecidedVotes'] = 0;
+
       var newDebateID = debateServ.createDebate(debateDetails);
 
       var update = {};
@@ -358,10 +365,10 @@ angular.module('services', ['ionic','firebase'])
               }
 
               proArgDB.once('value').then(function (snap) {
-                proObj = snap.val()
+                proObj = (snap.val() === null ? {} : snap.val())
 
                 conArgDB.once('value').then(function (snap) {
-                  conObj = snap.val()
+                  conObj = (snap.val() === null ? {} : snap.val())
 
                   prepareList();
                 })

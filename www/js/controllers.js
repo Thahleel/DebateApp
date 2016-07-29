@@ -276,15 +276,15 @@ angular.module('controllers', ['firebase'])
 
 .controller('MainDebateCtrl', function($scope, $stateParams, debateServ, $window, fbUser, $state){
   var debateid = $stateParams.debateData.debateID
-  var argumentState = 'pro'
-  $scope.modelData = {}
-  $scope.debateData = $stateParams.debateData
+  var argumentState = 'pro';
+  $scope.modelData = {};
+  $scope.debateData = $stateParams.debateData;
   var argManager = debateServ.makeArgumentManager(debateid);
-  $scope.getArguments = []//argManager.getArguments
-  $scope.subVal = (fbUser.getUserData().subscribedDebates[debateid] ? "Unsubscribe" : "Subscribe")
+  $scope.getArguments = [];
 
-
-
+  var isSub = fbUser.getUserData().subscribedDebates
+  isSub = (isSub === undefined ? false : isSub[debateid])
+  $scope.subVal = ( isSub ? "Unsubscribe" : "Subscribe");
   $scope.pressBack = function () {
     $state.go('vote', {debateid : debateid})
   }
@@ -387,6 +387,7 @@ angular.module('controllers', ['firebase'])
 })
 
 .controller('VoteCtrl', function($scope, $stateParams, debateServ, $window, fbUser, $state){
+  $scope.voteChecked = false;
   var debateid = $stateParams.debateid
   $scope.debateData = {}
   $scope.name = ""
@@ -403,6 +404,8 @@ angular.module('controllers', ['firebase'])
     firebase.database().ref('debates/'+debateid+'/preVoters/'+fbUser.getUid()).once('value')
     .then(function (voterSnap) {
       $scope.isVoter = (voterSnap.val() == null ? false : true)
+      $scope.voteChecked = true;
+      fbUser.viewReset()
     })
 
     firebase.database().ref('users/'+$scope.debateData.creator+'/handle').once('value')
@@ -429,10 +432,22 @@ angular.module('controllers', ['firebase'])
     $state.go('mainDebate', {debateData : $scope.debateData})
   }
 
+  $scope.makeVote = function (vote) {
+    $scope.debateData['pre'+vote+'Votes']++
+    var updates = {}
+    updates['pre'+vote+'Votes'] = $scope.debateData['pre'+vote+'Votes']
+    firebase.database().ref('debates/'+debateid).update(updates)
+
+    updates = {}
+    updates[fbUser.getUid()] = vote
+    firebase.database().ref('debates/'+debateid+'/preVoters').update(updates)
+
+    $scope.goMainDebate()
+  }
+
   // === VIEW EVENTS ===
   $scope.$on('$ionicView.beforeEnter', function (event, viewData) {
     viewData.enableBack = true;
-    $scope.refreshArguments();
   });
 })
 ;
