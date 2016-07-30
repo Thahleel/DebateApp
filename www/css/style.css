@@ -301,17 +301,18 @@ body {
   font-weight: 100;
   font-size: 50pt;
   height: 50px !important;
-  transform: translate(-15px, -4px);
+  transform: translate(-15px, -2px);
 }
 
 .button-text {
   color: white;
   margin-top:-100px;
-  font-size: 14pt;
+  font-size: 13pt;
 }
 
 .title-style {
-  color: #414141;
+  color: #808080;
+  text-transform: uppercase;
   font-weight: bold;
   font-size: 11px;
   padding-top: 10px;
