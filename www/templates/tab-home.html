@@ -15,20 +15,19 @@
             </a>
         </div>
     </div>
-  <ion-content class="padding">
+  <ion-content style="padding-top: 60px;" class="padding">
     <ion-refresher
     pulling-text="Pull to refresh..."
     on-refresh="refreshDebates()">
     </ion-refresher>
 
-    <h2> Welcome {{ name }}</h2>
-    <label class="item item-input" ng-click="openFilterPopover($event)" >
-      <span class="input-label" >Filter By:</span>
-      <span>{{filter.choice}}</span>
-    </label>
+        <label class="item item-input" ng-click="openFilterPopover($event)" >
+            <span class="input-label" >Filter By:</span>
+            <span>{{filter.choice}}</span>
+        </label>
 
-    <div ng-repeat="debate in allDebates">
-      <debate-card debate-info="debate"></debate-card>
-    </div>
+        <div ng-repeat="debate in allDebates">
+            <debate-card debate-info="debate"></debate-card>
+        </div>
   </ion-content>
 </ion-view>
