@@ -64,10 +64,8 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
   $scope.$watch('filter.choice', function(){
     if($scope.filter.choice === "All"){
       debateServ.removeFilter();
-    } else if ($scope.filter.choice === "Recent"){
-      debateServ.addTopicFilter($scope.filter.choice);
-    } else if ($scope.filter.choice === "Preferences") {
-      debateServ.addPreferenceFilter()
+    }else{
+      debateServ.addTopicFilter($scope.filter.choice)
     }
 
     $scope.refreshDebates();
@@ -281,7 +279,6 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
   $scope.photoURL = fbUser.getFirebaseUser().photoURL;
   $scope.facebookID = fbUser.getId();
   $scope.debateRank = fbUser.getUserData().debateRank;
-  //$scope.debateCount = fbUser.getDebateCount();
 
   $scope.$on('$ionicView.enter', function(){
     fbUser.updateMyDebates().then(function (debates) {
