@@ -6,14 +6,22 @@
         <div id="startedList" ng-repeat="debate in startedDebatesList">
             <debate-card debate-info="debate"></debate-card>
         </div>
-
+        <button class="button button-full button-positive">
+            View more
+        </button>
         <div class="title-style">SUBSCRIBED</div>
 
         <div id="subscribedList" ng-repeat="subdebate in subscribedDebatesList">
             <debate-card debate-info="subdebate"></debate-card>
         </div>
+        <button class="button button-full button-positive">
+            View more
+        </button>
         <div class="title-style">FAVOURITES</div>
         <!-- <button class="btn" ng-click=""> Debates Started </button>-->
         <p>NONE ADDED</p>
+        <button class="button button-full button-positive">
+            View more (if possible)
+        </button>
     </ion-content>
 </ion-view>
