@@ -5,7 +5,6 @@ angular.module('debatable.services', ['ionic','firebase'])
   var userDB;       // A database reference for the current user object
   var userData;     // Latest snapshot of the user's data stored in the database
   var id;
-  //var myDebates;     List of all the users debate information
 
   // Initilises local private variables of the service
   setupFirebaseUser = function (user) {
@@ -263,7 +262,6 @@ angular.module('debatable.services', ['ionic','firebase'])
   var topicFilter = ""
   var allTopics = ["General","Gaming","Sports","Politics","Tech","TV","Anime"
                   ,"Religion","Education","History","Literature","Science","Random"]
-  //var allDebates = []
 
   // == Sortiing functions ==
   var mostRecentSort = function (a, b) {
@@ -271,7 +269,7 @@ angular.module('debatable.services', ['ionic','firebase'])
   }
 
   var popularSort = function (a, b) {
-    return b.premise > a.premise
+    return (b.proArguments + b.conArguments) - (a.proArguments + a.conArguments)
   }
 
   // == Filter functions ==
@@ -353,24 +351,14 @@ angular.module('debatable.services', ['ionic','firebase'])
       sortFunc = popularSort
     },
 
-    /* Returns a list of all debates
-    getAllDebates : function () {
-      return allDebates;
-    },*/
-
     /* Returns a special object that manages a list of arguments */
     makeArgumentManager : function (debateID) {
       return function (debateID) {
         var debateid = debateID
         var proArgDB = firebase.database().ref('debates/'+debateid+'/proArguments')
         var conArgDB = firebase.database().ref('debates/'+debateid+'/conArguments')
-        //var arguments = []
 
         return {
-          /*getArguments : function () {
-            $window.alert("GET "+arguments.length)
-            return arguments
-          },*/
 
           updateArguments: function () {
             arguments = []
