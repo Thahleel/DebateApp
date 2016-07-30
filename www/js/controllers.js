@@ -200,10 +200,11 @@ angular.module('controllers', ['ionic', 'firebase'])
 .controller('SettingsCtrl', function($scope, $state, $window, $ionicActionSheet, fbUser, $ionicModal, $ionicHistory) {
   $scope.userData = fbUser.getUserData();
   $scope.openMyInfoPage = function () {
+    $ionicHistory.clearHistory();
     $state.go('tab.userinfo')
   }
 
-  $ionicModal.fromTemplateUrl('templates/modal.html', {
+  $ionicModal.fromTemplateUrl('templates/modify-handle-modal.html', {
    scope: $scope
   }).then(function(modal) {
    $scope.modal = modal;
@@ -250,11 +251,6 @@ angular.module('controllers', ['ionic', 'firebase'])
   $scope.photoURL = fbUser.getFirebaseUser().photoURL;
   $scope.debateRank = fbUser.getUserData().debateRank;
   //$scope.debateCount = fbUser.getDebateCount();
-})
-
-.controller('CreateDebateCtrl', function($scope, $state, fbUser, $ionicPopover, $sce, debateServ) {
-
-
 })
 
 .controller('MainDebateCtrl', function($scope, $stateParams, debateServ, $window, fbUser, $state){

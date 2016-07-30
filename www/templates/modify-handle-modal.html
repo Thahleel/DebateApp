@@ -1,0 +1,17 @@
+<ion-modal-view>
+    <ion-header-bar class="bar bar-header bar-modal">
+        <h1 class="title">Set your handle</h1>
+        <button class="button button-clear button-primary" ng-click="hideModal()">Cancel</button>
+    </ion-header-bar>
+    <ion-content class="padding">
+        <div class="handle-upper-pad"></div>
+        <div class="list">
+
+            <label class="item item-input">
+                <input type="text" placeholder="Enter your handle" ng-model="handle.name">
+            </label>
+
+            <button class="button button-full button-modal" ng-click="updateHandle()">Save Handle</button>
+        </div>
+    </ion-content>
+</ion-modal-view>
