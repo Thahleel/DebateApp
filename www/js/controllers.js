@@ -294,10 +294,7 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
     Retrieve this from the data base at 'users/fbUser.getUid()/preferences'
   */
   $scope.preferences = fbUser.getPreferences();
-  /*var preferences = {
-    General : true,
-    Anime : true
-  }*/
+
 
   //Creates a new scope model for each checkbox item
   for(topicIndex in $scope.allTopics){
@@ -308,10 +305,6 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
 
   /* === VIEW EVENTS === */
   $scope.$on('$ionicView.beforeLeave', function(){
-    /* HEREEEEEEEE
-      Using topic model, update the preferences obj and save it to firebase
-      save location as above
-    */
     $scope.preferences = $scope.topicModel
     fbUser.updatePreferences($scope.preferences)
   });
@@ -430,7 +423,7 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
   });
 })
 
-.controller('VoteCtrl', function($scope, $timeout, $stateParams, debateServ, $window, fbUser, $state, $ionicHistory){
+.controller('VoteCtrl', function($scope, $stateParams, debateServ, $window, fbUser, $state, $ionicHistory){
   $scope.voteChecked = false;
   var debateid = $stateParams.debateid
   $scope.debateData = {}
@@ -474,20 +467,6 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
       })
     }
 
-    if ($scope.stage === "pre") {
-      $timeout(function () {
-        $window.alert("The debate is now over!")
-        $window.alert("Now vote in the post debate voting stage!")
-        $state.go($state.current, {debateid : debateid}, {reload: true});
-      }, $scope.debateData.endDate - Date.now())
-    } else if ($scope.stage === "post") {
-      $timeout(function () {
-        $window.alert("The post debate voting stage is now over!")
-        $window.alert("Check the results!")
-
-        $state.go($state.current, {debateid : debateid}, {reload: true});
-      },$scope.debateData.endDate + 24*3600*1000 - Date.now())
-    }
 
     fbUser.viewReset()
   })
