@@ -175,17 +175,13 @@ angular.module('debatable.services', ['ionic','firebase'])
     },
 
     getPreferences : function () {
-      return firebase.database().ref('users/'+uid+'/preferences').once('value').then(function(preferenceSnap){
-        if(preferenceSnap === null){
-          return ""
-        }else{
-          return preferenceSnap.val()
-        }
-      })
+      return firebase.database().ref('users/'+uid+'/preferences').once('value')
     },
 
     updatePreferences : function(preferenceList){
-      firebase.database().ref('users/'+uid+'/preferences').update(preferenceList)
+      var updates = {}
+      updates['preferences'] = preferenceList
+      firebase.database().ref('users/'+uid).update(updates)
     },
 
     // Destroys the myDebates array and replaces it with a new up to date
