@@ -191,7 +191,7 @@ angular.module('controllers', ['firebase'])
   $scope.subscribedDebatesList = []
   
   $scope.allTopics = debateServ.getAllTopics();
-
+  
   $scope.checkboxModel = {
      value : "Hi"
    }
