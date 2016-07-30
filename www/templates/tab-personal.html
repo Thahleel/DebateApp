@@ -18,5 +18,14 @@
     </div>
 
 	<p>  </p>
+	<div ng-controller="PersonalCtrl">
+		<div ng-repeat="singleTopic in allTopics">
+			<ion-item>
+			  <ion-checkbox dark checked="true" ng-model="checkboxModel.value" ng-true-value="'Yes'" ng-false-value="'No'">{{singleTopic}}  {{checkboxModel.value}}</ion-checkbox>
+			</ion-item>
+		</div>
+	</div>
+	
+
   </ion-content>
 </ion-view>

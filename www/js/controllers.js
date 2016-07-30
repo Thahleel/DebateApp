@@ -186,9 +186,19 @@ angular.module('controllers', ['firebase'])
 
 })
 
-.controller('PersonalCtrl', function($scope, fbUser) {
+.controller('PersonalCtrl', function($scope, fbUser,debateServ) {
   $scope.startedDebatesList = []
   $scope.subscribedDebatesList = []
+  
+  $scope.allTopics = debateServ.getAllTopics();
+
+  $scope.checkboxModel = {
+     value : "Hi"
+   }
+
+  $scope.updatePreferences = function(){
+    window.alert("Changed");
+  }
 
   // === VIEW EVENTS ===
   $scope.$on('$ionicView.enter', function(){
