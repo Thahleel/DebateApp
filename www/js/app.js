@@ -83,6 +83,16 @@ angular.module('starter', ['ionic', 'controllers', 'firebase', 'services', 'dire
     }
   })
 
+  .state('tab.communityguidelines', {
+    url: '/communityguidelines',
+    views: {
+      'tab-settings': {
+        templateUrl: 'templates/tab-communityguidelines.html',
+        controller: 'CommunityGuidelinesCtrl'
+      }
+    }
+  })
+
   /* This is the main debating view, away from the tabs */
 
   .state('createDebate', {

@@ -204,6 +204,11 @@ angular.module('controllers', ['ionic', 'firebase'])
     $state.go('tab.userinfo')
   }
 
+  $scope.loadCommunityGuidelines = function () {
+    $ionicHistory.clearHistory();
+    $state.go('tab.communityguidelines')
+  }
+
   $ionicModal.fromTemplateUrl('templates/modify-handle-modal.html', {
    scope: $scope
   }).then(function(modal) {
@@ -251,6 +256,10 @@ angular.module('controllers', ['ionic', 'firebase'])
   $scope.photoURL = fbUser.getFirebaseUser().photoURL;
   $scope.debateRank = fbUser.getUserData().debateRank;
   //$scope.debateCount = fbUser.getDebateCount();
+})
+
+.controller('CommunityGuidelinesCtrl', function($scope) {
+
 })
 
 .controller('MainDebateCtrl', function($scope, $stateParams, debateServ, $window, fbUser, $state){
