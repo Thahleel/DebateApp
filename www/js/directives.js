@@ -1,4 +1,4 @@
-angular.module('directives', ['ionic','firebase'])
+angular.module('debatable.directives', ['ionic','firebase'])
 
 .directive('debateCard', function($window, $state) {
   return {

@@ -1,4 +1,4 @@
-angular.module('controllers', ['ionic', 'firebase'])
+angular.module('debatable.controllers', ['ionic', 'firebase'])
 
 .controller('AppCtrl', function($scope) {
 
@@ -286,7 +286,7 @@ angular.module('controllers', ['ionic', 'firebase'])
 
 })
 
-.controller('MainDebateCtrl', function($scope, $stateParams, debateServ, $window, fbUser, $state){
+.controller('MainDebateCtrl', function($scope, $stateParams, debateServ, $window, fbUser, $state, $ionicHistory){
   var debateid = $stateParams.debateData.debateID
   var argumentState = 'pro';
   $scope.stage = $stateParams.stage
@@ -393,7 +393,7 @@ angular.module('controllers', ['ionic', 'firebase'])
   });
 })
 
-.controller('VoteCtrl', function($scope, $stateParams, debateServ, $window, fbUser, $state){
+.controller('VoteCtrl', function($scope, $stateParams, debateServ, $window, fbUser, $state, $ionicHistory){
   $scope.voteChecked = false;
   var debateid = $stateParams.debateid
   $scope.debateData = {}
@@ -445,10 +445,6 @@ angular.module('controllers', ['ionic', 'firebase'])
   isSub = (isSub === undefined ? false : isSub[debateid])
   $scope.subVal = ( isSub ? "Unsubscribe" : "Subscribe");
 
-  $scope.pressBack = function () {
-    $state.go('vote', {debateid : debateid})
-  }
-
   $scope.subscribe = function (debateID) {
      fbUser.checkSubscription(debateID).then(function(result){
        $scope.subVal = result;
@@ -457,6 +453,7 @@ angular.module('controllers', ['ionic', 'firebase'])
   }
 
   $scope.pressBack = function () {
+    $ionicHistory.clearHistory();
     $state.go('tab.home');
   }
 

@@ -1,4 +1,4 @@
-angular.module('services', ['ionic','firebase'])
+angular.module('debatable.services', ['ionic','firebase'])
 .factory('fbUser', function($firebaseAuth, $window, $rootScope, debateServ) {
   var firebaseUser; // Firebase obj containing user firebase details (from facebook)
   var uid;          // Unique ID for user (Currently unique for the facebook provider)

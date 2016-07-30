@@ -1,4 +1,4 @@
-angular.module('starter', ['ionic', 'controllers', 'firebase', 'services', 'directives'])
+angular.module('debatable', ['ionic', 'firebase', 'debatable.controllers', 'debatable.services', 'debatable.directives'])
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
     /* Keyboard input settings */
