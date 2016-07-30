@@ -1,20 +1,19 @@
-<ion-view view-title="Personal" cache-view="false">
+<ion-view view-title="{{ name }}" cache-view="false">
     <ion-content>
-        <h2> Welcome {{ name }}</h2>
-        <p>My debates</p>
+        <div class="title-style">MY DEBATES</div>
         <!-- THis currently returns the IDs of the debates. We need to get the actuall debates from the all debates list using these ids. -->
 
         <div id="startedList" ng-repeat="debate in startedDebatesList">
             <debate-card debate-info="debate"></debate-card>
         </div>
 
-        <p>Subscribed</p>
+        <div class="title-style">SUBSCRIBED</div>
 
         <div id="subscribedList" ng-repeat="subdebate in subscribedDebatesList">
             <debate-card debate-info="subdebate"></debate-card>
         </div>
-        <p>Favourites</p>
+        <div class="title-style">FAVOURITES</div>
         <!-- <button class="btn" ng-click=""> Debates Started </button>-->
-        <p></p>
+        <p>NONE ADDED</p>
     </ion-content>
 </ion-view>
