@@ -1,12 +1,7 @@
-<ion-view cache-view="false" view-title="Pros and Cons">
-  <!--
-      The nav bar that will be updated as we navigate between views.
-    -->
-  <div ng-controller="MainDebateCtrl">
-    <ion-nav-bar class="bar-main">
-      <ion-nav-back-button class="button-clear" ng-click="pressBack()">        </ion-nav-back-button>
-    </ion-nav-bar>
-  </div>
+<ion-view can-swipe-back="false" cache-view="false" view-title="Pros and Cons" >
+  <ion-nav-bar class="bar-main">
+    <ion-nav-back-button class="button-clear" ng-click="pressBack()">        </ion-nav-back-button>
+  </ion-nav-bar>
   <ion-content class="padding">
     <ion-refresher
     pulling-text="Pull to refresh..."
@@ -32,6 +27,5 @@
     <div ng-repeat="argument in getArguments">
       <argument-card arg-info="argument" truncate=true></argument-card>
     </div>
-
   </ion-content>
 </ion-view>
