@@ -283,7 +283,19 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
 })
 
 .controller('PreferencesCtrl', function($scope) {
-
+  $scope.general = { checked: true };
+  $scope.gaming = { checked: true };
+  $scope.sports = { checked: true };
+  $scope.politics = { checked: true };
+  $scope.tech = { checked: true };
+  $scope.tv = { checked: true };
+  $scope.anime = { checked: true };
+  $scope.religon = { checked: true };
+  $scope.education = { checked: true };
+  $scope.history = { checked: true };
+  $scope.literature = { checked: true };
+  $scope.science = { checked: true };
+  $scope.random = { checked: true };
 })
 
 .controller('MainDebateCtrl', function($scope, $stateParams, debateServ, $window, fbUser, $state, $ionicHistory){
