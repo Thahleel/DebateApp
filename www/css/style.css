@@ -320,6 +320,15 @@ body {
   letter-spacing: 2px;
 }
 
+.intro-footer-style {
+  color: white;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 3px;
+  font-size: 20px;
+}
+
+
 .debcard {
   margin-left: 0 !important;
   width: 100%;
