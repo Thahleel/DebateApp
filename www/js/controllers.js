@@ -183,20 +183,12 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
 })
 
 
-.controller('PersonalCtrl', function($scope, fbUser,debateServ) {
+.controller('PersonalCtrl', function($scope, fbUser) {
   $scope.name = fbUser.getUserData().handle;
   $scope.startedDebatesList = []
   $scope.subscribedDebatesList = []
   
-  $scope.allTopics = debateServ.getAllTopics();
   
-  $scope.checkboxModel = {
-     value : "Hi"
-   }
-
-  $scope.updatePreferences = function(){
-    window.alert("Changed");
-  }
 
   // === VIEW EVENTS ===
   $scope.$on('$ionicView.enter', function(){
@@ -294,20 +286,16 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
 
 })
 
-.controller('PreferencesCtrl', function($scope) {
-  $scope.general = { checked: true };
-  $scope.gaming = { checked: true };
-  $scope.sports = { checked: true };
-  $scope.politics = { checked: true };
-  $scope.tech = { checked: true };
-  $scope.tv = { checked: true };
-  $scope.anime = { checked: true };
-  $scope.religon = { checked: true };
-  $scope.education = { checked: true };
-  $scope.history = { checked: true };
-  $scope.literature = { checked: true };
-  $scope.science = { checked: true };
-  $scope.random = { checked: true };
+.controller('PreferencesCtrl', function($scope, debateServ) {
+  $scope.allTopics = debateServ.getAllTopics();
+  
+  $scope.checkboxModel = {
+     value : "Hi"
+   }
+
+  $scope.updatePreferences = function(){
+    window.alert("Changed");
+  }
 })
 
 .controller('MainDebateCtrl', function($scope, $stateParams, debateServ, $window, fbUser, $state, $ionicHistory){

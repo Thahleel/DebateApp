@@ -1,18 +1,9 @@
 <ion-view view-title="Preferences">
     <ion-content>
-        <!--Can someone please use a service to fetch these thanks-->
-        <ion-checkbox ng-model="general" ng-checked="general.checked">General</ion-checkbox>
-        <ion-checkbox ng-model="gaming" ng-checked="gaming.checked">Gaming</ion-checkbox>
-        <ion-checkbox ng-model="sports" ng-checked="sports.checked">Sports</ion-checkbox>
-        <ion-checkbox ng-model="politics" ng-checked="politics.checked">Politics</ion-checkbox>
-        <ion-checkbox ng-model="tech" ng-checked="tech.checked">Tech</ion-checkbox>
-        <ion-checkbox ng-model="tv" ng-checked="tv.checked">TV</ion-checkbox>
-        <ion-checkbox ng-model="anime" ng-checked="anime.checked">Anime</ion-checkbox>
-        <ion-checkbox ng-model="religon" ng-checked="religon.checked">Religion</ion-checkbox>
-        <ion-checkbox ng-model="education" ng-checked="education.checked">Education</ion-checkbox>
-        <ion-checkbox ng-model="history" ng-checked="history.checked">History</ion-checkbox>
-        <ion-checkbox ng-model="literature" ng-checked="literature.checked">Literature</ion-checkbox>
-        <ion-checkbox ng-model="science" ng-checked="science.checked">Science</ion-checkbox>
-        <ion-checkbox ng-model="random" ng-checked="random.checked">Random</ion-checkbox>
+    <div ng-controller="PersonalCtrl">
+        <div ng-repeat="singleTopic in allTopics">
+            <ion-checkbox dark checked="true" ng-model="checkboxModel.value" ng-true-value="'Yes'" ng-false-value="'No'">{{singleTopic}}  {{checkboxModel.value}}</ion-checkbox>
+        </div>
+    </div>
     </ion-content>
 </ion-view>
