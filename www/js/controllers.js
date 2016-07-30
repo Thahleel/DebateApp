@@ -209,6 +209,11 @@ angular.module('controllers', ['ionic', 'firebase'])
     $state.go('tab.communityguidelines')
   }
 
+  $scope.loadPreferences = function () {
+    $ionicHistory.clearHistory();
+    $state.go('tab.preferencesettings')
+  }
+
   $ionicModal.fromTemplateUrl('templates/modify-handle-modal.html', {
    scope: $scope
   }).then(function(modal) {
@@ -265,6 +270,10 @@ angular.module('controllers', ['ionic', 'firebase'])
 })
 
 .controller('CommunityGuidelinesCtrl', function($scope) {
+
+})
+
+.controller('PreferencesCtrl', function($scope) {
 
 })
 

@@ -93,6 +93,16 @@ angular.module('starter', ['ionic', 'controllers', 'firebase', 'services', 'dire
     }
   })
 
+  .state('tab.preferencesettings', {
+    url: '/preference-settings',
+    views: {
+      'tab-settings': {
+        templateUrl: 'templates/tab-preferences.html',
+        controller: 'PreferencesCtrl'
+      }
+    }
+  })
+
   /* This is the main debating view, away from the tabs */
 
   .state('createDebate', {
