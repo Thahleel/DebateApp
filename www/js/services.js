@@ -174,10 +174,19 @@ angular.module('debatable.services', ['ionic','firebase'])
       })
     },
 
-    /* Returns a list of debates the current user created
-    getMyDebates : function () {
-      return myDebates;
-    },*/
+    getPreferences : function () {
+      return firebase.database().ref('users/'+uid+'/preferences').once('value').then(function(preferenceSnap){
+        if(preferenceSnap === null){
+          return ""
+        }else{
+          return preferenceSnap.val()
+        }
+      })
+    },
+
+    updatePreferences : function(preferenceList){
+      firebase.database().ref('users/'+uid+'/preferences').update(preferenceList)
+    },
 
     // Destroys the myDebates array and replaces it with a new up to date
     // version. (All async done within function)

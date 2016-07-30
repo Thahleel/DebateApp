@@ -286,23 +286,24 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
 
 })
 
-.controller('PreferencesCtrl', function($scope, debateServ) {
+.controller('PreferencesCtrl', function($scope, debateServ, fbUser) {
   $scope.allTopics = debateServ.getAllTopics();
   $scope.topicModel = {}
 
   /* HEREEEEEEEE
     Retrieve this from the data base at 'users/fbUser.getUid()/preferences'
   */
-  var preferences = {
+  $scope.preferences = fbUser.getPreferences();
+  /*var preferences = {
     General : true,
     Anime : true
-  }
+  }*/
 
   //Creates a new scope model for each checkbox item
   for(topicIndex in $scope.allTopics){
     var topic = $scope.allTopics[topicIndex]
-    $scope.topicModel[topic] = (preferences[topic] === undefined ?
-                                false : preferences[topic])
+    $scope.topicModel[topic] = ($scope.preferences[topic] === undefined ?
+                                false : $scope.preferences[topic])
   }
 
   /* === VIEW EVENTS === */
@@ -311,6 +312,8 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
       Using topic model, update the preferences obj and save it to firebase
       save location as above
     */
+    $scope.preferences = $scope.topicModel
+    fbUser.updatePreferences($scope.preferences)
   });
 
 })
