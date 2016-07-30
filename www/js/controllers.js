@@ -274,6 +274,7 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
 .controller('UserInfoCtrl', function($scope, fbUser) {
   $scope.name = fbUser.getFirebaseUser().displayName;
   $scope.photoURL = fbUser.getFirebaseUser().photoURL;
+  $scope.facebookID = fbUser.getId();
   $scope.debateRank = fbUser.getUserData().debateRank;
   //$scope.debateCount = fbUser.getDebateCount();
 })

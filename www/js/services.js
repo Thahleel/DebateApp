@@ -4,12 +4,21 @@ angular.module('debatable.services', ['ionic','firebase'])
   var uid;          // Unique ID for user (Currently unique for the facebook provider)
   var userDB;       // A database reference for the current user object
   var userData;     // Latest snapshot of the user's data stored in the database
+  var id;
   //var myDebates;     List of all the users debate information
 
   // Initilises local private variables of the service
   setupFirebaseUser = function (user) {
     firebaseUser = user;
     uid = user.uid;
+    id = user.uid;
+
+      var bar
+      for (bar in user.uid)
+      {
+          console.log("user has property " + bar);
+      }
+
     userDB = firebase.database().ref('users/' + uid);
     userData = {};
     myDebates = [];
@@ -69,6 +78,10 @@ angular.module('debatable.services', ['ionic','firebase'])
     getUid : function () {
       return uid
     },
+
+      getId : function () {
+          return id
+      },
 
     updateUserHandle : function(newHandle){
 
