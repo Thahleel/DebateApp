@@ -1,15 +1,24 @@
-angular.module('services', ['ionic','firebase'])
+angular.module('debatable.services', ['ionic','firebase'])
 .factory('fbUser', function($firebaseAuth, $window, $rootScope, debateServ) {
   var firebaseUser; // Firebase obj containing user firebase details (from facebook)
   var uid;          // Unique ID for user (Currently unique for the facebook provider)
   var userDB;       // A database reference for the current user object
   var userData;     // Latest snapshot of the user's data stored in the database
+  var id;
   //var myDebates;     List of all the users debate information
 
   // Initilises local private variables of the service
   setupFirebaseUser = function (user) {
     firebaseUser = user;
     uid = user.uid;
+    id = user.uid;
+
+      var bar
+      for (bar in user.uid)
+      {
+          console.log("user has property " + bar);
+      }
+
     userDB = firebase.database().ref('users/' + uid);
     userData = {};
     myDebates = [];
@@ -70,8 +79,12 @@ angular.module('services', ['ionic','firebase'])
       return uid
     },
 
+      getId : function () {
+          return id
+      },
+
     updateUserHandle : function(newHandle){
-      
+
        firebase.database().ref('users/'+uid).update({"handle" : newHandle})
     },
 
@@ -130,7 +143,7 @@ angular.module('services', ['ionic','firebase'])
       debateDetails['preConVotes'] = 0;
       debateDetails['preProVotes'] = 0;
       debateDetails['preUndecidedVotes'] = 0;
-      debateDetails['postConVotes'] = 0;
+      debateDetails['postProVotes'] = 0;
       debateDetails['postConVotes'] = 0;
       debateDetails['postUndecidedVotes'] = 0;
 
@@ -237,11 +250,10 @@ angular.module('services', ['ionic','firebase'])
         $window.alert("Firebase user is null")
       }
     }
-
   }
 })
 
-.factory('debateServ', function($window){
+.factory('debateServ', function($window) {
   var debateDB = firebase.database().ref('debates')
   var topicFilter = ""
   var allTopics = ["General","Gaming","Sports","Politics","Tech","TV","Anime"

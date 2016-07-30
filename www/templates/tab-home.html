@@ -1,61 +1,33 @@
 <ion-view view-title="Debatable">
-  <ion-content class="padding">
+    <ion-nav-buttons side="right">
+        <button class="button button-custom add-button-style" ng-click="modal.show()"><h1 class="button-text">Create</h1></button>
+    </ion-nav-buttons>
+    <div class="tabs-striped tabs-top tabs-background-main tabs-color-home-top">
+        <div class="tabs">
+            <a id="recent-tab" class="tab-item active" href="" ng-click="applySort('recent')">
+                Recent
+            </a>
+            <a id="popular-tab" class="tab-item" href="" ng-click="applySort('popular')">
+                Popular
+            </a>
+            <a id="preferences-tab" class="tab-item" href="" ng-click="applySort('preference')">
+                Preferences
+            </a>
+        </div>
+    </div>
+  <ion-content style="padding-top: 60px;">
     <ion-refresher
     pulling-text="Pull to refresh..."
     on-refresh="refreshDebates()">
     </ion-refresher>
 
-    <div class="button-bar">
-      <a class="button" ng-click="applySort('recent')">Recent</a>
-      <a class="button" ng-click="applySort('popular')">Popular</a>
-      <a class="button" ng-click="applySort('preference')">Preference</a>
-   </div>
+        <label class="item item-input" ng-click="openFilterPopover($event)" >
+            <span class="input-label" >Filter By:</span>
+            <span>{{filter.choice}}</span>
+        </label>
 
-    <h2> Welcome {{ name }}</h2>
-    <button class="button button-block button-positive" ng-click="modal.show()"> Create Debate </button>
-    <label class="item item-input" ng-click="openFilterPopover($event)" >
-      <span class="input-label" >Filter By:</span>
-      <span>{{filter.choice}}</span>
-    </label>
-
-    <div ng-repeat="debate in allDebates">
-      <debate-card debate-info="debate"></debate-card>
-    </div>
-
+        <div ng-repeat="debate in allDebates">
+            <debate-card debate-info="debate"></debate-card>
+        </div>
   </ion-content>
-
-
-  <script id="templates/modal.html" type="text/ng-template">
-        <ion-modal-view>
-          <ion-header-bar class="bar bar-header bar-modal">
-            <h1 class="title">New Debate</h1>
-            <button class="button button-clear button-primary" ng-click="hideModal()">Cancel</button>
-          </ion-header-bar>
-          <ion-content class="padding">
-            <div class="list">
-              <label class="item item-input" ng-click="openPopover($event)" >
-          	    <span class="input-label" >Topic</span>
-          	    <span id="debatetopic">{{topic.choice}}</span>
-          	  </label>
-
-          	  <label class="item item-input">
-          	    <span class="input-label" >Debate Premise</span>
-          	    <input id="premise" type="text" ng-model="Premise">
-          	  </label>
-
-          	  <label class="item item-input">
-          	    <span class="input-label">End Date</span>
-          	    <input id="enddate" type="date" ng-model="EndDate">
-          	  </label>
-
-          	  <label class="item item-input">
-          	    <span class="input-label">End Time</span>
-          	    <input id="endtime" type="time" ng-model="EndTime">
-          	  </label>
-              <button class="button button-full button-modal" ng-click="create(Premise,EndDate,EndTime)">Create</button>
-            </div>
-          </ion-content>
-        </ion-modal-view>
-    </script>
-
 </ion-view>

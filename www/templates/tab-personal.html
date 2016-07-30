@@ -1,16 +1,17 @@
-<ion-view view-title="Personal">
-  <ion-content>
-    <h1> PERSONAL </h1>
-	<p> Favourited Debates </p>
-	<!-- <button class="btn" ng-click=""> Debates Started </button>-->
-	<p></p>
-	<p> Started Debates </p>
-	<!-- THis currently returns the IDs of the debates. We need to get the actuall debates from the all debates list using these ids. -->
+<ion-view view-title="{{ name }}" cache-view="false">
+    <ion-content>
+        <div class="title-style">MY DEBATES</div>
+        <!-- THis currently returns the IDs of the debates. We need to get the actuall debates from the all debates list using these ids. -->
 
-	<div id="startedList" ng-repeat="debate in startedDebatesList">
-      <debate-card debate-info="debate"></debate-card>
-    </div>
+        <div id="startedList" ng-repeat="debate in startedDebatesList">
+            <debate-card debate-info="debate"></debate-card>
+        </div>
+        <button class="button button-full button-positive">
+            View more
+        </button>
+        <div class="title-style">SUBSCRIBED</div>
 
+<<<<<<< HEAD
 	<p> Subscribed Debates </p>
 
 	<div id="subscribedList" ng-repeat="subdebate in subscribedDebatesList">
@@ -29,3 +30,19 @@
 
   </ion-content>
 </ion-view>
+=======
+        <div id="subscribedList" ng-repeat="subdebate in subscribedDebatesList">
+            <debate-card debate-info="subdebate"></debate-card>
+        </div>
+        <button class="button button-full button-positive">
+            View more
+        </button>
+        <div class="title-style">FAVOURITES</div>
+        <!-- <button class="btn" ng-click=""> Debates Started </button>-->
+        <p>NONE ADDED</p>
+        <button class="button button-full button-positive">
+            View more (if possible)
+        </button>
+    </ion-content>
+</ion-view>
+>>>>>>> 200a227dcd21006c2e913cd96d72e6d6168e57b0

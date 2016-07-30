@@ -1,41 +1,33 @@
-<!DOCTYPE html>
-<ion-view>
-  <div ng-controller="IntroCtrl">
-    <ion-slide-box class="has-header has-footer">
+<ion-view hide-nav-bar="true">
+    <ion-slide-box does-continue="true" auto-play="true" slide-interval="10000" show-pager="false">
+        <ion-slide class="intro-slider-slide">
+            <h1 class="intro-slider-text">Debatable</h1>
+            <h4 class="intro-slider-text"> Welcome to the #1 debating app on mobile </h4>
+            <p> Swipe to learn more! </p>
+        </ion-slide>
 
-      <ion-slide>
-          <h1>Debatable</h1>
-          <h4> Welcome to the #1 debating app on mobile </h4>
-          <p> Swipe to learn more! </p>
-          <button class="button button-positive joinbtn" ng-click="signIn()"> Join now </button>
-      </ion-slide>
+        <ion-slide class="intro-slider-slide">
+            <h1 class="intro-slider-text">Debatable</h1>
+            <h3 class="intro-slider-text">Have a thirst for constructive debates?</h3>
+            <h5 class="intro-slider-text">We provide a platform that allows you to:</h5>
 
-      <ion-slide>
-        <h1>Debate App</h1>
-        <h3>Have a thirst for constructive debates?</h3>
-        <h5>We provide a platform that allows you to:</h5>
+            <div id="list">
+                <ol>
+                    <li>Vote on topics that mean a lot to you</li>
+                    <li>Debate against an engaging online community of debaters</li>
+                    <li>Educate yourself on a wide range of topics </li>
+                </ol>
+            </div>
+        </ion-slide>
 
-        <div id="list">
-          <ol>
-            <li>Vote on topics that mean a lot to you</li>
-            <li>Debate against an engaging online community of debaters</li>
-            <li>Educate yourself on a wide range of topics </li>
-          </ol>
-        </div>
-
-        <button class="button button-positive joinbtn" ng-click="signIn()"> Join now </button>
-      </ion-slide>
-
-      <ion-slide>
-        <h1>Debate App</h1>
-        <h3>What are you waiting for?</h3>
-        <p>let's get started!</p>
-        <button class="button button-positive joinbtn" ng-click="signIn()"> Join now </button>
-      </ion-slide>
+        <ion-slide class="intro-slider-slide">
+            <h1 class="intro-slider-text">Debatable</h1>
+            <h3 class="intro-slider-text">What are you waiting for?</h3>
+            <p>let's get started!</p>
+        </ion-slide>
     </ion-slide-box>
 
     <ion-footer-bar class="bar bar-footer bar-dark">
-      <div class="title" ng-click="signIn()">Already have an account?</div>
+        <div class="title intro-footer-style" ng-click="signIn()"><i class="icon ion-social-facebook"></i> | Sign in using Facebook</div>
     </ion-footer-bar>
-  </div>
 </ion-view>

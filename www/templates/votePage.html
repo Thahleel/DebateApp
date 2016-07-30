@@ -1,31 +1,28 @@
-<ion-view cache-view="false">
-  <!--
-      The nav bar that will be updated as we navigate between views.
-    -->
-  <div ng-controller="VoteCtrl">
-    <ion-nav-bar class="bar-main">
-      <ion-nav-back-button class="button-clear" ng-click="pressBack()"></ion-nav-back-button>
-      <ion-nav-buttons side="right">
-        <button class="button button-clear button-light" ng-click="subscribe(debateData.debateID)">
-          <p ng-bind-html="subVal"></p>
-        </button>
-      </ion-nav-buttons>
-    </ion-nav-bar>
-  </div>
+<ion-view nav-transition="none" cache-view="false" view-title="Info">
+  <ion-nav-bar class="bar-main">
+    <ion-nav-back-button class="button-clear" ng-click="pressBack()"></ion-nav-back-button>
+    <ion-nav-buttons side="right">
+      <button class="button button-clear button-light" ng-click="subscribe(debateData.debateID)">
+        <p ng-bind-html="subVal"></p>
+      </button>
+    </ion-nav-buttons>
+  </ion-nav-bar>
   <ion-content class="">
     <h1> {{ debateData.premise }} </h1>
-    <h3> Made by {{ name }} on {{ dateText }}</h3>
-    <h3> Debate ends at: {{ endDateText }}</h3>
-    <h3> Stage : {{ stageText }}</h3>
+    <p> Made by {{ name }} on {{ dateText }}</p>
+    <p> Debate ends at: {{ endDateText }}</p>
+    <p> Stage : {{ stageText }}</p>
 
+    <div ng-show="stage !== 'closed'">
     <button class="button button-full button-calm" ng-show="isVoter&&voteChecked" ng-click="goMainDebate()">
-      Start debating!
+      <div ng-show="stage === 'pre'">Start debating!</div>
+      <div ng-show="stage === 'post'">View arguments</div>
     </button>
 
     <div ng-show="!isVoter&&voteChecked">
-      <h3 ng-show="stage === 'post'"> The debate over and post debate voting is now open. Please
+      <p ng-show="stage === 'post'"> The debate is now over and post debate voting is now open. Please
                                       add another vote for the motion so a final score can be determined.
-                                      (If this is your first time voting, your vote wont count towards final score)</h3>
+                                      (If this is your first time voting, your vote wont count towards final score)</p>
       <button class="button button-block button-positive" ng-click="makeVote('Pro')">
         I Support The Proposed Premise
       </button>
@@ -34,6 +31,23 @@
       </button>
       <button class="button button-block button-assertive" ng-click="makeVote('Con')">
         I Oppose The Proposed Premise
+      </button>
+    </div>
+    </div>
+
+    <div ng-show="stage === 'closed'">
+      <p>Below is the number of votes of the initial voting stage</p>
+      <p> Pro : {{debateData.preProVotes}}</p>
+      <p> Con : {{debateData.preConVotes}}</p>
+      <p> Undexided : {{debateData.preUndecidedVotes}}</p>
+
+      <p>Below is the number of votes of the post debate voting stage</p>
+      <p> Pro : {{debateData.postProVotes}}</p>
+      <p> Con : {{debateData.postConVotes}}</p>
+      <p> Undexided : {{debateData.postUndecidedVotes}}</p>
+
+      <button class="button button-full button-calm" ng-show="voteChecked" ng-click="goMainDebate()">
+        view arguments
       </button>
     </div>
   </ion-content>

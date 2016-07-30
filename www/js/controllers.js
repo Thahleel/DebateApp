@@ -1,32 +1,24 @@
-angular.module('controllers', ['firebase'])
+angular.module('debatable.controllers', ['ionic', 'firebase'])
 
-.controller('AppCtrl', function($scope, $window, $state, fbUser) {
-  // Signs out the user and returns to intro screen
-  $scope.signOut = function () {
-    firebase.auth().signOut().then(function() {
-      fbUser.serviceShutDown();
-      $state.go('intro');
-    }, function(error) {
-      $window.alert("Error: could not sign out");
-    });
-  }
+.controller('AppCtrl', function($scope) {
+
 })
 
 .controller('IntroCtrl', function($scope, $state, debateServ, fbUser, $window, $firebaseAuth, $location, $ionicHistory){
+  // UX: initial splash screen look
+  ionic.Platform.ready(function() {
+    ionic.Platform.showStatusBar(false);
+  });
 
   $scope.signIn = function() {
     var fbLoginSuccess = function (userData) {
-      // Call back success function
       facebookConnectPlugin.getAccessToken(function(token) {
-          var credential = firebase.auth.FacebookAuthProvider.credential(token);
-          $firebaseAuth().$signInWithCredential(credential).then(function(firebaseUser) {
-          $ionicHistory.nextViewOptions({
-            disableBack: true
-          });
+        var credential = firebase.auth.FacebookAuthProvider.credential(token);
+        $firebaseAuth().$signInWithCredential(credential).then(function(firebaseUser) {
+          /* Stops you trying to go back, this is more performant than the previous solution */
+          $ionicHistory.clearHistory();
 
-          // Prepare app and switch to home view
           prepareApp(firebaseUser, $ionicHistory);
-
         }).catch(function(error) {
           console.log("Authentication failed:", error);
         });
@@ -44,13 +36,9 @@ angular.module('controllers', ['firebase'])
       /* Instead of rushing off to the home view, we use the promise to wait until the data retrieval from the
          database was successful. If so, we run a function that sends us to the home view */
       promise.then(function () {
-        $ionicHistory.nextViewOptions({
-          disableBack: false
-        });
+        ionic.Platform.showStatusBar(true);
 
         $state.go("tab.home");
-
-        //$location.path("/tab/home");
       }, function () {
         $window.alert("Error: unable to initialise data");
       });
@@ -127,7 +115,7 @@ angular.module('controllers', ['firebase'])
     debateServ.addMostRecentSort();
   });
 
-  $ionicModal.fromTemplateUrl('templates/modal.html', {
+  $ionicModal.fromTemplateUrl('templates/new-debate-modal.html', {
    scope: $scope
  }).then(function(modal) {
    $scope.modal = modal;
@@ -168,10 +156,18 @@ angular.module('controllers', ['firebase'])
  $scope.applySort = function (type) {
    if (type === "recent") {
      debateServ.addMostRecentSort()
+     document.getElementById("recent-tab").className = "tab-item active";
+     document.getElementById("popular-tab").className = "tab-item";
+     document.getElementById("preferences-tab").className = "tab-item";
    } else if (type === "popular") {
      debateServ.addPopularSort()
+     document.getElementById("recent-tab").className = "tab-item";
+     document.getElementById("popular-tab").className = "tab-item active";
+     document.getElementById("preferences-tab").className = "tab-item";
    } else if (type === "Preference") {
-
+     document.getElementById("recent-tab").className = "tab-item";
+     document.getElementById("popular-tab").className = "tab-item";
+     document.getElementById("preferences-tab").className = "tab-item active";
    }
 
    $scope.refreshDebates()
@@ -186,7 +182,9 @@ angular.module('controllers', ['firebase'])
 
 })
 
+
 .controller('PersonalCtrl', function($scope, fbUser,debateServ) {
+  $scope.name = fbUser.getUserData().handle;
   $scope.startedDebatesList = []
   $scope.subscribedDebatesList = []
   
@@ -219,13 +217,24 @@ angular.module('controllers', ['firebase'])
 
 })
 
-.controller('SettingsCtrl', function($scope, $state, $window, $ionicActionSheet, fbUser, $ionicModal) {
+.controller('SettingsCtrl', function($scope, $state, $window, $ionicActionSheet, fbUser, $ionicModal, $ionicHistory) {
   $scope.userData = fbUser.getUserData();
   $scope.openMyInfoPage = function () {
+    $ionicHistory.clearHistory();
     $state.go('tab.userinfo')
   }
 
-  $ionicModal.fromTemplateUrl('templates/modal.html', {
+  $scope.loadCommunityGuidelines = function () {
+    $ionicHistory.clearHistory();
+    $state.go('tab.communityguidelines')
+  }
+
+  $scope.loadPreferences = function () {
+    $ionicHistory.clearHistory();
+    $state.go('tab.preferencesettings')
+  }
+
+  $ionicModal.fromTemplateUrl('templates/modify-handle-modal.html', {
    scope: $scope
   }).then(function(modal) {
    $scope.modal = modal;
@@ -233,6 +242,11 @@ angular.module('controllers', ['firebase'])
 
   $scope.handle = {name : $scope.userData.handle}
 
+  $scope.hideModal = function () {
+    // You must let them cancel, you also revert any changes they make back to what their database handle is
+
+    $scope.modal.hide();
+  }
 
   $scope.updateHandle = function (){
     if($scope.handle.name == ""){
@@ -242,7 +256,8 @@ angular.module('controllers', ['firebase'])
       $scope.modal.hide();
     }
   }
-  $scope.showActionsheet = function() {
+
+  $scope.showSignOutAction = function() {
     $ionicActionSheet.show({
       titleText: 'Sign out of Debatable?',
       destructiveText: 'Sign Out',
@@ -256,6 +271,8 @@ angular.module('controllers', ['firebase'])
       destructiveButtonClicked: function() {
         firebase.auth().signOut().then(function() {
           fbUser.serviceShutDown();
+          $ionicHistory.clearHistory();
+          ionic.Platform.showStatusBar(false);
           $state.go('intro');
         }, function(error) {
           $window.alert("Error: could not sign out");
@@ -268,16 +285,32 @@ angular.module('controllers', ['firebase'])
 .controller('UserInfoCtrl', function($scope, fbUser) {
   $scope.name = fbUser.getFirebaseUser().displayName;
   $scope.photoURL = fbUser.getFirebaseUser().photoURL;
+  $scope.facebookID = fbUser.getId();
   $scope.debateRank = fbUser.getUserData().debateRank;
   //$scope.debateCount = fbUser.getDebateCount();
 })
 
-.controller('CreateDebateCtrl', function($scope, $state, fbUser, $ionicPopover, $sce, debateServ) {
-
+.controller('CommunityGuidelinesCtrl', function($scope) {
 
 })
 
-.controller('MainDebateCtrl', function($scope, $stateParams, debateServ, $window, fbUser, $state){
+.controller('PreferencesCtrl', function($scope) {
+  $scope.general = { checked: true };
+  $scope.gaming = { checked: true };
+  $scope.sports = { checked: true };
+  $scope.politics = { checked: true };
+  $scope.tech = { checked: true };
+  $scope.tv = { checked: true };
+  $scope.anime = { checked: true };
+  $scope.religon = { checked: true };
+  $scope.education = { checked: true };
+  $scope.history = { checked: true };
+  $scope.literature = { checked: true };
+  $scope.science = { checked: true };
+  $scope.random = { checked: true };
+})
+
+.controller('MainDebateCtrl', function($scope, $stateParams, debateServ, $window, fbUser, $state, $ionicHistory){
   var debateid = $stateParams.debateData.debateID
   var argumentState = 'pro';
   $scope.stage = $stateParams.stage
@@ -286,7 +319,11 @@ angular.module('controllers', ['firebase'])
   var argManager = debateServ.makeArgumentManager(debateid);
   $scope.getArguments = [];
 
-  
+  $scope.updateTextArea = function() {
+    var element = document.getElementById("argument-text-area");
+    element.style.height =  element.scrollHeight + "px";
+  }
+
   $scope.pressBack = function () {
     $state.go('vote', {debateid : debateid})
   }
@@ -384,7 +421,7 @@ angular.module('controllers', ['firebase'])
   });
 })
 
-.controller('VoteCtrl', function($scope, $stateParams, debateServ, $window, fbUser, $state){
+.controller('VoteCtrl', function($scope, $stateParams, debateServ, $window, fbUser, $state, $ionicHistory){
   $scope.voteChecked = false;
   var debateid = $stateParams.debateid
   $scope.debateData = {}
@@ -394,21 +431,6 @@ angular.module('controllers', ['firebase'])
   $scope.stageText = ""
   $scope.stage = ""
   $scope.isVoter = false;
-
-  var isSub = fbUser.getUserData().subscribedDebates
-  isSub = (isSub === undefined ? false : isSub[debateid])
-  $scope.subVal = ( isSub ? "Unsubscribe" : "Subscribe");
-  
-  $scope.pressBack = function () {
-    $state.go('vote', {debateid : debateid})
-  }
-
-  $scope.subscribe = function (debateID) {
-     fbUser.checkSubscription(debateID).then(function(result){
-       $scope.subVal = result;
-       fbUser.viewReset()
-     });
-  }
 
   // == Data base variable retrievals ==
   debateServ.getDebate(debateid).then(function (debateSnap) {
@@ -431,15 +453,35 @@ angular.module('controllers', ['firebase'])
     $scope.stageText = $scope.stage === "pre" ? "debate" :
                 ($scope.stage === "post" ? "post-debate" : "closed")
 
-    firebase.database().ref('debates/'+debateid+'/'+$scope.stage+'Voters/'+fbUser.getUid()).once('value')
-    .then(function (voterSnap) {
-      $scope.isVoter = (voterSnap.val() == null ? false : true)
+    if ($scope.stage === "closed") {
       $scope.voteChecked = true;
       fbUser.viewReset()
-    })
+    } else {
+      firebase.database().ref('debates/'+debateid+'/'+$scope.stage+'Voters/'+fbUser.getUid()).once('value')
+      .then(function (voterSnap) {
+        $scope.isVoter = (voterSnap.val() == null ? false : true)
+        $scope.voteChecked = true;
+        fbUser.viewReset()
+      })
+    }
+
+
+    fbUser.viewReset()
   })
 
+  var isSub = fbUser.getUserData().subscribedDebates
+  isSub = (isSub === undefined ? false : isSub[debateid])
+  $scope.subVal = ( isSub ? "Unsubscribe" : "Subscribe");
+
+  $scope.subscribe = function (debateID) {
+     fbUser.checkSubscription(debateID).then(function(result){
+       $scope.subVal = result;
+       fbUser.viewReset()
+     });
+  }
+
   $scope.pressBack = function () {
+    $ionicHistory.clearHistory();
     $state.go('tab.home');
   }
 

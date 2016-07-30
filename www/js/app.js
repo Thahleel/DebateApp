@@ -1,30 +1,21 @@
-// Ionic Starter App
-
-// angular.module is a global place for creating, registering and retrieving Angular modules
-// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
-// the 2nd parameter is an array of 'requires'
-// 'starter.controllers' is found in controllers.js
-var app = angular.module('starter', ['ionic', 'controllers', 'firebase', 'services', 'directives'])
-
+angular.module('debatable', ['ionic', 'firebase', 'debatable.controllers', 'debatable.services', 'debatable.directives'])
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
-    // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-    // for form inputs)
+    /* Keyboard input settings */
     if (window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       cordova.plugins.Keyboard.disableScroll(true);
-
     }
+
+    /* Make sure that after you pull that you run "cordova plugin add cordova-plugin-statusbar" to have a status bar which works */
     if (window.StatusBar) {
-      // org.apache.cordova.statusbar required
-      StatusBar.styleDefault();
+      StatusBar.overlaysWebView(true);
+      // Remember that this works WITH the statusbar settings in config.xml, not just alone
     }
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
-  $ionicConfigProvider.tabs.position('bottom');
-
+.config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
   .state('intro', {
     url: '/intro',
@@ -32,7 +23,7 @@ var app = angular.module('starter', ['ionic', 'controllers', 'firebase', 'servic
     controller: 'IntroCtrl'
   })
 
-  // setup an abstract state for the tab-menu directive
+  /* This app is based on tabs, this needs to be abstract as it is the superclass of all the tabs in our app */
   .state('tab', {
     url: '/tab',
     abstract: true,
@@ -40,7 +31,8 @@ var app = angular.module('starter', ['ionic', 'controllers', 'firebase', 'servic
     templateUrl: 'templates/tabs.html'
   })
 
-  // Each tab has its own nav history stack:
+  /* Each tab in the app has its own navigation route */
+
   .state('tab.home', {
     url: '/home',
     views: {
@@ -91,6 +83,28 @@ var app = angular.module('starter', ['ionic', 'controllers', 'firebase', 'servic
     }
   })
 
+  .state('tab.communityguidelines', {
+    url: '/communityguidelines',
+    views: {
+      'tab-settings': {
+        templateUrl: 'templates/tab-communityguidelines.html',
+        controller: 'CommunityGuidelinesCtrl'
+      }
+    }
+  })
+
+  .state('tab.preferencesettings', {
+    url: '/preference-settings',
+    views: {
+      'tab-settings': {
+        templateUrl: 'templates/tab-preferences.html',
+        controller: 'PreferencesCtrl'
+      }
+    }
+  })
+
+  /* This is the main debating view, away from the tabs */
+
   .state('createDebate', {
     url: '/createDebate',
     templateUrl: 'templates/createDebate.html',
@@ -125,6 +139,6 @@ var app = angular.module('starter', ['ionic', 'controllers', 'firebase', 'servic
     }
   });
 
-  // if none of the above states are matched, use this as the fallback
+  /* Google: Angular UI Router, this, along with the above is used to set the navigation in the app, the starting point is /intro */
   $urlRouterProvider.otherwise('/intro');
 });

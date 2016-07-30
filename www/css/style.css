@@ -254,3 +254,83 @@ body {
   width: 90%;
   height: 30%;
 }
+
+.intro-slider-slide {
+  background-color: #3F51B5;
+  color:white !important;
+  height:100vh;
+  width: auto;
+}
+
+.intro-slider-text {
+  font-weight: bold;
+  color: white;
+}
+
+.button.add-button-style {
+  border-color: transparent;
+  background-color: inherit;
+  color: #fff; }
+.button.add-button-style:hover {
+  color: #fff;
+  text-decoration: none; }
+.button.add-button-style.active, .button.add-button-style.activated {
+ }
+.button.add-button-style.button-clear {
+  border-color: transparent;
+  background: none;
+  box-shadow: none;
+}
+.button.add-button-style.button-icon {
+  border-color: transparent;
+  background: none; }
+.button.add-button-style.button-outline {
+  background: transparent;
+   }
+.button.add-button-style.button-outline.active, .button.add-button-style.button-outline.activated {
+  box-shadow: none;
+  color: #fff; }
+
+.button-custom .icon:before{
+  width: 50px !important;
+
+  height: 50px !important;
+}
+
+.button-custom {
+  font-weight: 100;
+  font-size: 50pt;
+  height: 50px !important;
+  transform: translate(-15px, -2px);
+}
+
+.button-text {
+  color: white;
+  margin-top:-100px;
+  font-size: 13pt;
+  letter-spacing: 1px;
+}
+
+.title-style {
+  color: #808080;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 11px;
+  padding-top: 10px;
+  padding-left: 10px;
+  letter-spacing: 2px;
+}
+
+.intro-footer-style {
+  color: white;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 3px;
+  font-size: 16px !important;
+}
+
+
+.debcard {
+  margin-left: 0 !important;
+  width: 100%;
+}
