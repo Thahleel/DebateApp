@@ -1,15 +1,7 @@
 angular.module('controllers', ['ionic', 'firebase'])
 
 .controller('AppCtrl', function($scope, $window, $state, fbUser) {
-  // Signs out the user and returns to intro screen
-  $scope.signOut = function () {
-    firebase.auth().signOut().then(function() {
-      fbUser.serviceShutDown();
-      $state.go('intro');
-    }, function(error) {
-      $window.alert("Error: could not sign out");
-    });
-  }
+
 })
 
 .controller('IntroCtrl', function($scope, $state, debateServ, fbUser, $window, $firebaseAuth, $location, $ionicHistory){

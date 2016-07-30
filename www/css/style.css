@@ -254,3 +254,15 @@ body {
   width: 90%;
   height: 30%;
 }
+
+.intro-slider-slide {
+  background-color: #3F51B5;
+  color:white !important;
+  height:100vh;
+  width: auto;
+}
+
+.intro-slider-text {
+  font-weight: bold;
+  color: white;
+}
