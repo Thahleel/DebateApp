@@ -1,4 +1,4 @@
-angular.module('controllers', ['firebase'])
+angular.module('controllers', ['ionic', 'firebase'])
 
 .controller('AppCtrl', function($scope, $window, $state, fbUser) {
   // Signs out the user and returns to intro screen
@@ -13,20 +13,20 @@ angular.module('controllers', ['firebase'])
 })
 
 .controller('IntroCtrl', function($scope, $state, debateServ, fbUser, $window, $firebaseAuth, $location, $ionicHistory){
+  // UX: initial splash screen look
+  ionic.Platform.ready(function() {
+    ionic.Platform.showStatusBar(false);
+  });
 
   $scope.signIn = function() {
     var fbLoginSuccess = function (userData) {
-      // Call back success function
       facebookConnectPlugin.getAccessToken(function(token) {
-          var credential = firebase.auth.FacebookAuthProvider.credential(token);
-          $firebaseAuth().$signInWithCredential(credential).then(function(firebaseUser) {
-          $ionicHistory.nextViewOptions({
-            disableBack: true
-          });
+        var credential = firebase.auth.FacebookAuthProvider.credential(token);
+        $firebaseAuth().$signInWithCredential(credential).then(function(firebaseUser) {
+          /* Stops you trying to go back, this is more performant than the previous solution */
+          $ionicHistory.clearHistory();
 
-          // Prepare app and switch to home view
           prepareApp(firebaseUser, $ionicHistory);
-
         }).catch(function(error) {
           console.log("Authentication failed:", error);
         });
@@ -44,13 +44,9 @@ angular.module('controllers', ['firebase'])
       /* Instead of rushing off to the home view, we use the promise to wait until the data retrieval from the
          database was successful. If so, we run a function that sends us to the home view */
       promise.then(function () {
-        $ionicHistory.nextViewOptions({
-          disableBack: false
-        });
+        ionic.Platform.showStatusBar(true);
 
         $state.go("tab.home");
-
-        //$location.path("/tab/home");
       }, function () {
         $window.alert("Error: unable to initialise data");
       });
@@ -246,6 +242,8 @@ angular.module('controllers', ['firebase'])
       destructiveButtonClicked: function() {
         firebase.auth().signOut().then(function() {
           fbUser.serviceShutDown();
+          $ionicHistory.clearHistory();
+          ionic.Platform.showStatusBar(false);
           $state.go('intro');
         }, function(error) {
           $window.alert("Error: could not sign out");
