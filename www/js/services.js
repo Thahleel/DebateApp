@@ -279,6 +279,14 @@ angular.module('debatable.services', ['ionic','firebase'])
     return (topicFilter === "" ? true : debate.topic === topicFilter)
   }
 
+  var preferenceFilter = function (debate) {
+    if (fbUser.getUser().preferences === undefined) {
+      return false
+    }
+
+    return fbUser.getUser().preferences[debate.topic]
+  }
+
   var sortFunc = mostRecentSort
   var filterFunc = byTopicFilter
 
@@ -319,6 +327,12 @@ angular.module('debatable.services', ['ionic','firebase'])
     addTopicFilter : function (topic) {
       filterFunc = byTopicFilter
       topicFilter = topic
+    },
+
+    /* After calling this function, the return of updateAllDebate will be filtered by
+       the users topic preferences */
+    addPreferenceFilter : function () {
+      filterFunc = preferenceFilter
     },
 
     /* Removes all filters from the return of updateAllDebates */

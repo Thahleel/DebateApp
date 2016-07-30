@@ -64,11 +64,13 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
   $scope.$watch('filter.choice', function(){
     if($scope.filter.choice === "All"){
       debateServ.removeFilter();
-      $scope.refreshDebates();
-    }else{
+    } else if ($scope.filter.choice === "Recent"){
       debateServ.addTopicFilter($scope.filter.choice);
-      $scope.refreshDebates();
+    } else if ($scope.filter.choice === "Preferences") {
+      debateServ.addPreferenceFilter()
     }
+
+    $scope.refreshDebates();
   })
 
 
