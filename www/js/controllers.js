@@ -307,6 +307,10 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
   var argManager = debateServ.makeArgumentManager(debateid);
   $scope.getArguments = [];
 
+  $scope.updateTextArea = function() {
+    var element = document.getElementById("argument-text-area");
+    element.style.height =  element.scrollHeight + "px";
+  }
 
   $scope.pressBack = function () {
     $state.go('vote', {debateid : debateid})
