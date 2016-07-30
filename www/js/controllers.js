@@ -237,7 +237,7 @@ angular.module('controllers', ['ionic', 'firebase'])
     }
   }
 
-  $scope.showActionsheet = function() {
+  $scope.showSignOutAction = function() {
     $ionicActionSheet.show({
       titleText: 'Sign out of Debatable?',
       destructiveText: 'Sign Out',
