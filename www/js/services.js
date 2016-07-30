@@ -175,17 +175,13 @@ angular.module('debatable.services', ['ionic','firebase'])
     },
 
     getPreferences : function () {
-      return firebase.database().ref('users/'+uid+'/preferences').once('value').then(function(preferenceSnap){
-        if(preferenceSnap === null){
-          return ""
-        }else{
-          return preferenceSnap.val()
-        }
-      })
+      return firebase.database().ref('users/'+uid+'/preferences').once('value')
     },
 
     updatePreferences : function(preferenceList){
-      firebase.database().ref('users/'+uid+'/preferences').update(preferenceList)
+      var updates = {}
+      updates['preferences'] = preferenceList
+      firebase.database().ref('users/'+uid).update(updates)
     },
 
     // Destroys the myDebates array and replaces it with a new up to date
@@ -283,6 +279,14 @@ angular.module('debatable.services', ['ionic','firebase'])
     return (topicFilter === "" ? true : debate.topic === topicFilter)
   }
 
+  var preferenceFilter = function (debate) {
+    if (fbUser.getUser().preferences === undefined) {
+      return false
+    }
+
+    return fbUser.getUser().preferences[debate.topic]
+  }
+
   var sortFunc = mostRecentSort
   var filterFunc = byTopicFilter
 
@@ -323,6 +327,12 @@ angular.module('debatable.services', ['ionic','firebase'])
     addTopicFilter : function (topic) {
       filterFunc = byTopicFilter
       topicFilter = topic
+    },
+
+    /* After calling this function, the return of updateAllDebate will be filtered by
+       the users topic preferences */
+    addPreferenceFilter : function () {
+      filterFunc = preferenceFilter
     },
 
     /* Removes all filters from the return of updateAllDebates */
