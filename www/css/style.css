@@ -266,3 +266,45 @@ body {
   font-weight: bold;
   color: white;
 }
+
+.button.add-button-style {
+  border-color: transparent;
+  background-color: inherit;
+  color: #fff; }
+.button.add-button-style:hover {
+  color: #fff;
+  text-decoration: none; }
+.button.add-button-style.active, .button.add-button-style.activated {
+ }
+.button.add-button-style.button-clear {
+  border-color: transparent;
+  background: none;
+  box-shadow: none;
+}
+.button.add-button-style.button-icon {
+  border-color: transparent;
+  background: none; }
+.button.add-button-style.button-outline {
+  background: transparent;
+   }
+.button.add-button-style.button-outline.active, .button.add-button-style.button-outline.activated {
+  box-shadow: none;
+  color: #fff; }
+
+.button-custom .icon:before{
+  width: 50px !important;
+
+  height: 50px !important;
+}
+
+.button-custom {
+  font-size: 50pt;
+  height: 50px !important;
+  transform: translate(-15px, -4px);
+}
+
+.button-text {
+  color: white;
+  margin-top:-100px;
+  font-size: 14pt;
+}

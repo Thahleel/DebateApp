@@ -1,6 +1,6 @@
 angular.module('controllers', ['ionic', 'firebase'])
 
-.controller('AppCtrl', function($scope, $window, $state, fbUser) {
+.controller('AppCtrl', function($scope) {
 
 })
 
@@ -156,10 +156,18 @@ angular.module('controllers', ['ionic', 'firebase'])
  $scope.applySort = function (type) {
    if (type === "recent") {
      debateServ.addMostRecentSort()
+     document.getElementById("recent-tab").className = "tab-item active";
+     document.getElementById("popular-tab").className = "tab-item";
+     document.getElementById("preferences-tab").className = "tab-item";
    } else if (type === "popular") {
      debateServ.addPopularSort()
+     document.getElementById("recent-tab").className = "tab-item";
+     document.getElementById("popular-tab").className = "tab-item active";
+     document.getElementById("preferences-tab").className = "tab-item";
    } else if (type === "Preference") {
-
+     document.getElementById("recent-tab").className = "tab-item";
+     document.getElementById("popular-tab").className = "tab-item";
+     document.getElementById("preferences-tab").className = "tab-item active";
    }
 
    $scope.refreshDebates()
