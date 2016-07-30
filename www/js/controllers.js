@@ -183,7 +183,7 @@ angular.module('controllers', ['ionic', 'firebase'])
 })
 
 .controller('PersonalCtrl', function($scope, fbUser) {
-  $scope.name = fbUser.getFirebaseUser().displayName;
+  $scope.name = fbUser.getUserData().handle;
   $scope.startedDebatesList = []
   $scope.subscribedDebatesList = []
 
