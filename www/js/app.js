@@ -15,7 +15,7 @@ angular.module('starter', ['ionic', 'controllers', 'firebase', 'services', 'dire
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+.config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
   .state('intro', {
     url: '/intro',
