@@ -127,7 +127,7 @@ angular.module('controllers', ['firebase'])
     debateServ.addMostRecentSort();
   });
 
-  $ionicModal.fromTemplateUrl('templates/modal.html', {
+  $ionicModal.fromTemplateUrl('templates/new-debate-modal.html', {
    scope: $scope
  }).then(function(modal) {
    $scope.modal = modal;
