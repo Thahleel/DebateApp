@@ -205,7 +205,7 @@ angular.module('controllers', ['ionic', 'firebase'])
 
 })
 
-.controller('SettingsCtrl', function($scope, $state, $window, $ionicActionSheet, fbUser, $ionicModal) {
+.controller('SettingsCtrl', function($scope, $state, $window, $ionicActionSheet, fbUser, $ionicModal, $ionicHistory) {
   $scope.userData = fbUser.getUserData();
   $scope.openMyInfoPage = function () {
     $state.go('tab.userinfo')
