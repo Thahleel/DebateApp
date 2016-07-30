@@ -217,6 +217,11 @@ angular.module('controllers', ['ionic', 'firebase'])
 
   $scope.handle = {name : $scope.userData.handle}
 
+  $scope.hideModal = function () {
+    // You must let them cancel, you also revert any changes they make back to what their database handle is
+
+    $scope.modal.hide();
+  }
 
   $scope.updateHandle = function (){
     if($scope.handle.name == ""){
@@ -226,6 +231,7 @@ angular.module('controllers', ['ionic', 'firebase'])
       $scope.modal.hide();
     }
   }
+
   $scope.showActionsheet = function() {
     $ionicActionSheet.show({
       titleText: 'Sign out of Debatable?',
