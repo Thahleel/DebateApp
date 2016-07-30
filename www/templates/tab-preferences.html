@@ -1,8 +1,11 @@
 <ion-view view-title="Preferences">
     <ion-content>
     <div ng-controller="PersonalCtrl">
-        <div ng-repeat="singleTopic in allTopics">
-            <ion-checkbox ng-checked="singleTopic.checked" ng-model="$scope.singleTopic.checked" > {{singleTopic}} {{$scope.singleTopic.checked}}</ion-checkbox>
+        <div ng-repeat="topic in allTopics">
+            <ion-checkbox ng-checked="topicModel[topic]"
+                          ng-model="topicModel[topic]">
+                           {{topic}}
+            </ion-checkbox>
         </div>
     </div>
     </ion-content>

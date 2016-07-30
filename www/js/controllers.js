@@ -187,8 +187,8 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
   $scope.name = fbUser.getUserData().handle;
   $scope.startedDebatesList = []
   $scope.subscribedDebatesList = []
-  
-  
+
+
 
   // === VIEW EVENTS ===
   $scope.$on('$ionicView.enter', function(){
@@ -288,32 +288,32 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
 
 .controller('PreferencesCtrl', function($scope, debateServ) {
   $scope.allTopics = debateServ.getAllTopics();
-  var topicModel = ""
+  $scope.topicModel = {}
 
-  //will store the list of the users preferences
-  preferencesList = ["Sports","Anime"]
-  
-  //Creates a new scope model for each checkbox item
-  for(topicA in $scope.allTopics){
-    //$scope model is created for each topic
-    topicModel = $scope.allTopics[topicA]
-
-    //If the topic is in user preference list then set checked to true, false otherwise
-    if(preferencesList.includes(topicModel)){
-      $scope.topicModel = {checked : true}
-      
-      //Alert displays which checkboxes should be displayed as checked
-      window.alert("Includes "+topicModel)
-    }else{
-      $scope.topicModel = {checked : false}
-    }
-
-    //DO this when the value changes
-    $scope.$watch($scope.topicModel.checked, function(){
-      window.alert("Changed");
-    })
-    
+  /* HEREEEEEEEE
+    Retrieve this from the data base at 'users/fbUser.getUid()/preferences'
+  */
+  var preferences = {
+    General : true,
+    Anime : true
   }
+
+  //Creates a new scope model for each checkbox item
+  for(topicIndex in $scope.allTopics){
+    var topic = $scope.allTopics[topicIndex]
+    $scope.topicModel[topic] = (preferences[topic] === undefined ?
+                                false : preferences[topic])
+  }
+
+  /* === VIEW EVENTS === */
+  $scope.$on('$ionicView.beforeLeave', function(){
+    /* HEREEEEEEEE
+      Using topic model, update the preferences obj and save it to firebase
+      save location as above
+    */
+  });
+
+})
 
 
 .controller('MainDebateCtrl', function($scope, $stateParams, debateServ, $window, fbUser, $state, $ionicHistory){
