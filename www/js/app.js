@@ -23,7 +23,7 @@ angular.module('starter', ['ionic', 'controllers', 'firebase', 'services', 'dire
     controller: 'IntroCtrl'
   })
 
-  // setup an abstract state for the tab-menu directive
+  /* This app is based on tabs, this needs to be abstract as it is the superclass of all the tabs in our app */
   .state('tab', {
     url: '/tab',
     abstract: true,
@@ -31,7 +31,8 @@ angular.module('starter', ['ionic', 'controllers', 'firebase', 'services', 'dire
     templateUrl: 'templates/tabs.html'
   })
 
-  // Each tab has its own nav history stack:
+  /* Each tab in the app has its own navigation route */
+
   .state('tab.home', {
     url: '/home',
     views: {
@@ -81,6 +82,8 @@ angular.module('starter', ['ionic', 'controllers', 'firebase', 'services', 'dire
       }
     }
   })
+
+  /* This is the main debating view, away from the tabs */
 
   .state('createDebate', {
     url: '/createDebate',
