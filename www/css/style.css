@@ -308,6 +308,7 @@ body {
   color: white;
   margin-top:-100px;
   font-size: 13pt;
+  letter-spacing: 1px;
 }
 
 .title-style {
@@ -325,7 +326,7 @@ body {
   text-transform: uppercase;
   font-weight: bold;
   letter-spacing: 3px;
-  font-size: 20px;
+  font-size: 16px !important;
 }
 
 
