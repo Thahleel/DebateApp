@@ -282,6 +282,14 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
   $scope.facebookID = fbUser.getId();
   $scope.debateRank = fbUser.getUserData().debateRank;
   //$scope.debateCount = fbUser.getDebateCount();
+
+  $scope.$on('$ionicView.enter', function(){
+    fbUser.updateMyDebates().then(function (debates) {
+      $scope.startedDebatesList = debates
+      $scope.debateCount = $scope.startedDebatesList.length
+      fbUser.viewReset()
+    })
+  });
 })
 
 .controller('CommunityGuidelinesCtrl', function($scope) {
