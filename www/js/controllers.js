@@ -288,15 +288,33 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
 
 .controller('PreferencesCtrl', function($scope, debateServ) {
   $scope.allTopics = debateServ.getAllTopics();
-  
-  $scope.checkboxModel = {
-     value : "Hi"
-   }
+  var topicModel = ""
 
-  $scope.updatePreferences = function(){
-    window.alert("Changed");
+  //will store the list of the users preferences
+  preferencesList = ["Sports","Anime"]
+  
+  //Creates a new scope model for each checkbox item
+  for(topicA in $scope.allTopics){
+    //$scope model is created for each topic
+    topicModel = $scope.allTopics[topicA]
+
+    //If the topic is in user preference list then set checked to true, false otherwise
+    if(preferencesList.includes(topicModel)){
+      $scope.topicModel = {checked : true}
+      
+      //Alert displays which checkboxes should be displayed as checked
+      window.alert("Includes "+topicModel)
+    }else{
+      $scope.topicModel = {checked : false}
+    }
+
+    //DO this when the value changes
+    $scope.$watch($scope.topicModel.checked, function(){
+      window.alert("Changed");
+    })
+    
   }
-})
+
 
 .controller('MainDebateCtrl', function($scope, $stateParams, debateServ, $window, fbUser, $state, $ionicHistory){
   var debateid = $stateParams.debateData.debateID
