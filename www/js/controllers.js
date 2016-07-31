@@ -26,7 +26,7 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
       }
 
       // prepares app after the login process succeeds
-      var prepareApp = function(firebaseUser, $ionicHistory) {
+      var prepareApp = function(firebaseUser) {
         /*Initilises service with the firebaseUser object of the logged in user.
          The call attempts to retrieve data from the database. This is performed asynchronously hence
          at this moment in time the data may not be in the correct place yet. So the function returns a promise
@@ -59,7 +59,7 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
     $scope.allDebates = [];
     $scope.state = $state;
 
-    $scope.filter = {choice: "All"}
+    $scope.filter = {choice: "All"};
 
     $scope.$watch('filter.choice', function(){
       if($scope.filter.choice === "All"){
@@ -71,7 +71,7 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
       }
 
       $scope.refreshDebates();
-    })
+    });
 
 
     $ionicPopover.fromTemplateUrl('templates/filters.html', {
@@ -86,7 +86,7 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
       var promise = debateServ.updateAllDebates();
 
       promise.then(function (allDebates) {
-        $scope.allDebates = allDebates
+        $scope.allDebates = allDebates;
         $scope.$broadcast('scroll.refreshComplete');
         if($rootScope.$root.$$phase != '$apply' && $rootScope.$root.$$phase != '$digest'){
           $rootScope.$apply(function() {
@@ -96,7 +96,7 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
           self.tags = true;
         }
       });
-    }
+    };
 
     $scope.hideModal = function () {
       $scope.topic = {choice: ""};
@@ -105,7 +105,7 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
       document.getElementById("endtime").value = "";
 
       $scope.modal.hide();
-    }
+    };
 
     $scope.openFilterPopover = function($event) {
       $scope.filterPopover.show($event);
@@ -125,8 +125,8 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
 
     // The debate topic will default to general. This will is changed when a user
     // Selects a topic from the drowndown list.
-    $scope.topic = {choice: ""}
-    $scope.allTopics = debateServ.getAllTopics()
+    $scope.topic = {choice: ""};
+    $scope.allTopics = debateServ.getAllTopics();
 
     $ionicPopover.fromTemplateUrl('templates/topics.html', {
       scope: $scope,
@@ -155,21 +155,21 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
       document.getElementById("endtime").value = "";
 
       $state.go('vote', {debateid : debateIDArg})
-    }
+    };
 
     $scope.applySort = function (type) {
       if (type === "recent") {
-        debateServ.addMostRecentSort()
+        debateServ.addMostRecentSort();
         document.getElementById("recent-tab").className = "tab-item active";
         document.getElementById("popular-tab").className = "tab-item";
       } else if (type === "popular") {
-        debateServ.addPopularSort()
+        debateServ.addPopularSort();
         document.getElementById("recent-tab").className = "tab-item";
         document.getElementById("popular-tab").className = "tab-item active";
       }
 
       $scope.refreshDebates()
-    }
+    };
 
     $scope.openPopover = function($event) {
       $scope.popover.show($event);
@@ -182,20 +182,20 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
 
   .controller('PersonalCtrl', function($scope, fbUser) {
     $scope.name = fbUser.getUserData().handle;
-    $scope.startedDebatesList = []
-    $scope.subscribedDebatesList = []
-    $scope.hideStarted = true
-    $scope.startedButtonText = "SHOW STARTED +"
-    $scope.hideSubscribed = true
-    $scope.subscribedButtonText = "SHOW SUBSCRIPTIONS +"
+    $scope.startedDebatesList = [];
+    $scope.subscribedDebatesList = [];
+    $scope.hideStarted = true;
+    $scope.startedButtonText = "SHOW STARTED +";
+    $scope.hideSubscribed = true;
+    $scope.subscribedButtonText = "SHOW SUBSCRIPTIONS +";
 
     $scope.toggleStarted = function(){
       if($scope.hideStarted){
-        $scope.startedButtonText = "HIDE STARTED -"
+        $scope.startedButtonText = "HIDE STARTED -";
         $scope.hideStarted = false;
       }else{
         $scope.hideStarted = true;
-        $scope.startedButtonText = "SHOW STARTED +"
+        $scope.startedButtonText = "SHOW STARTED +";
       }
     }
 
@@ -559,10 +559,12 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
 
         if ($scope.proScore > $scope.conScore) {
           $scope.winningSide = "Support";
-        } else if ($scope.proScore < $scope.conScore) {
+        } else if ($scope.conScore > $scope.proScore) {
           $scope.winningSide = "Oppose";
-        } else {
+        } else if ($scope.conScore == $scope.proScore) {
           $scope.winningSide = "Draw";
+        } else {
+          $scope.winningSide = "None";
         }
 
         $scope.voteChecked = true;
@@ -574,6 +576,10 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
             $scope.voteChecked = true;
             fbUser.viewReset()
           })
+      }
+
+      if ($scope.winningSide == "") {
+        $scope.winningSide = "None";
       }
 
       if ($scope.stage === 'pre') {

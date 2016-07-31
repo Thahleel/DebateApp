@@ -17,26 +17,26 @@ body {
 .tabs-striped.tabs-color-main .tab-item {
   color: rgba(48,63,159, 0.4);
   opacity: 1; }
-  .tabs-striped.tabs-color-main .tab-item .badge {
-    opacity: 0.4; }
-  .tabs-striped.tabs-color-main .tab-item.tab-item-active, .tabs-striped.tabs-color-main .tab-item.active, .tabs-striped.tabs-color-main .tab-item.activated {
-    color: rgb(48,63,159);
-    border: 0 solid rgb(48,63,159);
-    border-top-width: 2px; }
-    .tabs-striped.tabs-color-main .tab-item.tab-item-active .badge, .tabs-striped.tabs-color-main .tab-item.active .badge, .tabs-striped.tabs-color-main .tab-item.activated .badge {
-      top: 2px;
-      opacity: 1; }
+.tabs-striped.tabs-color-main .tab-item .badge {
+  opacity: 0.4; }
+.tabs-striped.tabs-color-main .tab-item.tab-item-active, .tabs-striped.tabs-color-main .tab-item.active, .tabs-striped.tabs-color-main .tab-item.activated {
+  color: rgb(48,63,159);
+  border: 0 solid rgb(48,63,159);
+  border-top-width: 2px; }
+.tabs-striped.tabs-color-main .tab-item.tab-item-active .badge, .tabs-striped.tabs-color-main .tab-item.active .badge, .tabs-striped.tabs-color-main .tab-item.activated .badge {
+  top: 2px;
+  opacity: 1; }
 
 .tabs-striped.tabs-color-home-top .tab-item {
   color: rgba(255, 255, 255, 0.4);
   opacity: 1; }
-  .tabs-striped.tabs-color-home-top .tab-item .badge {
-    opacity: 0.4; }
-  .tabs-striped.tabs-color-home-top .tab-item.tab-item-active, .tabs-striped.tabs-color-home-top .tab-item.active, .tabs-striped.tabs-color-home-top .tab-item.activated {
-    color: white;
-    border: 0 solid white;  }
-    .tabs-striped.tabs-color-home-top .tab-item.tab-item-active .badge, .tabs-striped.tabs-color-home-top .tab-item.active .badge, .tabs-striped.tabs-color-home-top .tab-item.activated .badge {
-      opacity: 1; }
+.tabs-striped.tabs-color-home-top .tab-item .badge {
+  opacity: 0.4; }
+.tabs-striped.tabs-color-home-top .tab-item.tab-item-active, .tabs-striped.tabs-color-home-top .tab-item.active, .tabs-striped.tabs-color-home-top .tab-item.activated {
+  color: white;
+  border: 0 solid white;  }
+.tabs-striped.tabs-color-home-top .tab-item.tab-item-active .badge, .tabs-striped.tabs-color-home-top .tab-item.active .badge, .tabs-striped.tabs-color-home-top .tab-item.activated .badge {
+  opacity: 1; }
 
 
 .bar.bar-modal {
@@ -47,51 +47,51 @@ body {
 }
 
 .bar.bar-modal .title {
-    color: #fff;
+  color: #fff;
 }
 
 .bar-modal .button {
   border-color: #111;
   background-color: #3F51B5;
   color: #fff; }
-  .bar-modal .button:hover {
-    color: #fff;
-    text-decoration: none; }
-  .bar-modal .button.active, .bar-modal .button.activated {
-    border-color: #000; }
-  .bar-modal .button.button-clear {
-    border-color: transparent;
-    background: none;
-    box-shadow: none;
-    color: #fff;
-    font-size: 17px; }
-  .bar-modal .button.button-icon {
-    border-color: transparent;
-    background: none; }
+.bar-modal .button:hover {
+  color: #fff;
+  text-decoration: none; }
+.bar-modal .button.active, .bar-modal .button.activated {
+  border-color: #000; }
+.bar-modal .button.button-clear {
+  border-color: transparent;
+  background: none;
+  box-shadow: none;
+  color: #fff;
+  font-size: 17px; }
+.bar-modal .button.button-icon {
+  border-color: transparent;
+  background: none; }
 
-    .button.button-modal {
-      border-color: transparent;
-      background-color: #3F51B5;
-      color: #fff; }
-      .button.button-modal:hover {
-        color: #fff;
-        text-decoration: none; }
-      .button.button-modal.button-clear {
-        border-color: transparent;
-        background: none;
-        box-shadow: none;
-        color: #3F51B5; }
-      .button.button-modal.button-icon {
-        border-color: transparent;
-        background: none; }
-      .button.button-modal.button-outline {
-        border-color: #3F51B5;
-        background: transparent;
-        color: #3F51B5; }
-        .button.button-modal.button-outline.active, .button.button-positive.button-outline.activated {
-          background-color: #3F51B5;
-          box-shadow: none;
-          color: #fff; }
+.button.button-modal {
+  border-color: transparent;
+  background-color: #3F51B5;
+  color: #fff; }
+.button.button-modal:hover {
+  color: #fff;
+  text-decoration: none; }
+.button.button-modal.button-clear {
+  border-color: transparent;
+  background: none;
+  box-shadow: none;
+  color: #3F51B5; }
+.button.button-modal.button-icon {
+  border-color: transparent;
+  background: none; }
+.button.button-modal.button-outline {
+  border-color: #3F51B5;
+  background: transparent;
+  color: #3F51B5; }
+.button.button-modal.button-outline.active, .button.button-positive.button-outline.activated {
+  background-color: #3F51B5;
+  box-shadow: none;
+  color: #fff; }
 
 
 .back-button {
@@ -99,7 +99,7 @@ body {
 }
 
 .pane {
-    background-color: #efeff4 !important;
+  background-color: #efeff4 !important;
 }
 
 .ion-navicon {
@@ -121,7 +121,7 @@ body {
 
 #list {
   width: 200px;
-  margin: 0px auto;
+  margin: 0 auto;
   font-size: 20px;
 }
 #list ol {
@@ -130,7 +130,7 @@ body {
 #list ol li {
   text-align: left;
   list-style: decimal;
-  margin: 10px 0px;
+  margin: 10px 0;
 }
 
 .button.ng-hide{
@@ -148,7 +148,6 @@ body {
 .overlapPanel {
   position: fixed;
   left: 5vw;
-  top: 0vh;
   width: 90vw;
   height: 75vh;
   z-index: 10;
@@ -164,18 +163,18 @@ body {
 }
 
 .btn-name {
-	display: inline-block;
+  display: inline-block;
   text-align: left;
   padding-left: 10px;
-	width: 90%;
+  width: 90%;
 }
 
 .btn-arrow {
   color: #c7c7cc;
-  	display: inline-block;
-    text-align: right;
-    padding-right: 10px;
-	width: 10%;
+  display: inline-block;
+  text-align: right;
+  padding-right: 10px;
+  width: 10%;
 }
 
 #sign-out-txt {
@@ -183,9 +182,9 @@ body {
 }
 
 .user-profile-img-div {
-    padding-top: 20px;
-    margin: 0 auto;
-    width: 50%;
+  padding-top: 20px;
+  margin: 0 auto;
+  width: 50%;
 }
 
 .user-img-padding {
@@ -218,24 +217,18 @@ body {
 
 .conArgcard {
   position: relative;
-  border-style: solid;
-  border-top-width: 3px;
-  border-top-color: rgb(255, 160, 160);
+  border-top: solid 3px rgb(255, 160, 160);
   right: -5px;
 }
 
 .proArgcard {
   position: relative;
   left: -5px;
-  border-style: solid;
-  border-top-width: 3px;
-  border-top-color: rgb(160, 160, 255);
+  border-top: solid 3px rgb(160, 160, 255);
 }
 
 .unArgcard {
-  border-style: solid;
-  border-top-width: 3px;
-  border-top-color: rgb(173, 126, 195);
+  border-top: solid 3px rgb(173, 126, 195);
 }
 
 .handle-upper-pad {
@@ -272,10 +265,10 @@ body {
   opacity: 0.6 }
 .button.add-button-style:hover {
   color: #fff;
-  opacity: 1
+  opacity: 1;
   text-decoration: none; }
 .button.add-button-style.active, .button.add-button-style.activated {
- }
+}
 .button.add-button-style.button-clear {
   border-color: transparent;
   background: none;
@@ -286,7 +279,7 @@ body {
   background: none; }
 .button.add-button-style.button-outline {
   background: transparent;
-   }
+}
 .button.add-button-style.button-outline.active, .button.add-button-style.button-outline.activated {
   box-shadow: none;
   color: #fff; }
@@ -356,7 +349,7 @@ body {
   color: #3F51B5 !important;
   font-weight: bold !important;
   font-size: 14pt !important;
-  padding-left: 0px !important;
+  padding-left: 0 !important;
   transform: translate(4px, -2px) !important;
   display: inline !important;
 }
@@ -489,8 +482,8 @@ body {
   padding-top: 17px !important;
   padding-bottom: 17px !important;
   background-color: #D1D5D8;
-  border-top: solid 1px #333333;
-  border-bottom: solid 1px #333333;
+  border-top: solid 1px #797979;
+  border-bottom: solid 1px #797979;
 }
 
 .home-debate-card-enddate {
@@ -505,4 +498,62 @@ body {
   letter-spacing: 1px;
   font-weight: bold;
   padding: 3px;
+}
+
+.argument-card {
+  padding: 0 !important;
+}
+
+
+.argument-handle {
+  background-color: #9E9D9B;
+  color: white;
+  text-transform: uppercase;
+  font-size: 16px;
+  letter-spacing: 1px;
+  font-weight: bold;
+  padding: 7px;
+}
+
+
+
+
+.argument-upvotes {
+  font-size: 20px !important;
+  color: white;
+  transform: translate(20px,-30px);
+}
+
+.argument-upvotes-ticker {
+  font-size: 25px;
+  transform: translate(7px,5px);
+}
+
+.argument-holder {
+  float: left;
+  width: 85%;
+  min-height: 101px;
+  height: auto;
+  padding: 7px;
+  background-color: #D1D5D8;
+  border-top: solid 1px #797979;
+  border-right:solid 1px #797979;
+  border-bottom: solid 1px #797979;
+}
+
+.upvote-holder {
+  float: left;
+  width: 15%;
+  background-color: #9E9D9B;
+}
+
+.argument-date {
+  background-color: #9E9D9B;
+  color: white;
+  text-transform: uppercase;
+  font-size: 10px;
+  letter-spacing: 1px;
+  font-weight: bold;
+  padding: 2px;
+  padding-left: 8px !important;
 }
