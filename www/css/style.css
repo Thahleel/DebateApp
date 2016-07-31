@@ -513,7 +513,7 @@ body {
 
 
 .argument-handle {
-  background-color: #2C82C9;
+  background-color: #9E9D9B;
   color: white;
   text-transform: uppercase;
   font-size: 16px;
@@ -533,7 +533,6 @@ body {
 
 .argument-upvotes-ticker {
   font-size: 25px;
-  color: #0a9dc7;
   transform: translate(7px,5px);
 }
 
@@ -544,19 +543,19 @@ body {
   height: auto;
   padding: 7px;
   background-color: #D1D5D8;
-  border-top: solid 1px #333333;
-  border-right:solid 1px #333333;
-  border-bottom: solid 1px #333333;
+  border-top: solid 1px #797979;
+  border-right:solid 1px #797979;
+  border-bottom: solid 1px #797979;
 }
 
 .upvote-holder {
   float: left;
   width: 15%;
-  background-color: #2C82C9;
+  background-color: #9E9D9B;
 }
 
 .argument-date {
-  background-color: #2C82C9;
+  background-color: #9E9D9B;
   color: white;
   text-transform: uppercase;
   font-size: 10px;
