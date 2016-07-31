@@ -6,6 +6,11 @@ angular.module('debatable.services', ['ionic','firebase'])
   var userData;     // Latest snapshot of the user's data stored in the database
   var id;
 
+  // == Sortiing functions ==
+  var mostRecentSort = function (a, b) {
+    return b.creationDate - a.creationDate
+  }
+
   // Initilises local private variables of the service
   setupFirebaseUser = function (user) {
     firebaseUser = user;
@@ -182,7 +187,18 @@ angular.module('debatable.services', ['ionic','firebase'])
     },
 
     getNotifications : function(){
-      return firebase.database().ref('users/'+uid+'/notifications').once('value')     
+      return firebase.database().ref('users/'+uid+'/notifications').once('value')
+      .then(function(notifSnap) {
+        var notifications = []
+
+        for (var notifid in notifSnap.val()) {
+          if (notifSnap.val().hasOwnProperty(notifid)) {
+            notifications.push(notifSnap.val()[notifid])
+          }
+        };
+
+        return notifications.sort(mostRecentSort)
+      })
     },
 
     // Destroys the myDebates array and replaces it with a new up to date
@@ -471,10 +487,10 @@ angular.module('debatable.services', ['ionic','firebase'])
       var updates = {}
       updates[argumentid] = true
       firebase.database().ref('debates/'+argumentData.debateID+'/'+argumentData.side+'Arguments').update(updates);
-     
+
       var d = new Date();
       var dateString = d.toUTCString();
-      
+
       firebase.database().ref('debates/'+debateID+'/creator').once('value').then(function(creatorPromise){
         //if you are not replying to you argument, notify the creator of argument
         if( uid !== creatorPromise.val()){

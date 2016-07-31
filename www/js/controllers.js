@@ -228,7 +228,7 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
   .controller('NotifCtrl', function($scope, fbUser) {
     $scope.$on('$ionicView.enter', function(){
       fbUser.getNotifications().then(function(notifications){
-        $scope.notificationsList = notifications.val()
+        $scope.notificationsList = notifications
         fbUser.viewReset()
       });
     });
