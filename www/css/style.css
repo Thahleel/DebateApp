@@ -506,3 +506,8 @@ body {
   font-weight: bold;
   padding: 3px;
 }
+
+.enddate {
+  color: #333 !important;
+  background-color: black !important;
+}

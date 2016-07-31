@@ -1,38 +1,32 @@
 <ion-modal-view>
-    <ion-header-bar class="bar bar-header bar-modal">
-        <h1 class="title">Start a debate</h1>
-        <div class="buttons">
-            <button class="button button-icon ion-close-round add-button-style" ng-click="hideModal()">
-            </button>
-        </div>
-    </ion-header-bar>
-    <ion-content>
+  <ion-header-bar class="bar bar-header bar-modal">
+    <h1 class="title">Start a debate</h1>
+    <div class="buttons">
+      <button class="button button-icon ion-close-round add-button-style" ng-click="hideModal()">
+      </button>
+    </div>
+  </ion-header-bar>
+  <ion-content>
+    <div class="list" >
       <label class="item item-input" ng-click="openPopover($event)" >
-        <span class="input-label" >Debate Topic</span>
+        <span class="input-label" >Debate topic</span>
         <span id="debatetopic">{{topic.choice}}</span>
       </label>
-      <ion-item>
-        <ion-label>Premise</ion-label>
-        <ion-textarea></ion-textarea>
-      </ion-item>
-        <div class="list">
+      <label class="item item-input">
+        <input id="premise" type="text" ng-model="Premise" placeholder="Debate premise">
+      </label>
 
+      <label class="item item-input">
+        <span class="input-label">End date</span>
+        <input id="enddate" type="date" ng-model="EndDate" placeholder="End date">
+      </label>
 
-            <label class="item item-input">
-                <span class="input-label" >Debate Premise</span>
-                <input id="premise" type="text" ng-model="Premise">
-            </label>
+      <label class="item item-input">
+        <span class="input-label">End time</span>
+        <input id="endtime" type="time" ng-model="EndTime" placeholder="End time">
+      </label>
+    </div>
 
-            <label class="item item-input">
-                <span class="input-label">End Date</span>
-                <input id="enddate" type="date" ng-model="EndDate">
-            </label>
-
-            <label class="item item-input">
-                <span class="input-label">End Time</span>
-                <input id="endtime" type="time" ng-model="EndTime">
-            </label>
-            <button class="button button-full button-modal" ng-click="create(Premise,EndDate,EndTime)">Create</button>
-        </div>
-    </ion-content>
+    <button class="button button-full button-modal" ng-click="create(Premise,EndDate,EndTime)">Create</button>
+  </ion-content>
 </ion-modal-view>
