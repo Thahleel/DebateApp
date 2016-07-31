@@ -26,6 +26,7 @@ angular.module('debatable.services', ['ionic','firebase'])
   // The default object of any new user to the debatable app
   var initialUserObject = {
     debateRank : 1,
+    exp: 0,
     handle : "",
     debates : [],
     recentDebates: {},
@@ -228,6 +229,15 @@ angular.module('debatable.services', ['ionic','firebase'])
       userDB = null;
       userData = {};
     },
+
+    // Adds a certain amount of exp to the user with the specified id. also
+    // increases their rank if they level up
+        var newExp = expSnap.val() + expBoost
+
+        firebase.database().ref('users/'+userid).update({exp : newExp})
+
+
+      })
 
     viewReset : function () {
       if($rootScope.$root.$$phase != '$apply' && $rootScope.$root.$$phase != '$digest'){

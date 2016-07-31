@@ -60,11 +60,13 @@ angular.module('debatable.directives', ['ionic','firebase'])
           var updates = {}
 
           if (upvotedBefore) {
+            fbUser.addExp(scope.argInfo.creator, -5);
             scope.argInfo.upvotes--
             updates[fbUser.getUid()] = false
             angular.element( document.querySelector( '#upArrow'+scope.argInfo.argumentID ) ).removeClass("balanced")
 
           } else {
+            fbUser.addExp(scope.argInfo.creator, 5);
             scope.argInfo.upvotes++
             updates[fbUser.getUid()] = true
             angular.element( document.querySelector( '#upArrow'+scope.argInfo.argumentID ) ).addClass("balanced")

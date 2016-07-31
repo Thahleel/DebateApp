@@ -134,6 +134,8 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
  });
 
  $scope.create = function (debateTitle,debateEndDate,debateEndTime) {
+  fbUser.addExp(fbUser.getUid(), 1);
+
   var debateIDArg = fbUser.createDebate({
     topic: $scope.topic.choice,
     premise: debateTitle,
@@ -369,6 +371,7 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
   }
 
   $scope.createArgument = function() {
+    fbUser.addExp(fbUser.getUid(), 1);
     var argumentData = {
       text: $scope.modelData.argText,
       debateID: debateid,
