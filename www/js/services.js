@@ -283,7 +283,27 @@ angular.module('debatable.services', ['ionic','firebase'])
   }
 
   var popularSort = function (a, b) {
-    return (b.proArguments + b.conArguments) - (a.proArguments + a.conArguments)
+    var aCount = 0
+    var bCount = 0
+
+    for (argument in a.proArguments) {
+      aCount++
+    }
+
+    for (argument in a.conArguments) {
+      aCount++
+    }
+
+    for (argument in b.proArguments) {
+      bCount++
+    }
+
+    for (argument in b.conArguments) {
+      bCount++
+    }
+
+    return bCount - aCount
+
   }
 
   // == Filter functions ==
