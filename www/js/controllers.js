@@ -183,7 +183,30 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
     $scope.name = fbUser.getUserData().handle;
     $scope.startedDebatesList = []
     $scope.subscribedDebatesList = []
+    $scope.hideStarted = true
+    $scope.startedButtonText = "Show My Started Debates"
+    $scope.hideSubscribed = true
+    $scope.subscribedButtonText = "Show My Subscribed Debates"
 
+    $scope.toggleStarted = function(){
+      if($scope.hideStarted){
+        $scope.startedButtonText = "Hide My Started Debates"
+        $scope.hideStarted = false;
+      }else{
+        $scope.hideStarted = true;
+        $scope.startedButtonText = "Show My Started Debates"
+      }
+    }
+
+    $scope.toggleSubscribed = function(){
+      if($scope.hideSubscribed){
+        $scope.subscribedButtonText = "Hide My Subscribed Debates"
+        $scope.hideSubscribed = false;
+      }else{
+        $scope.hideSubscribed = true;
+        $scope.subscribedButtonText = "Show My Subscribed Debates"
+      }
+    }
 
 
     // === VIEW EVENTS ===
