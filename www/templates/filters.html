@@ -5,7 +5,7 @@
 	<ion-content>
 		<ion-list>
 			<ion-radio ng-model="filter.choice" value="All">All</ion-radio>
-			<ion-radio ng-model="filter.choice" ng-value="'pref'">*Preferences*</ion-radio>
+			<ion-radio ng-model="filter.choice" ng-value="'*Preferences*'">*Preferences*</ion-radio>
 			<div ng-repeat="singleTopic in allTopics">
 				<ion-radio ng-model="filter.choice" ng-value="singleTopic">{{singleTopic}}</ion-radio>
 			</div>
