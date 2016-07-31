@@ -1,19 +1,20 @@
 <ion-view view-title="{{ name }}" cache-view="false">
   <ion-content>
     <div class="title-style">Debates started</div>
+    <button class="button button-full button-positive" style="text-transform: uppercase; letter-spacing: 3px; font-size: 12px !important; font-weight: bold;" ng-click="toggleStarted()">{{startedButtonText}}</button>
     <div ng-hide="hideStarted">
       <div id="startedList" ng-repeat="debate in startedDebatesList">
         <debate-card debate-info="debate"></debate-card>
       </div>
     </div>
-    <button class="button button-full button-positive" style="text-transform: uppercase; letter-spacing: 3px; font-size: 12px !important; font-weight: bold;" ng-click="toggleStarted()">{{startedButtonText}}</button>
     <div class="title-style">Subscribed debates</div>
+    <button class="button button-full button-positive" style="text-transform: uppercase; letter-spacing: 3px; font-size: 12px !important; font-weight: bold;" ng-click="toggleSubscribed()">{{subscribedButtonText}}</button>
     <div ng-hide="hideSubscribed">
       <div id="subscribedList" ng-repeat="subdebate in subscribedDebatesList">
         <debate-card debate-info="subdebate"></debate-card>
       </div>
     </div>
-    <button class="button button-full button-positive" style="text-transform: uppercase; letter-spacing: 3px; font-size: 12px !important; font-weight: bold;" ng-click="toggleSubscribed()">{{subscribedButtonText}}</button>
+    
     <div style="height: 100px"></div>
   </ion-content>
 </ion-view>
