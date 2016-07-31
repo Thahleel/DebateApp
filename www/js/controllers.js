@@ -502,7 +502,9 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
     $scope.stageText = ""
     $scope.debateStatus = ""
     $scope.stage = ""
-    $scope.isVoter = false;
+    $scope.isVoter = false
+    $scope.proScore = 0
+    $scope.conScore = 0
 
     // == Data base variable retrievals ==
     debateServ.getDebate(debateid).then(function (debateSnap) {
@@ -526,6 +528,31 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
         ($scope.stage === "post" ? "post-debate" : "closed")
 
       if ($scope.stage === "closed") {
+        for (voter in $scope.debateData.postVoters) {
+          if ($scope.debateData.postVoters[voter] === "Undecided") {
+            continue
+          }
+
+          if ($scope.debateData.preVoters[voter] !== undefined) {
+            var boost = 0
+            if ($scope.debateData.preVoters[voter] === $scope.debateData.postVoters[voters]) {
+              boost = 1
+            } else if ($scope.debateData.preVoters[voter] === "Undecided") {
+              boost = 5
+            } else {
+              boost = 10
+            }
+
+            if ($scope.debateData.postVoters[voters] === "Pro") {
+              $scope.proScore += boost
+            } else {
+              $scope.conScore += boost
+            }
+          }
+
+
+        }
+
         $scope.voteChecked = true;
         fbUser.viewReset()
       } else {
