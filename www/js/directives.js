@@ -87,14 +87,14 @@ angular.module('debatable.directives', ['ionic','firebase'])
             scope.argInfo.upvotes--;
             updates[fbUser.getUid()] = false;
             angular.element( document.querySelector( '#upArrow'+scope.argInfo.argumentID ) ).removeClass("balanced")
-
           } else {
             fbUser.addExp(scope.argInfo.creator, 5);
             scope.argInfo.upvotes++;
             updates[fbUser.getUid()] = true;
             angular.element( document.querySelector( '#upArrow'+scope.argInfo.argumentID ) ).addClass("balanced")
-
           }
+
+          fbUser.viewReset()
 
           firebase.database().ref('arguments/'+
           (scope.argInfo.side === "undecided" ? scope.argInfo.origArgumentID+"/counterArguments/" : "")+
@@ -104,7 +104,6 @@ angular.module('debatable.directives', ['ionic','firebase'])
           firebase.database().ref('arguments/'+
           (scope.argInfo.side === "undecided" ? scope.argInfo.origArgumentID+"/counterArguments/" : "")+
           scope.argInfo.argumentID+'/upvoters').update(updates);
-          fbUser.viewReset()
         })
       };
 

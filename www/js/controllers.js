@@ -539,7 +539,7 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
 
           if ($scope.debateData.preVoters[voter] !== undefined) {
             var boost = 0
-            if ($scope.debateData.preVoters[voter] === $scope.debateData.postVoters[voters]) {
+            if ($scope.debateData.preVoters[voter] === $scope.debateData.postVoters[voter]) {
               boost = 1
             } else if ($scope.debateData.preVoters[voter] === "Undecided") {
               boost = 5
@@ -547,20 +547,20 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
               boost = 10
             }
 
-            if ($scope.debateData.postVoters[voters] === "Pro") {
+            if ($scope.debateData.postVoters[voter] === "Pro") {
               $scope.proScore += boost
             } else {
               $scope.conScore += boost
             }
-          }
 
+          }
 
         }
 
         if ($scope.proScore > $scope.conScore) {
-          $scope.winningSide = "Support";
+          $scope.winningSide = "Proposition";
         } else if ($scope.conScore > $scope.proScore) {
-          $scope.winningSide = "Oppose";
+          $scope.winningSide = "Opposition";
         } else if ($scope.conScore == $scope.proScore) {
           $scope.winningSide = "Draw";
         } else {
