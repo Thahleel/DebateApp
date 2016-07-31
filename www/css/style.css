@@ -338,6 +338,7 @@ body {
 }
 
 #argument-text-area {
+  width: 83% !important;
   font-size: 12pt !important;
   border:1px solid #cccccc;
   -webkit-appearance: none;
