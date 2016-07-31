@@ -6,12 +6,17 @@
             </button>
         </div>
     </ion-header-bar>
-    <ion-content class="padding">
+    <ion-content>
+      <label class="item item-input" ng-click="openPopover($event)" >
+        <span class="input-label" >Debate Topic</span>
+        <span id="debatetopic">{{topic.choice}}</span>
+      </label>
+      <ion-item>
+        <ion-label>Premise</ion-label>
+        <ion-textarea></ion-textarea>
+      </ion-item>
         <div class="list">
-            <label class="item item-input" ng-click="openPopover($event)" >
-                <span class="input-label" >Topic</span>
-                <span id="debatetopic">{{topic.choice}}</span>
-            </label>
+
 
             <label class="item item-input">
                 <span class="input-label" >Debate Premise</span>

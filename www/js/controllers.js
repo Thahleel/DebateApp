@@ -559,10 +559,12 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
 
         if ($scope.proScore > $scope.conScore) {
           $scope.winningSide = "Support";
-        } else if ($scope.proScore < $scope.conScore) {
+        } else if ($scope.conScore > $scope.proScore) {
           $scope.winningSide = "Oppose";
-        } else {
+        } else if ($scope.conScore == $scope.proScore) {
           $scope.winningSide = "Draw";
+        } else {
+          $scope.winningSide = "None";
         }
 
         $scope.voteChecked = true;
@@ -574,6 +576,10 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
             $scope.voteChecked = true;
             fbUser.viewReset()
           })
+      }
+
+      if ($scope.winningSide == "") {
+        $scope.winningSide = "None";
       }
 
       if ($scope.stage === 'pre') {
