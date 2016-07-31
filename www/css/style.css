@@ -334,3 +334,27 @@ body {
   margin-left: 0 !important;
   width: 100%;
 }
+
+#argument-text-area {
+  font-size: 12pt !important;
+  border:1px solid #cccccc;
+  -webkit-appearance: none;
+  padding: 3px;
+  padding-top: 4px !important;
+  padding-bottom: 6px !important;
+  height: 30px;
+  min-height: 30px;
+  max-height: 210px;
+  line-height: 15pt;
+}
+
+.button-post {
+  border: 0 !important;
+  background-color: inherit !important;
+  color: #3F51B5 !important;
+  font-weight: bold !important;
+  font-size: 14pt !important;
+  padding-left: 0px !important;
+  transform: translate(4px, -2px) !important;
+  display: inline !important;
+}

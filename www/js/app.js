@@ -18,6 +18,7 @@ angular.module('debatable', ['ionic', 'firebase', 'debatable.controllers', 'deba
 .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
   $ionicConfigProvider.backButton.previousTitleText(false);
   $ionicConfigProvider.backButton.text('');
+  $ionicConfigProvider.tabs.style("standard");
 
   $stateProvider
   .state('intro', {

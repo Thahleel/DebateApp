@@ -330,7 +330,7 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
 })
 
 
-.controller('MainDebateCtrl', function($scope, $stateParams, debateServ, $window, fbUser, $state, $ionicHistory){
+.controller('MainDebateCtrl', function($scope, $stateParams, debateServ, $window, fbUser, $state, $ionicScrollDelegate){
   var debateid = $stateParams.debateData.debateID
   var argumentState = 'pro';
   $scope.stage = $stateParams.stage
@@ -341,7 +341,7 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
 
   $scope.updateTextArea = function() {
     var element = document.getElementById("argument-text-area");
-    element.style.height =  element.scrollHeight + "px";
+      element.style.height = element.scrollHeight + "px";
   }
 
   $scope.pressBack = function () {
@@ -354,7 +354,8 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
     promise.then(function (arguments) {
       $scope.getArguments = arguments
       $scope.$broadcast('scroll.refreshComplete');
-      fbUser.viewReset()
+        $ionicScrollDelegate.scrollBottom();
+      fbUser.viewReset();
    });
   }
 
@@ -383,8 +384,9 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
    debateServ.createArgument(argumentData, fbUser.getUid());
 
    $scope.modelData.argText = ""
-   $scope.refreshArguments()
-
+      var element = document.getElementById("argument-text-area");
+      element.style.height = "30px";
+   $scope.refreshArguments();
  }
 
 
@@ -396,7 +398,7 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
   });
 })
 
-.controller('MainArgumentCtrl', function($scope, $stateParams, debateServ, $window, fbUser, $state){
+.controller('MainArgumentCtrl', function($scope, $stateParams, debateServ, $window, fbUser, $state, $ionicScrollDelegate){
   $scope.argInfo = $stateParams.argInfo
   $scope.modelData = {}
   $scope.getCounterArguments = []
@@ -412,8 +414,14 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
 
     $scope.modelData.argText = ""
     $scope.refreshCounterArguments()
+      $ionicScrollDelegate.scrollBottom();
 
   }
+
+    $scope.updateTextArea = function() {
+        var element = document.getElementById("argument-text-area");
+        element.style.height = element.scrollHeight + "px";
+    }
 
   $scope.refreshCounterArguments = function () {
     var promise = debateServ.updateCounterArguments($scope.argInfo.argumentID);
@@ -422,6 +430,7 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
       $scope.getCounterArguments = arguments
       $scope.$broadcast('scroll.refreshComplete');
       fbUser.viewReset()
+
    });
   }
 

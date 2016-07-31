@@ -21,4 +21,8 @@
       <argument-card arg-info="argument" truncate=false></argument-card>
     </div>
   </ion-content>
+  <ion-footer-bar keyboard-attach class="bar-stable" style="height: auto !important; padding: 7px; padding-bottom: 4px; background-color: #f7f7f7 !important;">
+      <textarea cols="30" id="argument-text-area" ng-model="modelData.argText" ng-change="updateTextArea()"> </textarea>
+      <button  class="button button-balanced button-post" ng-click="createCounterArgument()" style="padding-left: 7px;">Post</button>
+  </ion-footer-bar>
 </ion-view>
