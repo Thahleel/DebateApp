@@ -34,10 +34,8 @@ body {
     opacity: 0.4; }
   .tabs-striped.tabs-color-home-top .tab-item.tab-item-active, .tabs-striped.tabs-color-home-top .tab-item.active, .tabs-striped.tabs-color-home-top .tab-item.activated {
     color: white;
-    border: 0 solid white;
-    border-top-width: 2px; }
+    border: 0 solid white;  }
     .tabs-striped.tabs-color-home-top .tab-item.tab-item-active .badge, .tabs-striped.tabs-color-home-top .tab-item.active .badge, .tabs-striped.tabs-color-home-top .tab-item.activated .badge {
-      top: 2px;
       opacity: 1; }
 
 
