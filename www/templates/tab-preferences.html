@@ -1,12 +1,11 @@
 <ion-view view-title="Preferences" cache-view="false">
     <ion-content>
-    <div ng-controller="PersonalCtrl">
+        <div class="title-style">Choose your favourite debate topics</div></br>
         <div ng-repeat="topic in allTopics">
             <ion-toggle ng-checked="topicModel[topic]"
                         ng-model="topicModel[topic]">
                 {{topic}}
             </ion-toggle>
         </div>
-    </div>
     </ion-content>
 </ion-view>

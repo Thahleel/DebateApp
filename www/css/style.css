@@ -35,9 +35,9 @@ body {
   .tabs-striped.tabs-color-home-top .tab-item.tab-item-active, .tabs-striped.tabs-color-home-top .tab-item.active, .tabs-striped.tabs-color-home-top .tab-item.activated {
     color: white;
     border: 0 solid white;
-    border-top-width: 5px; }
+    border-top-width: 2px; }
     .tabs-striped.tabs-color-home-top .tab-item.tab-item-active .badge, .tabs-striped.tabs-color-home-top .tab-item.active .badge, .tabs-striped.tabs-color-home-top .tab-item.activated .badge {
-      top: 5px;
+      top: 2px;
       opacity: 1; }
 
 
@@ -270,9 +270,11 @@ body {
 .button.add-button-style {
   border-color: transparent;
   background-color: inherit;
-  color: #fff; }
+  color: #fff;
+  opacity: 0.6 }
 .button.add-button-style:hover {
   color: #fff;
+  opacity: 1
   text-decoration: none; }
 .button.add-button-style.active, .button.add-button-style.activated {
  }
