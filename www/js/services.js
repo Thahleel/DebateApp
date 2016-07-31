@@ -274,6 +274,7 @@ angular.module('debatable.services', ['ionic','firebase'])
 .factory('debateServ', function($window) {
   var debateDB = firebase.database().ref('debates')
   var topicFilter = ""
+  var prefs = {}
   var allTopics = ["General","Gaming","Sports","Politics","Tech","TV","Anime"
                   ,"Religion","Education","History","Literature","Science","Random"]
 
@@ -312,11 +313,11 @@ angular.module('debatable.services', ['ionic','firebase'])
   }
 
   var preferenceFilter = function (debate) {
-    if (fbUser.getUser().preferences === undefined) {
+    if (prefs === undefined) {
       return false
     }
 
-    return fbUser.getUser().preferences[debate.topic]
+    return prefs[debate.topic]
   }
 
   var sortFunc = mostRecentSort
@@ -363,8 +364,9 @@ angular.module('debatable.services', ['ionic','firebase'])
 
     /* After calling this function, the return of updateAllDebate will be filtered by
        the users topic preferences */
-    addPreferenceFilter : function () {
+    addPreferenceFilter : function (preferences) {
       filterFunc = preferenceFilter
+      prefs = preferences
     },
 
     /* Removes all filters from the return of updateAllDebates */

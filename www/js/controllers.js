@@ -166,7 +166,8 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
      document.getElementById("recent-tab").className = "tab-item";
      document.getElementById("popular-tab").className = "tab-item active";
      document.getElementById("preferences-tab").className = "tab-item";
-   } else if (type === "preference") {
+   } else if (type === "Preference") {
+     debateServ.addPreferenceFilter()
      document.getElementById("recent-tab").className = "tab-item";
      document.getElementById("popular-tab").className = "tab-item";
      document.getElementById("preferences-tab").className = "tab-item active";
