@@ -64,7 +64,9 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
     $scope.$watch('filter.choice', function(){
       if($scope.filter.choice === "All"){
         debateServ.removeFilter();
-      }else{
+      } else if ($scope.filter.choice === "*Preferences*") {
+        debateServ.addPreferenceFilter(fbUser.getUserData().preferences)
+      } else {
         debateServ.addTopicFilter($scope.filter.choice)
       }
 
