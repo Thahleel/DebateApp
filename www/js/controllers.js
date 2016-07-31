@@ -500,6 +500,7 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
     $scope.dateText = ""
     $scope.endDateText = ""
     $scope.stageText = ""
+    $scope.debateStatus = ""
     $scope.stage = ""
     $scope.isVoter = false;
 
@@ -516,8 +517,8 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
       var date = new Date($scope.debateData.creationDate)
       $scope.dateText = date.toLocaleDateString()
       date = new Date($scope.debateData.endDate)
-      $scope.endDateText = date.getHours() + ":" + (date.getMinutes() < 10 ? "0" : "") +
-        date.getMinutes() + " | " + date.toLocaleDateString()
+      $scope.endDateText = date.toLocaleDateString() + " at " + date.getHours() + ":" + (date.getMinutes() < 10 ? "0" : "") +
+        date.getMinutes()
       $scope.stage = $scope.debateData.endDate - Date.now()  > 0 ? "pre" :
         ($scope.debateData.endDate + 24*3600*1000 - Date.now()  > 0
           ? "post" : "closed")
@@ -536,6 +537,13 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
           })
       }
 
+      if ($scope.stage === 'pre') {
+        $scope.debateStatus = "Premise at debating stage";
+      } else if ($scope.stage === 'post') {
+        $scope.debateStatus = "Premise pending verdict";
+      } else {
+        $scope.debateStatus = "A verdict has been decided";
+      }
 
       fbUser.viewReset()
     })
@@ -577,5 +585,6 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
     $scope.$on('$ionicView.beforeEnter', function (event, viewData) {
       viewData.enableBack = true;
     });
+
   })
 ;

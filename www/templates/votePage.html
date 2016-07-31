@@ -8,36 +8,53 @@
     </ion-nav-buttons>
   </ion-nav-bar>
   <ion-content>
-    <h1> {{ debateData.premise }} </h1>
-    <p> Debate started by {{ name }} on {{ dateText }}</p>
-    <p> Ends {{ endDateText }}</p>
-    <p> Discussion at {{ stageText }} stage</p>
-    Discussion at debating stage
-    Discussion pending verdict
-    A verdict has been decided
+    <button class="button button-full button-calm" style="margin: 0; text-transform: uppercase; letter-spacing: 3px; font-size: 12px !important; font-weight: bold;" >{{ debateStatus }}</button>
+    <div>
+      <h2 style="text-align: center; padding-top: 20px; text-transform: uppercase; letter-spacing: 3px;">{{ dateText }}</h2>
+      <h3 style="text-align: center; color: #696969; text-transform: uppercase; letter-spacing: 1px;">{{ debateData.premise }}</h3>
+      <p style="text-align: center; font-weight: bold; letter-spacing: 1px;"> Posted by {{ name }}</p>
 
-
-    <div ng-show="stage !== 'closed'">
-    <button class="button button-full button-calm" ng-show="isVoter&&voteChecked" ng-click="goMainDebate()">
-      <div ng-show="stage === 'pre'">Enter live debate</div>
-      <div ng-show="stage === 'post'">View past arguments</div>
-    </button>
-
-    <div ng-show="!isVoter&&voteChecked">
-      <p ng-show="stage === 'post'"> The debate is now over and post debate voting is now open. Please
-                                      add another vote for the motion so a final score can be determined.
-                                      (If this is your first time voting, your vote wont count towards final score)</p>
-      <button class="button button-block button-positive" ng-click="makeVote('Pro')">
-        I Support The Proposed Premise
-      </button>
-      <button class="button button-block button-dark" ng-click="makeVote('Undecided')">
-        I Am Undecided
-      </button>
-      <button class="button button-block button-assertive" ng-click="makeVote('Con')">
-        I Oppose The Proposed Premise
-      </button>
     </div>
+
+    <div ng-show="stage === 'pre'">
+      <div ng-show="!isVoter&&voteChecked">
+        <div class="title-style">Choose your preference</div>
+        <div class="button-bar">
+          <a class="button button-full button-balanced" ng-click="makeVote('Pro')" style="border-radius: 0px; margin: 0; text-transform: uppercase; letter-spacing: 3px; font-size: 12px !important; font-weight: bold;">Support</a>
+          <a class="button button-full button-assertive" ng-click="makeVote('Con')" style="border-radius: 0px; margin: 0; text-transform: uppercase; letter-spacing: 3px; font-size: 12px !important; font-weight: bold;">Oppose</a>
+        </div>
+        <button class="button button-full button-dark" ng-click="makeVote('Undecided')" style="margin: 0; text-transform: uppercase; letter-spacing: 3px; font-size: 12px !important; font-weight: bold;">Unsure</button>
+      </div>
+      <div ng-show="isVoter&&voteChecked">
+        <button class="button button-full button-calm" style="border-radius: 0px; margin: 0; text-transform: uppercase;" ng-click="goMainDebate()">
+        <div ng-show="stage === 'pre'">Enter live debate</div>
+        </button>
+      </div>
+      <div style="text-align: center; padding-top: 20px; text-transform: uppercase; letter-spacing: 2px;" >
+        <p> Ends {{ endDateText }}</p>
+      </div>
     </div>
+
+    <div ng-show="stage === 'post'">
+      <button class="button button-full button-calm" style="border-radius: 0px; margin: 0; text-transform: uppercase;"  ng-show="isVoter&&voteChecked" ng-click="goMainDebate()">
+        <div ng-show="stage === 'post'">View arguments</div>
+      </button>
+      <div ng-show="!isVoter&&voteChecked">
+        <div style="text-align: center; letter-spacing: 1px; font-size: 12px;">
+          <p ng-show="stage === 'post'">This debate has expired, cast another vote on the verdict. Your vote will not be counted unless you voted before the end date in addition to this.</p>
+        </div>
+        <div class="title-style" style="padding-top: 5">Choose your preference</div>
+        <div class="button-bar">
+          <a class="button button-full button-balanced" ng-click="makeVote('Pro')" style="border-radius: 0px; margin: 0; text-transform: uppercase; letter-spacing: 3px; font-size: 12px !important; font-weight: bold;">Support</a>
+          <a class="button button-full button-assertive" ng-click="makeVote('Con')" style="border-radius: 0px; margin: 0; text-transform: uppercase; letter-spacing: 3px; font-size: 12px !important; font-weight: bold;">Oppose</a>
+        </div>
+        <button class="button button-full button-dark" ng-click="makeVote('Undecided')" style="margin: 0; text-transform: uppercase; letter-spacing: 3px; font-size: 12px !important; font-weight: bold;">Unsure</button>
+      </div>
+      <div style="text-align: center; padding-top: 20px; text-transform: uppercase; letter-spacing: 2px;">
+        <p> This premise was debated on {{ endDateText }}</p>
+      </div>
+    </div>
+
 
     <div ng-show="stage === 'closed'">
       <p>Below is the number of votes of the initial voting stage</p>
