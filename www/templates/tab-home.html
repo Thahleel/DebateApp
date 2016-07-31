@@ -1,6 +1,16 @@
 <ion-view view-title="Debatable">
+    <ion-nav-buttons side="left">
+        <div class="buttons">
+            <button class="button button-icon ion-android-options add-button-style" ng-click="openFilterPopover($event)">
+            </button>
+        </div>
+    </ion-nav-buttons>
+
     <ion-nav-buttons side="right">
-        <button class="button button-custom add-button-style" ng-click="modal.show()"><h1 class="button-text">Create</h1></button>
+        <div class="buttons">
+            <button class="button button-icon ion-plus-round add-button-style" ng-click="modal.show()">
+            </button>
+        </div>
     </ion-nav-buttons>
     <div class="tabs-striped tabs-top tabs-background-main tabs-color-home-top">
         <div class="tabs">
@@ -10,9 +20,6 @@
             <a id="popular-tab" class="tab-item" href="" ng-click="applySort('popular')">
                 Popular
             </a>
-            <a id="preferences-tab" class="tab-item" href="" ng-click="applySort('preference')">
-                Preferences
-            </a>
         </div>
     </div>
   <ion-content style="padding-top: 60px;">
@@ -20,12 +27,6 @@
     pulling-text="Pull to refresh..."
     on-refresh="refreshDebates()">
     </ion-refresher>
-
-        <label class="item item-input" ng-click="openFilterPopover($event)" >
-            <span class="input-label" >Filter By:</span>
-            <span>{{filter.choice}}</span>
-        </label>
-
         <div ng-repeat="debate in allDebates">
             <debate-card debate-info="debate"></debate-card>
         </div>

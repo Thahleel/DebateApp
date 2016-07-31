@@ -160,17 +160,10 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
      debateServ.addMostRecentSort()
      document.getElementById("recent-tab").className = "tab-item active";
      document.getElementById("popular-tab").className = "tab-item";
-     document.getElementById("preferences-tab").className = "tab-item";
    } else if (type === "popular") {
      debateServ.addPopularSort()
      document.getElementById("recent-tab").className = "tab-item";
      document.getElementById("popular-tab").className = "tab-item active";
-     document.getElementById("preferences-tab").className = "tab-item";
-   } else if (type === "Preference") {
-     debateServ.addPreferenceFilter()
-     document.getElementById("recent-tab").className = "tab-item";
-     document.getElementById("popular-tab").className = "tab-item";
-     document.getElementById("preferences-tab").className = "tab-item active";
    }
 
    $scope.refreshDebates()
