@@ -544,7 +544,13 @@ body {
 .upvote-holder {
   float: left;
   width: 15%;
+  height: auto;
   background-color: #9E9D9B;
+}
+
+.row-two-holder {
+  height: auto;
+  display: flex;
 }
 
 .argument-date {
