@@ -5,16 +5,9 @@
   </ion-nav-bar>
   <ion-content class="padding">
     <ion-refresher
-    pulling-text="Pull to refresh..."
-    on-refresh="refreshCounterArguments()">
+            pulling-text="Pull to refresh..."
+            on-refresh="refreshCounterArguments()">
     </ion-refresher>
-
-    <div class="row">
-      <textarea rows="4" cols="40" ng-model="modelData.argText" placeholder="Add counter argument"></textarea>
-      <button class="button button-small" ng-click="createCounterArgument()">
-        <i class="icon ion-paper-airplane"></i>
-      </button>
-    </div>
 
     <argument-card arg-info="argInfo"></argument-card>
     <div ng-repeat="argument in getCounterArguments">
@@ -22,7 +15,7 @@
     </div>
   </ion-content>
   <ion-footer-bar keyboard-attach class="bar-stable" style="height: auto !important; padding: 7px; padding-bottom: 4px; background-color: #f7f7f7 !important;">
-      <textarea cols="30" id="argument-text-area" ng-model="modelData.argText" ng-change="updateTextArea()"> </textarea>
-      <button  class="button button-balanced button-post" ng-click="createCounterArgument()" style="padding-left: 7px;">Post</button>
+    <textarea cols="30" id="argument-text-area" ng-model="modelData.argText" ng-click="refreshCounterArguments()" ng-change="updateTextArea()"> </textarea>
+    <button  class="button button-balanced button-post" ng-click="createCounterArgument()" style="padding-left: 6px !important;">Post</button>
   </ion-footer-bar>
 </ion-view>

@@ -11,13 +11,6 @@ angular.module('debatable.services', ['ionic','firebase'])
     firebaseUser = user;
     uid = user.uid;
     id = user.uid;
-
-      var bar
-      for (bar in user.uid)
-      {
-          console.log("user has property " + bar);
-      }
-
     userDB = firebase.database().ref('users/' + uid);
     userData = {};
     myDebates = [];

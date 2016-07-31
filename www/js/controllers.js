@@ -413,6 +413,8 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
     debateServ.createCounterArgument(argumentData, fbUser.getUid());
 
     $scope.modelData.argText = ""
+      var element = document.getElementById("argument-text-area");
+      element.style.height = "30px";
     $scope.refreshCounterArguments()
       $ionicScrollDelegate.scrollBottom();
 
@@ -429,6 +431,7 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
     promise.then(function (arguments) {
       $scope.getCounterArguments = arguments
       $scope.$broadcast('scroll.refreshComplete');
+        $ionicScrollDelegate.scrollBottom();
       fbUser.viewReset()
 
    });

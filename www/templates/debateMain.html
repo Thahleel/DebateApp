@@ -20,7 +20,7 @@
       <a id="conBut" ng-click="switchArgState('con')" class="button button-positive button-outline">Con</a>
     </div>
     <div style="padding-top: 6px;">
-      <textarea style="display:inline-block !important;" cols="30" id="argument-text-area" ng-model="modelData.argText" ng-change="updateTextArea()"> </textarea>
+      <textarea style="display:inline-block !important;" cols="30" id="argument-text-area" ng-click="refreshArguments()" ng-model="modelData.argText" ng-change="updateTextArea()"> </textarea>
       <button  class="button button-balanced button-post" ng-click="createArgument()" style="padding-left: 7px; display: inline-block;">Post</button>
     </div>
   </ion-footer-bar>
