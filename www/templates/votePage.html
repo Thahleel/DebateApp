@@ -9,14 +9,15 @@
   </ion-nav-bar>
   <ion-content>
     <h1> {{ debateData.premise }} </h1>
-    <p> Made by {{ name }} on {{ dateText }}</p>
-    <p> Debate ends at: {{ endDateText }}</p>
-    <p> Stage : {{ stageText }}</p>
+    <p> Debate started by {{ name }} on {{ dateText }}</p>
+    <p> Ends {{ endDateText }}</p>
+    <p> Discussion at {{ stageText }} stage</p>
+        Discussion no longer debated
 
     <div ng-show="stage !== 'closed'">
     <button class="button button-full button-calm" ng-show="isVoter&&voteChecked" ng-click="goMainDebate()">
-      <div ng-show="stage === 'pre'">Start debating!</div>
-      <div ng-show="stage === 'post'">View arguments</div>
+      <div ng-show="stage === 'pre'">Enter live debate</div>
+      <div ng-show="stage === 'post'">View past arguments</div>
     </button>
 
     <div ng-show="!isVoter&&voteChecked">
