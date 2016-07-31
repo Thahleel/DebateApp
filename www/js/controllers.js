@@ -184,27 +184,27 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
     $scope.startedDebatesList = []
     $scope.subscribedDebatesList = []
     $scope.hideStarted = true
-    $scope.startedButtonText = "Show My Started Debates"
+    $scope.startedButtonText = "SHOW STARTED +"
     $scope.hideSubscribed = true
-    $scope.subscribedButtonText = "Show My Subscribed Debates"
+    $scope.subscribedButtonText = "SHOW SUBSCRIPTIONS +"
 
     $scope.toggleStarted = function(){
       if($scope.hideStarted){
-        $scope.startedButtonText = "Hide My Started Debates"
+        $scope.startedButtonText = "HIDE STARTED -"
         $scope.hideStarted = false;
       }else{
         $scope.hideStarted = true;
-        $scope.startedButtonText = "Show My Started Debates"
+        $scope.startedButtonText = "SHOW STARTED +"
       }
     }
 
     $scope.toggleSubscribed = function(){
       if($scope.hideSubscribed){
-        $scope.subscribedButtonText = "Hide My Subscribed Debates"
+        $scope.subscribedButtonText = "HIDE SUBSCRIPTIONS -"
         $scope.hideSubscribed = false;
       }else{
         $scope.hideSubscribed = true;
-        $scope.subscribedButtonText = "Show My Subscribed Debates"
+        $scope.subscribedButtonText = "SHOW SUBSCRIPTIONS +"
       }
     }
 
