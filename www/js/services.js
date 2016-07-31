@@ -412,7 +412,7 @@ angular.module('debatable.services', ['ionic','firebase'])
 
                 Promise.all(promises).then(function (values) {
                   var arguments = values.map(function (snap) {return snap.val()}).sort(function (a, b) {
-                    return b.creationDate - a.creationDate
+                    return a.creationDate - b.creationDate
                   })
                   resolve(arguments)
                 })
