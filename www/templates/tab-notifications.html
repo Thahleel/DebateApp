@@ -1,17 +1,12 @@
 <ion-view view-title="Notifications">
   <ion-content>
-      <div class="title-style">Saturday 30th July</div>
-      5 debate cards or so
-      <div class="title-style">FRIDAY 29TH JULY</div>
-      5 debate cards or so
-      <div class="title-style">THURSDAY 28TH JULY</div>
-      5 debate cards or so
-      <div class="title-style">WEDNESDAY 27TH JULY</div>
-      5 debate cards or so
-      <div class="title-style">TUESDAY 26TH JULY</div>
-      5 debate cards or so
-      <button class="button button-full button-positive">
-          View all
-      </button>
+      <div class="card" ng-repeat=" notification in notificationsList">
+        <div class="item item-text-wrap">
+          {{notification.notif}}
+        </div>
+        <div class="item item-divider">
+          {{notification.date}}
+        </div>
+      </div>
   </ion-content>
 </ion-view>

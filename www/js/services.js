@@ -143,9 +143,13 @@ angular.module('debatable.services', ['ionic','firebase'])
       var newDebateID = debateServ.createDebate(debateDetails);
 
       var update = {};
+
+      var d = new Date();
+      var dateString = d.toUTCString();
+      var notification = {notif : "You created a "+debateDetails.topic+" debate with the premise: "+debateDetails.premise, creationDate: Date.now(), date : dateString }
       update[newDebateID] = true;
       firebase.database().ref('users/'+uid+'/debates').update(update);
-
+      firebase.database().ref('users/'+uid+'/notifications').push(notification)
       return newDebateID;
     },
 
@@ -175,6 +179,10 @@ angular.module('debatable.services', ['ionic','firebase'])
       var updates = {}
       updates['preferences'] = preferenceList
       firebase.database().ref('users/'+uid).update(updates)
+    },
+
+    getNotifications : function(){
+      return firebase.database().ref('users/'+uid+'/notifications').once('value')     
     },
 
     // Destroys the myDebates array and replaces it with a new up to date
@@ -324,7 +332,6 @@ angular.module('debatable.services', ['ionic','firebase'])
       var updates = {}
       updates['debateID'] = debateid
       firebase.database().ref('debates/'+debateid).update(updates)
-
       return debateid;
     },
 
@@ -453,7 +460,7 @@ angular.module('debatable.services', ['ionic','firebase'])
     },
 
     /* Adds a new argument to the debate with the specified debateid */
-    createArgument : function (argumentData, uid) {
+    createArgument : function (argumentData, uid, handle, debateID) {
       argumentData['creator'] = uid
       argumentData['creationDate'] = Date.now()
       argumentData['upvotes'] = 0
@@ -464,12 +471,23 @@ angular.module('debatable.services', ['ionic','firebase'])
       var updates = {}
       updates[argumentid] = true
       firebase.database().ref('debates/'+argumentData.debateID+'/'+argumentData.side+'Arguments').update(updates);
+     
+      var d = new Date();
+      var dateString = d.toUTCString();
+      
+      firebase.database().ref('debates/'+debateID+'/creator').once('value').then(function(creatorPromise){
+        //if you are not replying to you argument, notify the creator of argument
+        if( uid !== creatorPromise.val()){
+          var notification = {notif : handle+" added an argument to your debate saying: "+argumentData.text , creationDate: Date.now(), date : dateString }
+          firebase.database().ref('users/'+creatorPromise.val()+'/notifications').push(notification)
+        }
+      })
 
       return argumentid
     },
 
     /* Creates a new counter argument for an original argument */
-    createCounterArgument : function (argumentData, uid) {
+    createCounterArgument : function (argumentData, uid,handle,debateID) {
       argumentData['creator'] = uid
       argumentData['creationDate'] = Date.now()
       argumentData['upvotes'] = 0
@@ -479,6 +497,17 @@ angular.module('debatable.services', ['ionic','firebase'])
       .ref('arguments/'+argumentData.origArgumentID+'/counterArguments').push(argumentData).key
       firebase.database().ref('arguments/'+argumentData.origArgumentID+'/counterArguments/'+counterArgumentid)
       .update({argumentID : counterArgumentid})
+
+      var d = new Date();
+      var dateString = d.toUTCString();
+
+      firebase.database().ref('debates/'+debateID+'/creator').once('value').then(function(creatorPromise){
+        //if you are not replying to you argument, notify the creator of argument
+        if( uid !== creatorPromise.val()){
+          var notification = {notif : handle+" added a counter argument to your post saying: "+argumentData.text , creationDate: Date.now(), date : dateString }
+          firebase.database().ref('users/'+creatorPromise.val()+'/notifications').push(notification)
+        }
+      })
 
       return counterArgumentid
     },

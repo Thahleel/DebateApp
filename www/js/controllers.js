@@ -226,8 +226,13 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
 
   })
 
-  .controller('NotifCtrl', function($scope) {
-
+  .controller('NotifCtrl', function($scope, fbUser) {
+    $scope.$on('$ionicView.enter', function(){
+      fbUser.getNotifications().then(function(notifications){
+        $scope.notificationsList = notifications.val()
+        fbUser.viewReset()
+      });
+    });
   })
 
   .controller('SettingsCtrl', function($scope, $state, $window, $ionicActionSheet, fbUser, $ionicModal, $ionicHistory) {
@@ -410,7 +415,7 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
         upvoters: {}
       }
 
-      debateServ.createArgument(argumentData, fbUser.getUid());
+      debateServ.createArgument(argumentData, fbUser.getUid(),fbUser.getUserData().handle, debateid);
 
       $scope.modelData.argText = ""
       var element = document.getElementById("argument-text-area");
@@ -441,7 +446,7 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
         upvoters: {}
       }
 
-      debateServ.createCounterArgument(argumentData, fbUser.getUid());
+      debateServ.createCounterArgument(argumentData, fbUser.getUid(),fbUser.getUserData().handle, $scope.argInfo.debateID);
 
       $scope.modelData.argText = ""
       var element = document.getElementById("argument-text-area");
