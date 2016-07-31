@@ -1,4 +1,9 @@
 angular.module('debatable.controllers', ['ionic', 'firebase'])
+
+  .controller('AppCtrl', function($scope) {
+
+  })
+
   .controller('IntroCtrl', function($scope, $state, debateServ, fbUser, $window, $firebaseAuth, $location, $ionicHistory){
     // UX: initial splash screen look
     ionic.Platform.ready(function() {
@@ -192,28 +197,28 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
         $scope.hideStarted = true;
         $scope.startedButtonText = "SHOW STARTED +";
       }
-    };
+    }
 
     $scope.toggleSubscribed = function(){
       if($scope.hideSubscribed){
-        $scope.subscribedButtonText = "HIDE SUBSCRIPTIONS -";
+        $scope.subscribedButtonText = "HIDE SUBSCRIPTIONS -"
         $scope.hideSubscribed = false;
       }else{
         $scope.hideSubscribed = true;
-        $scope.subscribedButtonText = "SHOW SUBSCRIPTIONS +";
+        $scope.subscribedButtonText = "SHOW SUBSCRIPTIONS +"
       }
-    };
+    }
 
 
     // === VIEW EVENTS ===
     $scope.$on('$ionicView.enter', function(){
       fbUser.updateMyDebates().then(function (debates) {
-        $scope.startedDebatesList = debates;
+        $scope.startedDebatesList = debates
         fbUser.viewReset()
-      });
+      })
 
       fbUser.updateSubscribedDebates().then(function (subbedDebates) {
-        $scope.subscribedDebatesList = subbedDebates;
+        $scope.subscribedDebatesList = subbedDebates
         fbUser.viewReset()
       });
     });
@@ -223,7 +228,7 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
   .controller('NotifCtrl', function($scope, fbUser) {
     $scope.$on('$ionicView.enter', function(){
       fbUser.getNotifications().then(function(notifications){
-        $scope.notificationsList = notifications;
+        $scope.notificationsList = notifications
         fbUser.viewReset()
       });
     });
@@ -234,17 +239,17 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
     $scope.openMyInfoPage = function () {
       $ionicHistory.clearHistory();
       $state.go('tab.userinfo')
-    };
+    }
 
     $scope.loadCommunityGuidelines = function () {
       $ionicHistory.clearHistory();
       $state.go('tab.communityguidelines')
-    };
+    }
 
     $scope.loadPreferences = function () {
       $ionicHistory.clearHistory();
       $state.go('tab.preferencesettings')
-    };
+    }
 
     $ionicModal.fromTemplateUrl('templates/modify-handle-modal.html', {
       scope: $scope
@@ -252,13 +257,13 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
       $scope.modal = modal;
     });
 
-    $scope.handle = {name : $scope.userData.handle};
+    $scope.handle = {name : $scope.userData.handle}
 
     $scope.hideModal = function () {
       // You must let them cancel, you also revert any changes they make back to what their database handle is
 
       $scope.modal.hide();
-    };
+    }
 
     $scope.updateHandle = function (){
       if($scope.handle.name == ""){
@@ -267,7 +272,7 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
         fbUser.updateUserHandle($scope.handle.name);
         $scope.modal.hide();
       }
-    };
+    }
 
     $scope.showSignOutAction = function() {
       $ionicActionSheet.show({
@@ -302,8 +307,8 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
 
     $scope.$on('$ionicView.enter', function(){
       fbUser.updateMyDebates().then(function (debates) {
-        $scope.startedDebatesList = debates;
-        $scope.debateCount = $scope.startedDebatesList.length;
+        $scope.startedDebatesList = debates
+        $scope.debateCount = $scope.startedDebatesList.length
         fbUser.viewReset()
       })
     });
@@ -347,10 +352,10 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
   })
 
   .controller('MainDebateCtrl', function($scope, $stateParams, debateServ, $window, fbUser, $state, $ionicScrollDelegate){
-    var debateid = $stateParams.debateData.debateID;
+    var debateid = $stateParams.debateData.debateID
     var argumentState = 'pro';
     var isFieldEmpty;
-    $scope.stage = $stateParams.stage;
+    $scope.stage = $stateParams.stage
     $scope.modelData = {};
     $scope.debateData = $stateParams.debateData;
     var argManager = debateServ.makeArgumentManager(debateid);
@@ -360,45 +365,44 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
       var element = document.getElementById("argument-text-area");
       element.style.height = element.scrollHeight + "px";
 
-
       if (document.getElementById('argument-text-area').value == "") {
         angular.element(document.getElementById('post-button'))[0].disabled = true;
       } else {
         angular.element(document.getElementById('post-button'))[0].disabled = false;
       }
-    };
+    }
 
     $scope.pressBack = function () {
       $state.go('vote', {debateid : debateid})
-    };
+    }
 
     $scope.fieldIsEmpty = function () {
       return isFieldEmpty;
-    };
+    }
 
     $scope.refreshArguments = function () {
       var promise = argManager.updateArguments();
 
       promise.then(function (arguments) {
-        $scope.getArguments = arguments;
+        $scope.getArguments = arguments
         $scope.$broadcast('scroll.refreshComplete');
         $ionicScrollDelegate.scrollBottom();
         fbUser.viewReset();
       });
-    };
+    }
 
     $scope.switchArgState = function (argState) {
       if (argState === argumentState) return;
-      argumentState = argState;
+      argumentState = argState
 
       if (argState === 'pro') {
-        angular.element( document.querySelector( '#proBut' ) ).removeClass("button-outline");
-        angular.element( document.querySelector( '#conBut' ) ).addClass("button-outline");
+        angular.element( document.querySelector( '#proBut' ) ).removeClass("button-outline")
+        angular.element( document.querySelector( '#conBut' ) ).addClass("button-outline")
       } else {
-        angular.element( document.querySelector( '#conBut' ) ).removeClass("button-outline");
-        angular.element( document.querySelector( '#proBut' ) ).addClass("button-outline");
+        angular.element( document.querySelector( '#conBut' ) ).removeClass("button-outline")
+        angular.element( document.querySelector( '#proBut' ) ).addClass("button-outline")
       }
-    };
+    }
 
     $scope.createArgument = function() {
       fbUser.addExp(fbUser.getUid(), 1);
@@ -407,17 +411,17 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
         debateID: debateid,
         side: argumentState,
         upvoters: {}
-      };
+      }
 
       debateServ.createArgument(argumentData, fbUser.getUid(),fbUser.getUserData().handle, debateid);
 
-      $scope.modelData.argText = "";
+      $scope.modelData.argText = ""
       var element = document.getElementById("argument-text-area");
       element.style.height = "30px";
       $scope.refreshArguments();
 
       angular.element(document.getElementById('post-button'))[0].disabled = true;
-    };
+    }
 
 
 
@@ -429,27 +433,27 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
   })
 
   .controller('MainArgumentCtrl', function($scope, $stateParams, debateServ, $window, fbUser, $state, $ionicScrollDelegate){
-    $scope.argInfo = $stateParams.argInfo;
-    $scope.modelData = {};
-    $scope.getCounterArguments = [];
+    $scope.argInfo = $stateParams.argInfo
+    $scope.modelData = {}
+    $scope.getCounterArguments = []
 
     $scope.createCounterArgument = function() {
       var argumentData = {
         text: $scope.modelData.argText,
         origArgumentID: $scope.argInfo.argumentID,
         upvoters: {}
-      };
+      }
 
       debateServ.createCounterArgument(argumentData, fbUser.getUid(),fbUser.getUserData().handle, $scope.argInfo.debateID);
 
-      $scope.modelData.argText = "";
+      $scope.modelData.argText = ""
       var element = document.getElementById("argument-text-area");
       element.style.height = "30px";
-      $scope.refreshCounterArguments();
+      $scope.refreshCounterArguments()
       $ionicScrollDelegate.scrollBottom();
 
       angular.element(document.getElementById('post-button'))[0].disabled = true;
-    };
+    }
 
     $scope.updateTextArea = function() {
       var element = document.getElementById("argument-text-area");
@@ -460,13 +464,13 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
       } else {
         angular.element(document.getElementById('post-button'))[0].disabled = false;
       }
-    };
+    }
 
     $scope.refreshCounterArguments = function () {
       var promise = debateServ.updateCounterArguments($scope.argInfo.argumentID);
 
       promise.then(function (arguments) {
-        $scope.getCounterArguments = arguments;
+        $scope.getCounterArguments = arguments
         $scope.$broadcast('scroll.refreshComplete');
         $ionicScrollDelegate.scrollBottom();
         fbUser.viewReset()
@@ -479,10 +483,10 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
         .then(function (debateSnap) {
           var stagev = debateSnap.val().endDate - Date.now()  > 0 ? "pre" :
             (debateSnap.val().endDate + 24*3600*1000 - Date.now()  > 0
-              ? "post" : "closed");
+              ? "post" : "closed")
           $state.go('mainDebate', {debateData : debateSnap.val(), stage : stagev})
         })
-    };
+    }
 
     // === VIEW EVENTS ===
     $scope.$on('$ionicView.beforeEnter', function (event, viewData) {
@@ -493,18 +497,18 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
 
   .controller('VoteCtrl', function($scope, $stateParams, debateServ, $window, fbUser, $state, $ionicHistory){
     $scope.voteChecked = false;
-    var debateid = $stateParams.debateid;
-    $scope.debateData = {};
-    $scope.name = "";
-    $scope.dateText = "";
-    $scope.endDateText = "";
-    $scope.stageText = "";
-    $scope.debateStatus = "";
-    $scope.stage = "";
-    $scope.isVoter = false;
-    $scope.proScore = 0;
-    $scope.conScore = 0;
-    $scope.winningSide = "";
+    var debateid = $stateParams.debateid
+    $scope.debateData = {}
+    $scope.name = ""
+    $scope.dateText = ""
+    $scope.endDateText = ""
+    $scope.stageText = ""
+    $scope.debateStatus = ""
+    $scope.stage = ""
+    $scope.isVoter = false
+    $scope.proScore = 0
+    $scope.conScore = 0
+    $scope.winningSide = ""
 
     // == Data base variable retrievals ==
     debateServ.getDebate(debateid).then(function (debateSnap) {
@@ -512,20 +516,20 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
 
       firebase.database().ref('users/'+$scope.debateData.creator+'/handle').once('value')
         .then(function (nameSnap) {
-          $scope.name = nameSnap.val();
+          $scope.name = nameSnap.val()
           fbUser.viewReset()
         })
 
-      var date = new Date($scope.debateData.creationDate);
-      $scope.dateText = date.toLocaleDateString();
-      date = new Date($scope.debateData.endDate);
+      var date = new Date($scope.debateData.creationDate)
+      $scope.dateText = date.toLocaleDateString()
+      date = new Date($scope.debateData.endDate)
       $scope.endDateText = date.toLocaleDateString() + " at " + date.getHours() + ":" + (date.getMinutes() < 10 ? "0" : "") +
-        date.getMinutes();
+        date.getMinutes()
       $scope.stage = $scope.debateData.endDate - Date.now()  > 0 ? "pre" :
         ($scope.debateData.endDate + 24*3600*1000 - Date.now()  > 0
-          ? "post" : "closed");
+          ? "post" : "closed")
       $scope.stageText = $scope.stage === "pre" ? "debate" :
-        ($scope.stage === "post" ? "post-debate" : "closed");
+        ($scope.stage === "post" ? "post-debate" : "closed")
 
       if ($scope.stage === "closed") {
         for (voter in $scope.debateData.postVoters) {
@@ -549,6 +553,8 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
               $scope.conScore += boost
             }
           }
+
+
         }
 
         if ($scope.proScore > $scope.conScore) {
@@ -566,7 +572,7 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
       } else {
         firebase.database().ref('debates/'+debateid+'/'+$scope.stage+'Voters/'+fbUser.getUid()).once('value')
           .then(function (voterSnap) {
-            $scope.isVoter = (voterSnap.val() == null ? false : true);
+            $scope.isVoter = (voterSnap.val() == null ? false : true)
             $scope.voteChecked = true;
             fbUser.viewReset()
           })
@@ -585,10 +591,10 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
       }
 
       fbUser.viewReset()
-    });
+    })
 
-    var isSub = fbUser.getUserData().subscribedDebates;
-    isSub = (isSub === undefined ? false : isSub[debateid]);
+    var isSub = fbUser.getUserData().subscribedDebates
+    isSub = (isSub === undefined ? false : isSub[debateid])
     $scope.subVal = ( isSub ? "Unsubscribe" : "Subscribe");
 
     $scope.subscribe = function (debateID) {
@@ -596,32 +602,34 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
         $scope.subVal = result;
         fbUser.viewReset()
       });
-    };
+    }
 
     $scope.pressBack = function () {
       $ionicHistory.clearHistory();
       $state.go('tab.home');
-    };
+    }
 
     $scope.goMainDebate = function () {
       $state.go('mainDebate', {debateData : $scope.debateData, stage : $scope.stage})
-    };
+    }
 
     $scope.makeVote = function (vote) {
-      $scope.debateData[$scope.stage+vote+'Votes']++;
-      var updates = {};
-      updates[$scope.stage+vote+'Votes'] = $scope.debateData[$scope.stage+vote+'Votes'];
-      firebase.database().ref('debates/'+debateid).update(updates);
+      $scope.debateData[$scope.stage+vote+'Votes']++
+      var updates = {}
+      updates[$scope.stage+vote+'Votes'] = $scope.debateData[$scope.stage+vote+'Votes']
+      firebase.database().ref('debates/'+debateid).update(updates)
 
-      updates = {};
-      updates[fbUser.getUid()] = vote;
+      updates = {}
+      updates[fbUser.getUid()] = vote
       firebase.database().ref('debates/'+debateid+'/'+$scope.stage+'Voters').update(updates)
 
       $scope.goMainDebate()
-    };
+    }
 
     // === VIEW EVENTS ===
     $scope.$on('$ionicView.beforeEnter', function (event, viewData) {
       viewData.enableBack = true;
     });
-  });
+
+  })
+;
