@@ -333,6 +333,7 @@ body {
 .debcard {
   margin-left: 0 !important;
   width: 100%;
+  border-bottom: 0;
 }
 
 #argument-text-area {
@@ -444,4 +445,64 @@ body {
   text-align: center;
   font-size: 14px;
   padding-bottom: 15px;
+}
+
+.winner-pad{
+  width: 100%;
+  height: 50px;
+}
+
+.home-debate-card-stage{
+  background-color: #3D8EB9;
+  color: white;
+  float: left;
+  padding-top: 10px;
+  width: 60%;
+  height: 40px;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 14px;
+  letter-spacing: 1px;
+  font-weight: bold;
+}
+
+.home-debate-card-topic{
+  background-color: #2C82C9;
+  color: white;
+  float: left;
+  padding-top: 10px;
+  width: 40%;
+  height: 40px;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 14px;
+  letter-spacing: 1px;
+  font-weight: bold;
+}
+
+.no-padding{
+  padding: 0;
+}
+
+.home-debate-card-premise {
+  padding: 12px;
+  padding-top: 17px !important;
+  padding-bottom: 17px !important;
+  background-color: #D1D5D8;
+  border-top: solid 1px #333333;
+  border-bottom: solid 1px #333333;
+}
+
+.home-debate-card-enddate {
+  background-color: #2C82C9;
+  color: white;
+  float: left;
+  width: 100%;
+  height: 25px;
+  text-align: right;
+  text-transform: uppercase;
+  font-size: 14px;
+  letter-spacing: 1px;
+  font-weight: bold;
+  padding: 3px;
 }

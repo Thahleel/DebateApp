@@ -53,7 +53,7 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
     };
   })
 
-  .controller('HomeCtrl', function($scope, fbUser, $window, debateServ, $state, $ionicModal, $ionicPopover, $sce, debateServ) {
+  .controller('HomeCtrl', function($scope, fbUser, $window, debateServ, $state, $ionicModal, $ionicPopover) {
     $scope.name = fbUser.getFirebaseUser().displayName;
     $scope.userData = fbUser.getUserData();
     $scope.allDebates = [];
@@ -179,7 +179,6 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
     };
 
   })
-
 
   .controller('PersonalCtrl', function($scope, fbUser) {
     $scope.name = fbUser.getUserData().handle;
@@ -351,7 +350,6 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
     });
 
   })
-
 
   .controller('MainDebateCtrl', function($scope, $stateParams, debateServ, $window, fbUser, $state, $ionicScrollDelegate){
     var debateid = $stateParams.debateData.debateID
