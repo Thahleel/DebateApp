@@ -232,12 +232,16 @@ angular.module('debatable.services', ['ionic','firebase'])
 
     // Adds a certain amount of exp to the user with the specified id. also
     // increases their rank if they level up
+    addExp : function (userid, expBoost) {
+      firebase.database().ref('users/'+userid+'/exp').once('value').then(function (expSnap) {
         var newExp = expSnap.val() + expBoost
 
         firebase.database().ref('users/'+userid).update({exp : newExp})
 
+        firebase.database().ref('users/'+userid).update({debateRank : 1 + Math.floor(newExp/10)})
 
       })
+    },
 
     viewReset : function () {
       if($rootScope.$root.$$phase != '$apply' && $rootScope.$root.$$phase != '$digest'){
