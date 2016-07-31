@@ -8,6 +8,7 @@
 			<div ng-repeat="singleTopic in allTopics">
 				<ion-radio ng-model="filter.choice" ng-value="singleTopic">{{singleTopic}}</ion-radio>
 			</div>
+				<ion-radio ng-model="filter.choice" ng-value="'pref'">*Preferences*</ion-radio>
 		</ion-list>
 	</ion-content>
 </ion-popover-view>

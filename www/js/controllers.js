@@ -64,7 +64,9 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
   $scope.$watch('filter.choice', function(){
     if($scope.filter.choice === "All"){
       debateServ.removeFilter();
-    }else{
+    } else if ($scope.filter.choice === "pref") {
+      debateServ.addPreferenceFilter(fbUser.getUserData().preferences)
+    } else{
       debateServ.addTopicFilter($scope.filter.choice)
     }
 
@@ -167,7 +169,6 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
      document.getElementById("popular-tab").className = "tab-item active";
      document.getElementById("preferences-tab").className = "tab-item";
    } else if (type === "Preference") {
-     debateServ.addPreferenceFilter()
      document.getElementById("recent-tab").className = "tab-item";
      document.getElementById("popular-tab").className = "tab-item";
      document.getElementById("preferences-tab").className = "tab-item active";
