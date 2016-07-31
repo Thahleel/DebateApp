@@ -12,7 +12,10 @@
     <p> Debate started by {{ name }} on {{ dateText }}</p>
     <p> Ends {{ endDateText }}</p>
     <p> Discussion at {{ stageText }} stage</p>
-        Discussion no longer debated
+    Discussion at debating stage
+    Discussion pending verdict
+    A verdict has been decided
+
 
     <div ng-show="stage !== 'closed'">
     <button class="button button-full button-calm" ng-show="isVoter&&voteChecked" ng-click="goMainDebate()">
