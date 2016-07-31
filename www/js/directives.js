@@ -9,7 +9,7 @@ angular.module('debatable.directives', ['ionic','firebase'])
     templateUrl: 'js/directives/debateCard.html',
     link: function(scope, elem, attrs) {
       scope.stage = scope.debateInfo.endDate - Date.now()  > 0 ? "debate" :
-                   (scope.debateInfo.endDate + 24*3600*1000 - Date.now()  > 0
+                   (scope.debateInfo.endDate + 1/12*3600*1000 - Date.now()  > 0
                    ? "post-debate" : "closed")
 
       scope.endDate = new Date(scope.debateInfo.endDate)
@@ -18,7 +18,7 @@ angular.module('debatable.directives', ['ionic','firebase'])
       scope.stageHuman = function () {
         if ((scope.debateInfo.endDate - Date.now()) > 0) {
           return "Debating";
-        } else if ((scope.debateInfo.endDate + 24*3600*1000 - Date.now()) > 0) {
+        } else if ((scope.debateInfo.endDate + 1/12*3600*1000 - Date.now()) > 0) {
           return "Seeking verdict";
         } else {
           return "Finished";
@@ -28,7 +28,7 @@ angular.module('debatable.directives', ['ionic','firebase'])
       scope.stageColour = function () {
         if ((scope.debateInfo.endDate - Date.now()) > 0) {
           return "#EE543A";
-        } else if ((scope.debateInfo.endDate + 24*3600*1000 - Date.now()) > 0) {
+        } else if ((scope.debateInfo.endDate + 1/12*3600*1000 - Date.now()) > 0) {
           return "#FFC153";
         } else {
           return "#92F22A";

@@ -526,7 +526,7 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
       $scope.endDateText = date.toLocaleDateString() + " at " + date.getHours() + ":" + (date.getMinutes() < 10 ? "0" : "") +
         date.getMinutes()
       $scope.stage = $scope.debateData.endDate - Date.now()  > 0 ? "pre" :
-        ($scope.debateData.endDate + 24*3600*1000 - Date.now()  > 0
+        ($scope.debateData.endDate + 1/12*3600*1000 - Date.now()  > 0
           ? "post" : "closed")
       $scope.stageText = $scope.stage === "pre" ? "debate" :
         ($scope.stage === "post" ? "post-debate" : "closed")
