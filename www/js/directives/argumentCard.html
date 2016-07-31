@@ -1,14 +1,15 @@
-<div class="card" ng-class = "cardClass" on-hold="goArgumentView()">
-  <div class="item item-text-wrap">
-    <div class="row">
-      <div class="col col-90"><h2>{{argText}}</h2></div>
-      <div class="col .col-offset-90">
-        <i class="ion-chevron-up" id="upArrow{{argInfo.argumentID}}" ng-click="upVoteArgument()"></i>
-        <h2 ng-class="{position: absolute, left: 10px}">{{argInfo.upvotes}}</h2>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col"><p> by {{name}} at {{dateText}} <p></div>
-    </div>
+<div class="card argument-card" ng-class = "cardClass" ng-click="goArgumentView()">
+  <div class="argument-handle">
+    {{ name }}
+  </div>
+  <div class="argument-holder">
+    {{ argText }}
+  </div>
+  <div class="upvote-holder">
+    <i class="button button-icon ion-chevron-up argument-upvotes-ticker" id="upArrow{{argInfo.argumentID}}" ng-click="upVoteArgument()"></i>
+    <h2 class="argument-upvotes">{{argInfo.upvotes}}</h2>
+  </div>
+  <div class="argument-date">
+    {{ dateText }}
   </div>
 </div>

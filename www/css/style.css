@@ -507,7 +507,61 @@ body {
   padding: 3px;
 }
 
-.enddate {
-  color: #333 !important;
-  background-color: black !important;
+.argument-card {
+  padding: 0 !important;
+}
+
+
+.argument-handle {
+  background-color: #2C82C9;
+  color: white;
+  text-transform: uppercase;
+  font-size: 16px;
+  letter-spacing: 1px;
+  font-weight: bold;
+  padding: 7px;
+}
+
+
+
+
+.argument-upvotes {
+  font-size: 20px !important;
+  color: white;
+  transform: translate(20px,-30px);
+}
+
+.argument-upvotes-ticker {
+  font-size: 25px;
+  color: #0a9dc7;
+  transform: translate(7px,5px);
+}
+
+.argument-holder {
+  float: left;
+  width: 85%;
+  min-height: 101px;
+  height: auto;
+  padding: 7px;
+  background-color: #D1D5D8;
+  border-top: solid 1px #333333;
+  border-right:solid 1px #333333;
+  border-bottom: solid 1px #333333;
+}
+
+.upvote-holder {
+  float: left;
+  width: 15%;
+  background-color: #2C82C9;
+}
+
+.argument-date {
+  background-color: #2C82C9;
+  color: white;
+  text-transform: uppercase;
+  font-size: 10px;
+  letter-spacing: 1px;
+  font-weight: bold;
+  padding: 2px;
+  padding-left: 8px !important;
 }

@@ -55,7 +55,7 @@ angular.module('debatable.directives', ['ionic','firebase'])
       scope.cardClass = (scope.argInfo.side === "pro" ? "proArgcard" :
                          (scope.argInfo.side === "con" ? "conArgcard" : "unArgcard"));
       var date = new Date(scope.argInfo.creationDate)
-      scope.dateText = date.getHours() + ":" + (date.getMinutes() < 10 ? "0" : "") + date.getMinutes() + " | " + date.toLocaleDateString()
+      scope.dateText = date.getHours() + ":" + (date.getMinutes() < 10 ? "0" : "") + date.getMinutes() + "  " + date.toLocaleDateString()
       scope.name = ""
 
       //If we want the text truncated and its long enough to be
