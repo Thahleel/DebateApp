@@ -27,8 +27,8 @@
         <button class="button button-full button-dark" ng-click="makeVote('Undecided')" style="margin: 0; text-transform: uppercase; letter-spacing: 3px; font-size: 12px !important; font-weight: bold;">Unsure</button>
       </div>
       <div ng-show="isVoter&&voteChecked">
-        <button class="button button-full button-calm" style="border-radius: 0px; margin: 0; text-transform: uppercase;" ng-click="goMainDebate()">
-        <div ng-show="stage === 'pre'">Enter live debate</div>
+        <button class="button button-full button-modal" style=" background-color:rgb(48,63,159) !important;  font-weight: bold; border-radius: 0px; margin: 0; text-transform: uppercase;" ng-click="goMainDebate()">
+          <div ng-show="stage === 'pre'">Enter live debate</div>
         </button>
       </div>
       <div style="text-align: center; padding-top: 20px; text-transform: uppercase; letter-spacing: 2px;" >
@@ -37,7 +37,7 @@
     </div>
 
     <div ng-show="stage === 'post'">
-      <button class="button button-full button-calm" style="border-radius: 0px; margin: 0; text-transform: uppercase;"  ng-show="isVoter&&voteChecked" ng-click="goMainDebate()">
+      <button class="button button-full button-modal" style=" background-color:rgb(48,63,159) !important;  font-weight: bold; border-radius: 0px; margin: 0; text-transform: uppercase;"  ng-show="isVoter&&voteChecked" ng-click="goMainDebate()">
         <div ng-show="stage === 'post'">View arguments</div>
       </button>
       <div ng-show="!isVoter&&voteChecked">
@@ -59,19 +59,27 @@
 
 
     <div ng-show="stage === 'closed'">
-      <p>Below is the number of votes of the initial voting stage</p>
-      <p> Pro : {{debateData.preProVotes}}</p>
-      <p> Con : {{debateData.preConVotes}}</p>
-      <p> Undecided : {{debateData.preUndecidedVotes}}</p>
-
-      <p>Below is the number of votes of the post debate voting stage</p>
-      <p> Pro : {{debateData.postProVotes}}</p>
-      <p> Con : {{debateData.postConVotes}}</p>
-      <p> Undecided : {{debateData.postUndecidedVotes}}</p>
-
-      <button class="button button-full button-calm" ng-show="voteChecked" ng-click="goMainDebate()">
-        view arguments
+      <button class="button button-full button-modal" style="background-color:rgb(48,63,159) !important; border-radius: 0px; margin: 0; text-transform: uppercase; font-weight: bold;"  ng-show="voteChecked" ng-click="goMainDebate()">
+        View arguments
       </button>
+
+      <div class="poll-wrapper">
+        <div class="winning-date">Here are the results of this debate, which took place on {{ endDateText }}:</div>
+        <div class="winning-vote">Winner</div><div class="winning-side">{{ winningSide }}</div>
+      </div>
+
+      <div class="poll-wrapper">
+        <div class="title-style">Poll results before debate</div>
+        <div class="supporting-vote">Support</div><div class="stat">{{debateData.preProVotes}}</div>
+        <div class="opposing-vote">Oppose</div><div class="stat">{{debateData.preConVotes}}</div>
+        <div class="unsure-vote">Unsure</div><div class="stat">{{debateData.preUndecidedVotes}}</div>
+      </div>
+      <div class="poll-wrapper">
+        <div class="title-style">Poll results after debate</div>
+        <div class="supporting-vote">Support</div><div class="stat">{{debateData.postProVotes}}</div>
+        <div class="opposing-vote">Oppose</div><div class="stat">{{debateData.postConVotes}}</div>
+        <div class="unsure-vote">Unsure</div><div class="stat">{{debateData.postUndecidedVotes}}</div>
+      </div>
     </div>
   </ion-content>
 </ion-view>

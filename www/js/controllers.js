@@ -510,6 +510,7 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
     $scope.isVoter = false
     $scope.proScore = 0
     $scope.conScore = 0
+    $scope.winningSide = ""
 
     // == Data base variable retrievals ==
     debateServ.getDebate(debateid).then(function (debateSnap) {
@@ -558,6 +559,14 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
 
         }
 
+        if ($scope.proScore > $scope.conScore) {
+          $scope.winningSide = "Support";
+        } else if ($scope.proScore < $scope.conScore) {
+          $scope.winningSide = "Oppose";
+        } else {
+          $scope.winningSide = "Draw";
+        }
+
         $scope.voteChecked = true;
         fbUser.viewReset()
       } else {
@@ -570,11 +579,11 @@ angular.module('debatable.controllers', ['ionic', 'firebase'])
       }
 
       if ($scope.stage === 'pre') {
-        $scope.debateStatus = "Premise at debating stage";
+        $scope.debateStatus = "Ready to debate";
       } else if ($scope.stage === 'post') {
-        $scope.debateStatus = "Premise pending verdict";
+        $scope.debateStatus = "Pending verdict";
       } else {
-        $scope.debateStatus = "A verdict has been decided";
+        $scope.debateStatus = "Debate winner";
       }
 
       fbUser.viewReset()
