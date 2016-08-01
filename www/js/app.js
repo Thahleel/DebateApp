@@ -16,6 +16,7 @@ angular.module('debatable', ['ionic', 'firebase', 'debatable.controllers', 'deba
 })
 
 .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+  $ionicConfigProvider.tabs.position('bottom');
   $ionicConfigProvider.backButton.previousTitleText(false);
   $ionicConfigProvider.backButton.text('');
   $ionicConfigProvider.tabs.style("standard");

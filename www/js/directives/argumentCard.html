@@ -1,9 +1,9 @@
-<div class="card argument-card" ng-class = "cardClass" on-hold="goArgumentView()">
+<div class="card argument-card" ng-class = "cardClass">
   <div class="argument-handle">
     {{ name }}
   </div>
   <div class="row-two-holder">
-    <div class="argument-holder">
+    <div class="argument-holder" ng-click="goArgumentView()">
       {{ argText }}
     </div>
     <div class="upvote-holder">

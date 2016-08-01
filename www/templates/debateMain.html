@@ -16,8 +16,8 @@
   </ion-content>
   <ion-footer-bar ng-show="stage === 'pre'" keyboard-attach class="bar-stable" style="height: auto !important; padding: 7px; padding-bottom: 4px; background-color: #f7f7f7 !important; display: inline-block; text-align: center;">
     <div class="button-bar">
-      <a id="proBut" ng-click="switchArgState('pro')" class="button button-positive">Pro</a>
-      <a id="conBut" ng-click="switchArgState('con')" class="button button-assertive button-outline">Con</a>
+      <a id="proBut" ng-click="switchArgState('pro')" class="button button-positive color-tone-down">Pro</a>
+      <a id="conBut" ng-click="switchArgState('con')" class="button button-assertive button-outline color-tone-down">Con</a>
     </div>
     <div style="padding-top: 6px;">
       <textarea style="display:inline-block !important;" ng-blur="updateTextArea()" cols="30" id="argument-text-area" ng-click="refreshArguments()" ng-model="modelData.argText" ng-change="updateTextArea()"></textarea>

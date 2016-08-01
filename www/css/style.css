@@ -355,7 +355,8 @@ body {
 }
 
 .winning-vote {
-  width: 100%;
+  float: left;
+  width: 50%;
   height: 50px;
   background-color: gold;
   text-transform: uppercase;
@@ -363,17 +364,20 @@ body {
   font-weight: bold;
   padding-top: 15px;
   font-size: 20px;
+  border-top: solid 1px #cccccc;
+  border-bottom: solid 1px #cccccc;
 }
 
 .winning-side {
-  width: 100%;
+  float: left;
+  width: 50%;
   height: 50px;
   background-color: white;
-  text-transform: uppercase;
   text-align: center;
-  font-weight: bold;
   padding-top: 15px;
   font-size: 20px;
+  border-top: solid 1px #cccccc;
+  border-bottom: solid 1px #cccccc;
 }
 
 .stat {
@@ -385,6 +389,7 @@ body {
   text-align: center;
   padding-top: 5px;
   font-size: 15px;
+  border-top: solid 1px #cccccc;
 
 }
 
@@ -562,4 +567,8 @@ body {
   font-weight: bold;
   padding: 2px;
   padding-left: 8px !important;
+}
+
+.color-tone-down {
+  opacity: 1;
 }
